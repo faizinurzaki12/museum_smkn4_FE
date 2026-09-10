@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <title>Manajemen Data Karya - Museum Karya PPLG</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <!-- CSS Internal Khusus Admin -->
+    <style>
+        /* Definisikan variabel warna custom agar mudah diubah */
+        :root {
+          --nav-bg: #0b0f17;          /* Warna background utama navbar */
+          --nav-link-idle: #9ca3af;    /* Warna teks saat tidak aktif (gray-400) */
+          --nav-link-hover: #161f30;   /* Warna background saat di-hover */
+          --nav-link-active: #1e293b;  /* Warna background saat aktif */
+          --nav-accent: #38bdf8;       /* Warna aksen border & teks aktif (sky-400) */
+        }
+
+        /* Class Custom untuk Navbar */
+        .custom-nav-bg {
+          background-color: var(--nav-bg);
+        }
+
+        /* Class Custom untuk Link Aktif */
+        .nav-link-active {
+          background-color: var(--nav-link-active) !important;
+          color: var(--nav-accent) !important;
+          border-left: 4px solid var(--nav-accent) !important;
+        }
+
+        /* Class Custom untuk Link Biasa (Hover Effect) */
+        .nav-link-idle {
+          color: var(--nav-link-idle);
+          transition: all 0.2s ease-in-out;
+        }
+
+        .nav-link-idle:hover {
+          background-color: var(--nav-link-hover);
+          color: #ffffff;
+        }
+
+        /* Class Custom untuk Card Counter */
+        .counter-card {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: .7s ease;
+        }
+
+        .counter-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .counter-card:hover {
+            transform: translateY(-8px);
+            transition: .3s;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="flex h-screen bg-gray-100">
+
+        <!-- SIDEBAR UTAMA -->
+        <div class="w-64 custom-nav-bg text-white shadow-lg flex flex-col justify-between">
+            <div>
+                <div class="p-6 border-b border-gray-800">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-md">A</div>
+                        <div>
+                            <p class="font-bold text-white">Museum Karya Smkn 4</p>
+                        </div>
+                    </div>
+                </div>
+                <nav class="mt-6 space-y-2 px-4">
+                    <a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                        <span>Dashboard</span>
+                    </a>
+
+                    <!-- Nav Link Aktif -->
+                    <a href="karya.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-semibold shadow-sm nav-link-active">
+                        <span>Karya</span>
+                    </a>
+
+                    <a href="siswa.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                        <span>Siswa</span>
+                    </a>
+
+                    <a href="kategori.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                        <span>Kategori</span>
+                    </a>
+
+                    <a href="users.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                        <span>Users</span>
+                    </a>
+
+                    <a href="artikel.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                        <span>Artikel</span>
+                    </a>
+
+                    <a href="kode-unik.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                        <span>Kode Unik</span>
+                    </a>
+                </nav>
+            </div>
+            
+            <!-- TOMBOL LOGOUT -->
+            <div class="p-6 border-t border-gray-800">
+                <button type="button" onclick="openLogoutModal()" class="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-semibold cursor-pointer">
+                    Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- AREA KONTEN UTAMA -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <header class="bg-white shadow-sm z-10">
+                <div class="px-8 py-4 flex justify-between items-center">
+                    <h1 class="text-2xl font-bold text-gray-900">Manajemen Data Karya</h1>
+                    <div class="flex items-center gap-4">
+                        <div class="text-right">
+                            <p class="font-semibold text-gray-900">Administrator</p>
+                            <p class="text-sm text-gray-500">Login sebagai admin</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="flex-1 overflow-auto p-8 relative">
+                <!-- SPINNER OVERLAY -->
+                <div id="loading-content" class="absolute inset-0 bg-gray-100 z-40 flex flex-col items-center justify-center transition-opacity duration-300 ease-out">
+                    <div class="flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-sm border border-gray-200">
+                        <div class="w-5 h-5 border-3 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                        <p class="text-gray-700 font-medium text-sm tracking-wide">Memuat data karya...</p>
+                    </div>
+                </div>
+
+                <!-- Form Pencarian -->
+                <div class="bg-white mb-6 rounded-lg shadow p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4">Cari Karya</h2>
+                    <form action="karya.html" method="GET" class="flex flex-col sm:flex-row gap-3" onsubmit="event.preventDefault();">
+                        <input type="text" name="search"
+                            placeholder="Cari judul atau nama siswa..."
+                            class="flex-1 px-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 text-sm">
+                        <button type="submit" class="px-6 py-2.5 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 cursor-pointer">Cari</button>
+                        <a href="karya.html" class="px-6 py-2.5 bg-blue-700 text-white rounded-lg font-semibold hover:bg-blue-800 text-center">Reset</a>
+                    </form>
+                </div>
+
+                <!-- KARTU KONTEN -->
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <div class="px-6 py-4 border-b border-gray-200">
+                        <h2 class="text-xl font-bold text-gray-900">Daftar Karya</h2>
+                    </div>
+
+                    <div class="overflow-x-auto overflow-y-auto max-h-[500px]">
+                        <table class="w-full">
+                            <thead class="bg-gray-50 border-b border-gray-200">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Judul</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Siswa</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Jurusan</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Status</th>
+                                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-700 uppercase">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <!-- Data Dummy 1 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-semibold text-gray-900 text-sm">Aplikasi Kasir Berbasis Web (POS)</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">Ahmad Rizky</td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">PPLG</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
+                                            Disetujui
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center space-x-2">
+                                        <a href="detail-karya.html" onclick="alert('Membuka detail karya...'); return false;" class="text-blue-600 hover:underline text-sm font-semibold">Detail</a>
+                                        <button type="button" onclick="if(confirm('Hapus karya ini?')) alert('Karya berhasil dihapus!');" class="text-red-600 hover:underline text-sm font-semibold cursor-pointer">Hapus</button>
+                                    </td>
+                                </tr>
+
+                                <!-- Data Dummy 2 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-semibold text-gray-900 text-sm">Sistem Informasi Perpustakaan Sekolah</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">Siti Nurhaliza</td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">PPLG</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">
+                                            Menunggu
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center space-x-2">
+                                        <a href="detail-karya.html" onclick="alert('Membuka detail karya...'); return false;" class="text-blue-600 hover:underline text-sm font-semibold">Detail</a>
+                                        <button type="button" onclick="if(confirm('Hapus karya ini?')) alert('Karya berhasil dihapus!');" class="text-red-600 hover:underline text-sm font-semibold cursor-pointer">Hapus</button>
+                                    </td>
+                                </tr>
+
+                                <!-- Data Dummy 3 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-semibold text-gray-900 text-sm">Game Edukasi Petualangan 2D</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">Budi Santoso</td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">PPLG</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
+                                            Disetujui
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center space-x-2">
+                                        <a href="detail-karya.html" onclick="alert('Membuka detail karya...'); return false;" class="text-blue-600 hover:underline text-sm font-semibold">Detail</a>
+                                        <button type="button" onclick="if(confirm('Hapus karya ini?')) alert('Karya berhasil dihapus!');" class="text-red-600 hover:underline text-sm font-semibold cursor-pointer">Hapus</button>
+                                    </td>
+                                </tr>
+
+                                <!-- Data Dummy 4 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-semibold text-gray-900 text-sm">Desain UI/UX E-Commerce Mobile</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">Dewi Lestari</td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">PPLG</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-700">
+                                            Ditolak
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center space-x-2">
+                                        <a href="detail-karya.html" onclick="alert('Membuka detail karya...'); return false;" class="text-blue-600 hover:underline text-sm font-semibold">Detail</a>
+                                        <button type="button" onclick="if(confirm('Hapus karya ini?')) alert('Karya berhasil dihapus!');" class="text-red-600 hover:underline text-sm font-semibold cursor-pointer">Hapus</button>
+                                    </td>
+                                </tr>
+
+                                <!-- Data Dummy 5 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-semibold text-gray-900 text-sm">Website Portfolio Siswa Responsive</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">Fajar Ramadhan</td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">PPLG</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">
+                                            Menunggu
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center space-x-2">
+                                        <a href="detail-karya.html" onclick="alert('Membuka detail karya...'); return false;" class="text-blue-600 hover:underline text-sm font-semibold">Detail</a>
+                                        <button type="button" onclick="if(confirm('Hapus karya ini?')) alert('Karya berhasil dihapus!');" class="text-red-600 hover:underline text-sm font-semibold cursor-pointer">Hapus</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="px-6 py-4 border-t border-gray-200 bg-gray-50 flex justify-between items-center text-sm text-gray-600">
+                        <span>Menampilkan <b>5</b> dari <b>128</b> karya</span>
+                        <!-- Navigasi Halaman Statis -->
+                        <div class="flex gap-2">
+                            <button class="px-3 py-1 border border-gray-300 rounded bg-gray-200 text-gray-500 cursor-not-allowed">Sebelumnya</button>
+                            <button class="px-3 py-1 border border-blue-600 bg-blue-600 text-white rounded font-bold">1</button>
+                            <button class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-100">2</button>
+                            <button class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-100">3</button>
+                            <button class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-100">Selanjutnya</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL POP-UP LOGOUT KUSTOM -->
+    <div id="logoutModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-gray-100 transform transition-all scale-100">
+            <div class="bg-gradient-to-r from-amber-500 to-orange-500 p-5 text-white flex items-center gap-3">
+                <div class="p-2 bg-white/20 rounded-lg">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold">Konfirmasi Keluar</h3>
+            </div>
+
+            <div class="p-6 text-center">
+                <p class="text-gray-700 font-medium leading-relaxed text-base">
+                    kamu mau keluar? Periksa dulu karya siswanya
+                </p>
+            </div>
+
+            <div class="bg-gray-50 px-6 py-4 flex gap-3 justify-end border-t border-gray-100">
+                <button type="button" onclick="closeLogoutModal()" class="px-5 py-2.5 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition text-sm cursor-pointer">
+                    Tidak
+                </button>
+                <button type="button" onclick="confirmLogout()" class="px-5 py-2.5 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition text-sm shadow-md cursor-pointer">
+                    Yaa
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script JavaScript Internal Dashboard -->
+    <script>
+        // Loading Screen Animation (Script Dashboard)
+        window.addEventListener("load", function () {
+            const loadingContent = document.getElementById("loading-content");
+            if (loadingContent) {
+                setTimeout(() => {
+                    loadingContent.classList.add("opacity-0");
+                    setTimeout(() => {
+                        loadingContent.classList.add("hidden");
+                    }, 300);
+                }, 1000);
+            }
+        });
+
+        // Modal Logout Functions (Script Dashboard)
+        function openLogoutModal() {
+            document.getElementById('logoutModal').classList.remove('hidden');
+        }
+
+        function closeLogoutModal() {
+            document.getElementById('logoutModal').classList.add('hidden');
+        }
+
+        function confirmLogout() {
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html> 

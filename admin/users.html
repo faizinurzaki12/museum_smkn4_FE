@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <title>Manajemen Admin - Museum Karya PPLG</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <!-- CSS Internal Khusus Admin -->
+    <style>
+        :root {
+          --nav-bg: #0b0f17;          /* Warna background utama navbar */
+          --nav-link-idle: #9ca3af;    /* Warna teks saat tidak aktif */
+          --nav-link-hover: #161f30;   /* Warna background saat di-hover */
+          --nav-link-active: #1e293b;  /* Warna background saat aktif */
+          --nav-accent: #38bdf8;       /* Warna aksen border & teks aktif */
+        }
+
+        .custom-nav-bg {
+          background-color: var(--nav-bg);
+        }
+
+        .nav-link-active {
+          background-color: var(--nav-link-active) !important;
+          color: var(--nav-accent) !important;
+          border-left: 4px solid var(--nav-accent) !important;
+        }
+
+        .nav-link-idle {
+          color: var(--nav-link-idle);
+          transition: all 0.2s ease-in-out;
+        }
+
+        .nav-link-idle:hover {
+          background-color: var(--nav-link-hover);
+          color: #ffffff;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+    <div class="flex h-screen overflow-hidden bg-gray-100">
+
+        <!-- SIDEBAR UTAMA -->
+        <div class="w-64 custom-nav-bg text-white shadow-lg flex flex-col justify-between shrink-0 hidden md:flex">
+            <div>
+                <div class="p-6 border-b border-gray-800">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-md">A</div>
+                        <div>
+                            <p class="font-bold text-white">Museum Karya Smkn 4</p>
+                        </div>
+                    </div>
+                </div>
+                <nav class="mt-6 space-y-2 px-4">
+                    <a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                        <span>Dashboard</span>
+                    </a>
+
+                    <a href="karya.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                        <span>Karya</span>
+                    </a>
+
+                    <a href="siswa.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                        <span>Siswa</span>
+                    </a>
+
+                    <a href="kategori.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                        <span>Kategori</span>
+                    </a>
+
+                    <!-- Nav Link Aktif -->
+                    <a href="users.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-semibold shadow-sm nav-link-active">
+                        <span>Users</span>
+                    </a>
+
+                    <a href="artikel.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                        <span>Artikel</span>
+                    </a>
+
+                    <a href="kode-unik.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                        <span>Kode Unik</span>
+                    </a>
+                </nav>
+            </div>
+            
+            <!-- TOMBOL LOGOUT -->
+            <div class="p-6 border-t border-gray-800">
+                <button type="button" onclick="openLogoutModal()" class="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-semibold cursor-pointer">
+                    Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- AREA KONTEN UTAMA -->
+        <div class="flex-1 flex flex-col h-screen overflow-y-auto">
+            <header class="bg-white shadow-sm z-10 shrink-0 sticky top-0">
+                <div class="px-6 sm:px-8 py-4 flex justify-between items-center">
+                    <h1 class="text-lg sm:text-xl font-bold text-gray-900">Manajemen Akun Admin</h1>
+                    <div class="flex items-center gap-4">
+                        <div class="text-right">
+                            <p class="font-semibold text-gray-900 text-xs sm:text-sm">Administrator</p>
+                            <p class="text-[10px] sm:text-xs text-gray-500">Login sebagai admin</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- MAIN KONTEN -->
+            <main class="flex-1 p-4 sm:p-6 md:p-8 relative">
+                <!-- SPINNER OVERLAY LOADING -->
+                <div id="loading-content" class="absolute inset-0 bg-gray-100 z-50 flex flex-col items-center justify-center transition-opacity duration-300 ease-out">
+                    <div class="flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-sm border border-gray-200">
+                        <div class="w-5 h-5 border-3 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                        <p class="text-gray-700 font-medium text-sm tracking-wide">Memuat data...</p>
+                    </div>
+                </div>
+
+                <!-- HEADER PAGE & TOMBOL TAMBAH -->
+                <div class="mb-6 flex justify-between items-center">
+                    <h2 class="text-xl font-semibold text-gray-900">Daftar Akun Admin</h2>
+                    <button onclick="openCreateModal()" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold flex items-center gap-2 cursor-pointer">
+                        <span>+</span> Tambah Admin
+                    </button>
+                </div>
+
+                <!-- BOX CARI ADMIN -->
+                <div class="bg-white rounded-lg shadow mb-6 p-4">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4">Cari Admin</h2>
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <form method="GET" action="users.html" class="flex flex-1 gap-3" onsubmit="event.preventDefault(); alert('Mencari data...');">
+                            <input id="searchInput" name="search" placeholder="Cari username atau email..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                            <button type="submit" class="bg-blue-600 text-white px-5 rounded-lg font-semibold hover:bg-blue-700 transition cursor-pointer">Cari</button>
+                        </form>
+                        <a href="users.html" class="px-6 py-2.5 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition text-sm whitespace-nowrap text-center cursor-pointer flex items-center justify-center">Reset</a>
+                    </div>
+                </div>
+
+                <!-- TABEL DATA ADMIN -->
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50 border-b border-gray-200">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider w-16">No</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Username</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Email</th>
+                                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-32">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <!-- Data Dummy 1 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm text-gray-900">1</td>
+                                    <td class="px-6 py-4 text-sm font-medium text-gray-900">admin_utama</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">admin@smkn4.sch.id</td>
+                                    <td class="px-6 py-4 text-sm text-center">
+                                        <div class="flex justify-center gap-2">
+                                            <button type="button" data-action="edit" data-id="1" data-username="admin_utama" data-email="admin@smkn4.sch.id" class="px-3 py-1 bg-blue-100 text-blue-600 rounded hover:bg-blue-200 transition font-medium text-xs cursor-pointer">
+                                                Edit
+                                            </button>
+                                            <button type="button" data-action="delete" data-id="1" data-username="admin_utama" class="px-3 py-1 bg-red-100 text-red-600 rounded hover:bg-red-200 transition font-medium text-xs cursor-pointer">
+                                                Hapus
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- Data Dummy 2 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm text-gray-900">2</td>
+                                    <td class="px-6 py-4 text-sm font-medium text-gray-900">operator_pplg</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">operator@smkn4.sch.id</td>
+                                    <td class="px-6 py-4 text-sm text-center">
+                                        <div class="flex justify-center gap-2">
+                                            <button type="button" data-action="edit" data-id="2" data-username="operator_pplg" data-email="operator@smkn4.sch.id" class="px-3 py-1 bg-blue-100 text-blue-600 rounded hover:bg-blue-200 transition font-medium text-xs cursor-pointer">
+                                                Edit
+                                            </button>
+                                            <button type="button" data-action="delete" data-id="2" data-username="operator_pplg" class="px-3 py-1 bg-red-100 text-red-600 rounded hover:bg-red-200 transition font-medium text-xs cursor-pointer">
+                                                Hapus
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- Data Dummy 3 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm text-gray-900">3</td>
+                                    <td class="px-6 py-4 text-sm font-medium text-gray-900">kaprog_pplg</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">kaprog.pplg@smkn4.sch.id</td>
+                                    <td class="px-6 py-4 text-sm text-center">
+                                        <div class="flex justify-center gap-2">
+                                            <button type="button" data-action="edit" data-id="3" data-username="kaprog_pplg" data-email="kaprog.pplg@smkn4.sch.id" class="px-3 py-1 bg-blue-100 text-blue-600 rounded hover:bg-blue-200 transition font-medium text-xs cursor-pointer">
+                                                Edit
+                                            </button>
+                                            <button type="button" data-action="delete" data-id="3" data-username="kaprog_pplg" class="px-3 py-1 bg-red-100 text-red-600 rounded hover:bg-red-200 transition font-medium text-xs cursor-pointer">
+                                                Hapus
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- PAGINASI / TOTAL DATA -->
+                    <div class="px-6 py-4 bg-gray-50 border-t border-gray-200 flex justify-between items-center text-sm text-gray-600">
+                        <span>Total: <span class="font-bold">3</span> Admin</span>
+                        <div class="flex gap-1">
+                            <span class="px-3 py-1 bg-blue-600 text-white rounded text-xs font-semibold">1</span>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- MODAL FORM TAMBAH / EDIT ADMIN -->
+    <div id="adminModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
+            <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                <h3 id="modalTitle" class="text-lg font-semibold text-gray-900">Tambah Admin Baru</h3>
+                <button type="button" onclick="closeModal()" class="text-gray-400 hover:text-gray-600 cursor-pointer">✕</button>
+            </div>
+
+            <form id="adminForm" class="p-6 space-y-4" action="#" onsubmit="event.preventDefault(); alert('Data admin berhasil disimpan!'); closeModal();">
+                <input type="hidden" name="_method" id="formMethod" value="POST">
+                <input type="hidden" id="adminId">
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+                    <input type="text" name="name" id="username" placeholder="Masukkan username" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" required>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <input type="email" name="email" id="email" placeholder="Masukkan email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" required>
+                </div>
+
+                <div id="passwordGroup">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <input type="password" name="password" id="password" placeholder="Masukkan password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                    <p id="passwordHelp" class="text-xs text-gray-400 mt-1 hidden">*Kosongkan password jika tidak ingin mengubahnya.</p>
+                </div>
+
+                <div class="flex gap-3 pt-4">
+                    <button type="button" onclick="closeModal()" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium text-sm cursor-pointer">Batal</button>
+                    <button type="submit" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium text-sm cursor-pointer">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL KONFIRMASI HAPUS ADMIN -->
+    <div id="deleteModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-sm w-full p-6 text-center">
+            <div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">!</div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Hapus Akun Admin</h3>
+            <p class="text-sm text-gray-600 mb-6">Apakah Anda yakin ingin menghapus akun <span id="deleteAdminUsername" class="font-semibold text-gray-900">@username</span>?</p>
+            <div class="flex gap-3">
+                <button type="button" onclick="closeDeleteModal()" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition text-sm font-medium cursor-pointer">Batal</button>
+                <button type="button" onclick="confirmDelete()" class="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition text-sm font-medium cursor-pointer">Hapus</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL POP-UP LOGOUT KUSTOM -->
+    <div id="logoutModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-gray-100 transform transition-all scale-100">
+            <div class="bg-gradient-to-r from-amber-500 to-orange-500 p-5 text-white flex items-center gap-3">
+                <div class="p-2 bg-white/20 rounded-lg">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold">Konfirmasi Keluar</h3>
+            </div>
+
+            <div class="p-6 text-center">
+                <p class="text-gray-700 font-medium leading-relaxed text-base">
+                    Apakah Anda yakin ingin keluar dari sistem?
+                </p>
+            </div>
+
+            <div class="bg-gray-50 px-6 py-4 flex gap-3 justify-end border-t border-gray-100">
+                <button type="button" onclick="closeLogoutModal()" class="px-5 py-2.5 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition text-sm cursor-pointer">
+                    Tidak
+                </button>
+                <button type="button" onclick="confirmLogout()" class="px-5 py-2.5 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition text-sm shadow-md cursor-pointer">
+                    Ya
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT JAVASCRIPT INTERNAL -->
+    <script>
+        let editingId = null;
+        let deleteIdHolder = null;
+
+        // Efek loading page
+        window.addEventListener("load", function () {
+            const loadingContent = document.getElementById("loading-content");
+            if (loadingContent) {
+                setTimeout(() => {
+                    loadingContent.classList.add("opacity-0");
+                    setTimeout(() => {
+                        loadingContent.classList.add("hidden");
+                    }, 300);
+                }, 1000);
+            }
+        });
+
+        // Perbaikan Event delegation Utama
+        document.addEventListener("click", function (e) {
+            const btn = e.target.closest("[data-action]");
+            if (!btn) return;
+
+            const id = btn.dataset.id;
+            const username = btn.dataset.username;
+
+            if (btn.dataset.action === "edit") {
+                editAdmin(id, username, btn.dataset.email);
+            }
+
+            if (btn.dataset.action === "delete") {
+                openDeleteModal(id, username);
+            }
+        });
+
+        function openCreateModal() {
+            editingId = null;
+            deleteIdHolder = null;
+            document.getElementById("modalTitle").textContent = "Tambah Admin Baru";
+            document.getElementById("passwordHelp").classList.add("hidden");
+            document.getElementById("password").required = true;
+            document.getElementById("adminForm").reset();
+            document.getElementById("adminId").value = "";
+            document.getElementById("formMethod").value = "POST";
+            document.getElementById("adminModal").classList.remove("hidden");
+        }
+
+        function editAdmin(id, username, email) {
+            editingId = id;
+            document.getElementById("modalTitle").textContent = "Edit Admin";
+            document.getElementById("passwordHelp").classList.remove("hidden");
+            document.getElementById("password").required = false;
+            document.getElementById("username").value = username;
+            document.getElementById("email").value = email;
+            document.getElementById("adminId").value = id;
+            document.getElementById("formMethod").value = "PUT";
+            document.getElementById("adminModal").classList.remove("hidden");
+        }
+
+        function closeModal() {
+            document.getElementById("adminModal").classList.add("hidden");
+            editingId = null;
+        }
+
+        function openDeleteModal(id, username) {
+            deleteIdHolder = id;
+            document.getElementById("deleteAdminUsername").textContent = `@${username}`;
+            document.getElementById("deleteModal").classList.remove("hidden");
+        }
+
+        function closeDeleteModal() {
+            deleteIdHolder = null;
+            document.getElementById("deleteModal").classList.add("hidden");
+        }
+
+        function confirmDelete() {
+            if (!deleteIdHolder) return;
+            alert("Akun admin berhasil dihapus!");
+            closeDeleteModal();
+        }
+
+        // Script Logout Modal
+        function openLogoutModal() {
+            document.getElementById('logoutModal').classList.remove('hidden');
+        }
+
+        function closeLogoutModal() {
+            document.getElementById('logoutModal').classList.add('hidden');
+        }
+
+        function confirmLogout() {
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

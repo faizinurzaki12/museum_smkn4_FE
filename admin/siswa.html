@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <title>Data Siswa - Museum Karya PPLG</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <!-- CSS Internal Khusus Admin -->
+    <style>
+        /* Definisikan variabel warna custom agar mudah diubah */
+        :root {
+          --nav-bg: #0b0f17;          /* Warna background utama navbar */
+          --nav-link-idle: #9ca3af;    /* Warna teks saat tidak aktif (gray-400) */
+          --nav-link-hover: #161f30;   /* Warna background saat di-hover */
+          --nav-link-active: #1e293b;  /* Warna background saat aktif */
+          --nav-accent: #38bdf8;       /* Warna aksen border & teks aktif (sky-400) */
+        }
+
+        /* Class Custom untuk Navbar */
+        .custom-nav-bg {
+          background-color: var(--nav-bg);
+        }
+
+        /* Class Custom untuk Link Aktif */
+        .nav-link-active {
+          background-color: var(--nav-link-active) !important;
+          color: var(--nav-accent) !important;
+          border-left: 4px solid var(--nav-accent) !important;
+        }
+
+        /* Class Custom untuk Link Biasa (Hover Effect) */
+        .nav-link-idle {
+          color: var(--nav-link-idle);
+          transition: all 0.2s ease-in-out;
+        }
+
+        .nav-link-idle:hover {
+          background-color: var(--nav-link-hover);
+          color: #ffffff;
+        }
+
+        /* Class Custom untuk Card Counter */
+        .counter-card {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: .7s ease;
+        }
+
+        .counter-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .counter-card:hover {
+            transform: translateY(-8px);
+            transition: .3s;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="flex h-screen bg-gray-100">
+
+        <!-- SIDEBAR UTAMA -->
+        <div class="w-64 custom-nav-bg text-white shadow-lg flex flex-col justify-between">
+            <div>
+                <div class="p-6 border-b border-gray-800">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-md">A</div>
+                        <div>
+                            <p class="font-bold text-white">Museum Karya Smkn 4</p>
+                        </div>
+                    </div>
+                </div>
+                <nav class="mt-6 space-y-2 px-4">
+                    <a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                        <span>Dashboard</span>
+                    </a>
+
+                    <a href="karya.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                        <span>Karya</span>
+                    </a>
+
+                    <!-- Nav Link Aktif -->
+                    <a href="siswa.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-semibold shadow-sm nav-link-active">
+                        <span>Siswa</span>
+                    </a>
+
+                    <a href="kategori.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                        <span>Kategori</span>
+                    </a>
+
+                    <a href="users.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                        <span>Users</span>
+                    </a>
+
+                    <a href="artikel.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                        <span>Artikel</span>
+                    </a>
+
+                    <a href="kode-unik.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                        <span>Kode Unik</span>
+                    </a>
+                </nav>
+            </div>
+            
+            <!-- TOMBOL LOGOUT -->
+            <div class="p-6 border-t border-gray-800">
+                <button type="button" onclick="openLogoutModal()" class="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-semibold cursor-pointer">
+                    Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- AREA KONTEN UTAMA -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <header class="bg-white shadow-sm z-10">
+                <div class="px-8 py-4 flex justify-between items-center">
+                    <h1 class="text-2xl font-bold text-gray-900">Manajemen Data Siswa</h1>
+                    <div class="flex items-center gap-4">
+                        <div class="text-right">
+                            <p class="font-semibold text-gray-900">Administrator</p>
+                            <p class="text-sm text-gray-500">Login sebagai admin</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="flex-1 overflow-auto p-8 relative">
+                <!-- Loading Screen -->
+                <div id="loading-content" class="absolute inset-0 bg-gray-100 z-40 flex flex-col items-center justify-center transition-opacity duration-300 ease-out m-0!">
+                    <div class="flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-sm border border-gray-200">
+                        <div class="w-5 h-5 border-3 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                        <p class="text-gray-700 font-medium text-sm tracking-wide">Memuat data siswa...</p>
+                    </div>
+                </div>
+
+                <!-- Form Pencarian -->
+                <div class="bg-white rounded-lg shadow p-6 mb-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4">Cari Siswa</h2>
+                    <form action="siswa.html" method="GET" class="flex flex-col sm:flex-row gap-3" onsubmit="event.preventDefault();">
+                        <input type="text" name="search" placeholder="Cari nama, kelas, atau email siswa..." class="flex-1 px-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 text-sm" />
+                        <button type="submit" class="px-6 py-2.5 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition text-sm whitespace-nowrap cursor-pointer">
+                            Cari Siswa
+                        </button>
+                        <a href="siswa.html" class="px-6 py-2.5 bg-blue-700 text-white rounded-lg font-semibold hover:bg-blue-800 transition text-sm whitespace-nowrap text-center">
+                            Reset
+                        </a>
+                    </form>
+                </div>
+
+                <!-- Tabel Data Siswa Dummy -->
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                        <h2 class="text-xl font-bold text-gray-900">Daftar Siswa</h2>
+                    </div>
+                    <div class="overflow-x-auto overflow-y-auto max-h-[500px]">
+                        <table class="w-full">
+                            <thead class="bg-gray-50 border-b border-gray-200">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Nama</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Email</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Kelas</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Angkatan</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <!-- Data Dummy 1 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm font-semibold text-gray-900">Ahmad Rizky</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">ahmad.rizky@smkn4tasikmalaya.sch.id</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">XII PPLG 1</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">2024</td>
+                                    <td class="px-6 py-4 text-sm">
+                                        <button type="button" 
+                                                onclick="openSiswaModal(this)" 
+                                                data-id="1" 
+                                                data-nama="Ahmad Rizky" 
+                                                data-kelas="XII PPLG 1" 
+                                                data-email="ahmad.rizky@smkn4tasikmalaya.sch.id" 
+                                                class="text-blue-600 hover:text-blue-800 mr-3 font-semibold transition cursor-pointer">
+                                            Edit
+                                        </button>
+                                        <button type="button" onclick="if(confirm('Hapus siswa ini?')) alert('Siswa berhasil dihapus!');" class="text-red-600 hover:text-red-800 font-semibold transition cursor-pointer">
+                                            Hapus
+                                        </button>
+                                    </td>
+                                </tr>
+                                <!-- Data Dummy 2 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm font-semibold text-gray-900">Siti Nurhaliza</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">siti.nurhaliza@smkn4tasikmalaya.sch.id</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">XII PPLG 2</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">2024</td>
+                                    <td class="px-6 py-4 text-sm">
+                                        <button type="button" 
+                                                onclick="openSiswaModal(this)" 
+                                                data-id="2" 
+                                                data-nama="Siti Nurhaliza" 
+                                                data-kelas="XII PPLG 2" 
+                                                data-email="siti.nurhaliza@smkn4tasikmalaya.sch.id" 
+                                                class="text-blue-600 hover:text-blue-800 mr-3 font-semibold transition cursor-pointer">
+                                            Edit
+                                        </button>
+                                        <button type="button" onclick="if(confirm('Hapus siswa ini?')) alert('Siswa berhasil dihapus!');" class="text-red-600 hover:text-red-800 font-semibold transition cursor-pointer">
+                                            Hapus
+                                        </button>
+                                    </td>
+                                </tr>
+                                <!-- Data Dummy 3 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm font-semibold text-gray-900">Budi Santoso</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">budi.santoso@smkn4tasikmalaya.sch.id</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">XI PPLG 1</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">2025</td>
+                                    <td class="px-6 py-4 text-sm">
+                                        <button type="button" 
+                                                onclick="openSiswaModal(this)" 
+                                                data-id="3" 
+                                                data-nama="Budi Santoso" 
+                                                data-kelas="XI PPLG 1" 
+                                                data-email="budi.santoso@smkn4tasikmalaya.sch.id" 
+                                                class="text-blue-600 hover:text-blue-800 mr-3 font-semibold transition cursor-pointer">
+                                            Edit
+                                        </button>
+                                        <button type="button" onclick="if(confirm('Hapus siswa ini?')) alert('Siswa berhasil dihapus!');" class="text-red-600 hover:text-red-800 font-semibold transition cursor-pointer">
+                                            Hapus
+                                        </button>
+                                    </td>
+                                </tr>
+                                <!-- Data Dummy 4 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm font-semibold text-gray-900">Dewi Lestari</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">dewi.lestari@smkn4tasikmalaya.sch.id</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">XI PPLG 2</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">2025</td>
+                                    <td class="px-6 py-4 text-sm">
+                                        <button type="button" 
+                                                onclick="openSiswaModal(this)" 
+                                                data-id="4" 
+                                                data-nama="Dewi Lestari" 
+                                                data-kelas="XI PPLG 2" 
+                                                data-email="dewi.lestari@smkn4tasikmalaya.sch.id" 
+                                                class="text-blue-600 hover:text-blue-800 mr-3 font-semibold transition cursor-pointer">
+                                            Edit
+                                        </button>
+                                        <button type="button" onclick="if(confirm('Hapus siswa ini?')) alert('Siswa berhasil dihapus!');" class="text-red-600 hover:text-red-800 font-semibold transition cursor-pointer">
+                                            Hapus
+                                        </button>
+                                    </td>
+                                </tr>
+                                <!-- Data Dummy 5 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm font-semibold text-gray-900">Fajar Ramadhan</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">fajar.ramadhan@smkn4tasikmalaya.sch.id</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">X PPLG 1</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">2026</td>
+                                    <td class="px-6 py-4 text-sm">
+                                        <button type="button" 
+                                                onclick="openSiswaModal(this)" 
+                                                data-id="5" 
+                                                data-nama="Fajar Ramadhan" 
+                                                data-kelas="X PPLG 1" 
+                                                data-email="fajar.ramadhan@smkn4tasikmalaya.sch.id" 
+                                                class="text-blue-600 hover:text-blue-800 mr-3 font-semibold transition cursor-pointer">
+                                            Edit
+                                        </button>
+                                        <button type="button" onclick="if(confirm('Hapus siswa ini?')) alert('Siswa berhasil dihapus!');" class="text-red-600 hover:text-red-800 font-semibold transition cursor-pointer">
+                                            Hapus
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="px-6 py-4 bg-gray-50 border-t border-gray-200 flex justify-between items-center text-sm text-gray-600">
+                        <span>Total: <span class="font-bold">5</span> Siswa</span>
+                        <!-- Navigasi Halaman Statis -->
+                        <div class="flex gap-2">
+                            <button class="px-3 py-1 border border-gray-300 rounded bg-gray-200 text-gray-500 cursor-not-allowed">Sebelumnya</button>
+                            <button class="px-3 py-1 border border-blue-600 bg-blue-600 text-white rounded font-bold">1</button>
+                            <button class="px-3 py-1 border border-gray-300 rounded bg-gray-200 text-gray-500 cursor-not-allowed">Selanjutnya</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit Siswa -->
+    <div id="siswa-modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">Ubah Data Siswa</h3>
+            
+            <form id="modal-form" action="#" method="POST" onsubmit="event.preventDefault(); alert('Data berhasil disimpan!'); closeSiswaModal();">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Nama Siswa</label>
+                        <input type="text" id="input-nama" name="name" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm" required />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Kelas</label>
+                        <input type="text" id="input-kelas" name="kelas" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm" required />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" id="input-email" name="email" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm" required />
+                    </div>
+                </div>
+                
+                <div class="flex gap-3 mt-6">
+                    <button type="button" onclick="closeSiswaModal()" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition text-sm cursor-pointer">Batal</button>
+                    <button type="submit" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold text-sm cursor-pointer">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL POP-UP LOGOUT KUSTOM -->
+    <div id="logoutModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-gray-100 transform transition-all scale-100">
+            <div class="bg-gradient-to-r from-amber-500 to-orange-500 p-5 text-white flex items-center gap-3">
+                <div class="p-2 bg-white/20 rounded-lg">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold">Konfirmasi Keluar</h3>
+            </div>
+
+            <div class="p-6 text-center">
+                <p class="text-gray-700 font-medium leading-relaxed text-base">
+                    kamu mau keluar? Periksa dulu karya siswanya
+                </p>
+            </div>
+
+            <div class="bg-gray-50 px-6 py-4 flex gap-3 justify-end border-t border-gray-100">
+                <button type="button" onclick="closeLogoutModal()" class="px-5 py-2.5 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition text-sm cursor-pointer">
+                    Tidak
+                </button>
+                <button type="button" onclick="confirmLogout()" class="px-5 py-2.5 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition text-sm shadow-md cursor-pointer">
+                    Yaa
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script JavaScript Internal -->
+    <script>
+        // Modal Controller Logika Edit Siswa
+        function openSiswaModal(element) {
+            const modal = document.getElementById("siswa-modal");
+
+            const nama = element.getAttribute("data-nama");
+            const kelas = element.getAttribute("data-kelas");
+            const email = element.getAttribute("data-email");
+
+            document.getElementById("input-nama").value = nama;
+            document.getElementById("input-kelas").value = kelas;
+            document.getElementById("input-email").value = email;
+
+            modal.classList.remove("hidden");
+        }
+
+        function closeSiswaModal() {
+            document.getElementById("siswa-modal").classList.add("hidden");
+        }
+
+        // Modal Logout Functions
+        function openLogoutModal() {
+            document.getElementById('logoutModal').classList.remove('hidden');
+        }
+
+        function closeLogoutModal() {
+            document.getElementById('logoutModal').classList.add('hidden');
+        }
+
+        function confirmLogout() {
+            window.location.href = 'login.html';
+        }
+
+        // Loading Screen Timer
+        window.addEventListener("load", function () {
+            const loadingContent = document.getElementById("loading-content");
+            if (loadingContent) {
+                setTimeout(() => {
+                    loadingContent.classList.add("opacity-0");
+                    setTimeout(() => {
+                        loadingContent.classList.add("hidden");
+                    }, 300);
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>

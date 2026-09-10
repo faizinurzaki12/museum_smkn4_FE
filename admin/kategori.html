@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <title>Data Kategori - Museum Karya PPLG</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <!-- CSS Internal Khusus Admin -->
+    <style>
+        :root {
+          --nav-bg: #0b0f17;          /* Warna background utama navbar */
+          --nav-link-idle: #9ca3af;    /* Warna teks saat tidak aktif */
+          --nav-link-hover: #161f30;   /* Warna background saat di-hover */
+          --nav-link-active: #1e293b;  /* Warna background saat aktif */
+          --nav-accent: #38bdf8;       /* Warna aksen border & teks aktif */
+        }
+
+        .custom-nav-bg {
+          background-color: var(--nav-bg);
+        }
+
+        .nav-link-active {
+          background-color: var(--nav-link-active) !important;
+          color: var(--nav-accent) !important;
+          border-left: 4px solid var(--nav-accent) !important;
+        }
+
+        .nav-link-idle {
+          color: var(--nav-link-idle);
+          transition: all 0.2s ease-in-out;
+        }
+
+        .nav-link-idle:hover {
+          background-color: var(--nav-link-hover);
+          color: #ffffff;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+    <div class="flex h-screen overflow-hidden bg-gray-100">
+
+        <!-- SIDEBAR UTAMA -->
+        <div class="w-64 custom-nav-bg text-white shadow-lg flex flex-col justify-between shrink-0 hidden md:flex">
+            <div>
+                <div class="p-6 border-b border-gray-800">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-md">A</div>
+                        <div>
+                            <p class="font-bold text-white">Museum Karya Smkn 4</p>
+                        </div>
+                    </div>
+                </div>
+                <nav class="mt-6 space-y-2 px-4">
+                    <a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                        <span>Dashboard</span>
+                    </a>
+
+                    <a href="karya.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                        <span>Karya</span>
+                    </a>
+
+                    <a href="siswa.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                        <span>Siswa</span>
+                    </a>
+
+                    <!-- Nav Link Aktif -->
+                    <a href="kategori.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-semibold shadow-sm nav-link-active">
+                        <span>Kategori</span>
+                    </a>
+
+                    <a href="users.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                        <span>Users</span>
+                    </a>
+
+                    <a href="artikel.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                        <span>Artikel</span>
+                    </a>
+
+                    <a href="kode-unik.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                        <span>Kode Unik</span>
+                    </a>
+                </nav>
+            </div>
+            
+            <!-- TOMBOL LOGOUT -->
+            <div class="p-6 border-t border-gray-800">
+                <button type="button" onclick="openLogoutModal()" class="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-semibold cursor-pointer">
+                    Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- AREA KONTEN UTAMA -->
+        <div class="flex-1 flex flex-col h-screen overflow-y-auto">
+            <header class="bg-white shadow-sm z-10 shrink-0 sticky top-0">
+                <div class="px-6 sm:px-8 py-4 flex justify-between items-center">
+                    <h1 class="text-lg sm:text-xl font-bold text-gray-900">Manajemen Kategori Karya</h1>
+                    <div class="flex items-center gap-4">
+                        <div class="text-right">
+                            <p class="font-semibold text-gray-900 text-xs sm:text-sm">Administrator</p>
+                            <p class="text-[10px] sm:text-xs text-gray-500">Login sebagai admin</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- MAIN KONTEN -->
+            <main class="flex-1 p-4 sm:p-6 md:p-8 relative">
+                <!-- SPINNER OVERLAY -->
+                <div id="loading-content" class="absolute inset-0 bg-gray-100 z-40 flex flex-col items-center justify-center transition-opacity duration-300 ease-out">
+                    <div class="flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-sm border border-gray-200">
+                        <div class="w-5 h-5 border-3 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                        <p class="text-gray-700 font-medium text-sm tracking-wide">Memuat data kategori...</p>
+                    </div>
+                </div>
+
+                <!-- KARTU TABEL KATEGORI -->
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                        <h2 class="text-xl font-bold text-gray-900">Kategori Artikel</h2>
+                        <button type="button" onclick="openKategoriModal('tambah')" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold cursor-pointer">
+                            Tambah Kategori
+                        </button>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50 border-b border-gray-200">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">No</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Kategori artikel</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <!-- Data Dummy 1 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm text-gray-600">1</td>
+                                    <td class="px-6 py-4 text-sm font-semibold text-gray-900">
+                                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
+                                            Web Development
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm">
+                                        <button type="button" onclick="openKategoriModal('edit', this)" data-id="1" data-name="Web Development" class="text-blue-600 hover:text-blue-800 mr-3 font-semibold transition cursor-pointer">
+                                            Edit
+                                        </button>
+                                        <button type="button" onclick="if(confirm('Hapus kategori ini?')) alert('Kategori berhasil dihapus!');" class="text-red-600 hover:text-red-800 font-semibold transition cursor-pointer">
+                                            Hapus
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <!-- Data Dummy 2 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm text-gray-600">2</td>
+                                    <td class="px-6 py-4 text-sm font-semibold text-gray-900">
+                                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
+                                            Mobile App
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm">
+                                        <button type="button" onclick="openKategoriModal('edit', this)" data-id="2" data-name="Mobile App" class="text-blue-600 hover:text-blue-800 mr-3 font-semibold transition cursor-pointer">
+                                            Edit
+                                        </button>
+                                        <button type="button" onclick="if(confirm('Hapus kategori ini?')) alert('Kategori berhasil dihapus!');" class="text-red-600 hover:text-red-800 font-semibold transition cursor-pointer">
+                                            Hapus
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <!-- Data Dummy 3 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm text-gray-600">3</td>
+                                    <td class="px-6 py-4 text-sm font-semibold text-gray-900">
+                                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
+                                            Game Development
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm">
+                                        <button type="button" onclick="openKategoriModal('edit', this)" data-id="3" data-name="Game Development" class="text-blue-600 hover:text-blue-800 mr-3 font-semibold transition cursor-pointer">
+                                            Edit
+                                        </button>
+                                        <button type="button" onclick="if(confirm('Hapus kategori ini?')) alert('Kategori berhasil dihapus!');" class="text-red-600 hover:text-red-800 font-semibold transition cursor-pointer">
+                                            Hapus
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <!-- Data Dummy 4 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm text-gray-600">4</td>
+                                    <td class="px-6 py-4 text-sm font-semibold text-gray-900">
+                                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
+                                            UI/UX Design
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm">
+                                        <button type="button" onclick="openKategoriModal('edit', this)" data-id="4" data-name="UI/UX Design" class="text-blue-600 hover:text-blue-800 mr-3 font-semibold transition cursor-pointer">
+                                            Edit
+                                        </button>
+                                        <button type="button" onclick="if(confirm('Hapus kategori ini?')) alert('Kategori berhasil dihapus!');" class="text-red-600 hover:text-red-800 font-semibold transition cursor-pointer">
+                                            Hapus
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- MODAL FORM KATEGORI DINAMIS -->
+    <div id="kategori-modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+            <h3 id="modal-title" class="text-lg font-bold text-gray-900 mb-4">Tambah Kategori Baru</h3>
+            
+            <form id="modal-form" action="#" onsubmit="event.preventDefault(); alert('Data berhasil disimpan!'); closeKategoriModal();">
+                <div id="method-container"></div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Nama Kategori</label>
+                        <input type="text" id="input-name" name="name" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm" placeholder="Contoh: Mobile App" required />
+                    </div>
+                </div>
+                
+                <div class="flex gap-3 mt-6">
+                    <button type="button" onclick="closeKategoriModal()" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition text-sm cursor-pointer">
+                        Batal
+                    </button>
+                    <button type="submit" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold text-sm cursor-pointer">
+                        Simpan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL POP-UP LOGOUT KUSTOM -->
+    <div id="logoutModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-gray-100 transform transition-all scale-100">
+            <div class="bg-gradient-to-r from-amber-500 to-orange-500 p-5 text-white flex items-center gap-3">
+                <div class="p-2 bg-white/20 rounded-lg">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold">Konfirmasi Keluar</h3>
+            </div>
+
+            <div class="p-6 text-center">
+                <p class="text-gray-700 font-medium leading-relaxed text-base">
+                    Apakah Anda yakin ingin keluar dari sistem?
+                </p>
+            </div>
+
+            <div class="bg-gray-50 px-6 py-4 flex gap-3 justify-end border-t border-gray-100">
+                <button type="button" onclick="closeLogoutModal()" class="px-5 py-2.5 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition text-sm cursor-pointer">
+                    Tidak
+                </button>
+                <button type="button" onclick="confirmLogout()" class="px-5 py-2.5 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition text-sm shadow-md cursor-pointer">
+                    Ya
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT JAVASCRIPT INTERNAL -->
+    <script>
+        // Script Loading Screen
+        window.addEventListener("load", function () {
+            const loadingContent = document.getElementById("loading-content");
+            if (loadingContent) {
+                setTimeout(() => {
+                    loadingContent.classList.add("opacity-0");
+                    setTimeout(() => loadingContent.classList.add("hidden"), 300);
+                }, 1000);
+            }
+        });
+
+        // Script Modal Box Kategori Dinamis
+        function openKategoriModal(mode, element = null) {
+            const title = document.getElementById("modal-title");
+            const input = document.getElementById("input-name");
+
+            if (mode === "tambah") {
+                title.innerHTML = "Tambah Kategori Baru";
+                input.value = "";
+            } else {
+                title.innerHTML = "Edit Kategori";
+                input.value = element.dataset.name;
+            }
+
+            document.getElementById("kategori-modal").classList.remove("hidden");
+        }
+
+        function closeKategoriModal() {
+            document.getElementById("kategori-modal").classList.add("hidden");
+        }
+
+        // Script Logout Modal
+        function openLogoutModal() {
+            document.getElementById('logoutModal').classList.remove('hidden');
+        }
+
+        function closeLogoutModal() {
+            document.getElementById('logoutModal').classList.add('hidden');
+        }
+
+        function confirmLogout() {
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>
