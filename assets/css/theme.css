@@ -1,0 +1,19 @@
+* {
+  box-sizing: border-box;
+}
+
+.icon-moon {
+  display: block;
+}
+
+.icon-sun {
+  display: none;
+}
+
+.dark .icon-moon {
+  display: none;
+}
+
+.dark .icon-sun {
+  display: block;
+}

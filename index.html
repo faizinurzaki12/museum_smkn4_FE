@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Museum Karya - SMKN 4 Tasikmalaya</title>
+    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+        @custom-variant dark (&:where(.dark, .dark *));
+    </style>
+    <link rel="stylesheet" href="assets/css/index.css">
+</head>
+<body class="scroll-smooth bg-slate-100 dark:bg-gray-950 text-slate-700 dark:text-gray-100 transition-colors duration-300 antialiased">
+
+    <!-- ===== HEADER ===== -->
+    <header class="navbar shadow-xs sticky top-0 z-50 bg-slate-50/90 backdrop-blur-md dark:bg-gray-900 transition-colors duration-300 border-b border-slate-200/80 dark:border-gray-800">
+        <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
+            <div class="flex lg:flex-1 items-center gap-2">
+                <img src="assets/img/smk4.png" alt="SMK4 Logo" class="w-10 h-10 rounded-full object-cover" />
+                <span class="text-2xl font-bold text-blue-700 dark:text-blue-500">Museum Karya</span>
+            </div>
+            <div class="flex flex-wrap items-center justify-center gap-3 lg:gap-x-8 lg:justify-end lg:items-center">
+                <a href="index.html" class="text-sm font-semibold text-blue-700 dark:text-blue-500 border-b-2 border-blue-700 dark:border-blue-500 pb-1">Beranda</a>
+                <a href="karya.html" class="text-sm font-semibold text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white transition">Karya</a>
+                <a href="artikel.html" class="text-sm font-semibold text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white transition">Artikel</a>
+                <a href="tentang.html" class="text-sm font-semibold text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white transition">Tentang</a>
+                <a href="login.html" class="text-sm font-semibold text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white transition">Login</a>
+                <button id="themeToggle" onclick="toggleTheme()" aria-label="Ganti mode terang/gelap"
+                    class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-200/70 hover:bg-slate-200 dark:bg-gray-800 text-slate-700 dark:text-yellow-300 transition-colors cursor-pointer">
+                    <svg class="icon-sun w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                    <svg class="icon-moon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section id="beranda"
+        class="my-bg relative text-white flex items-center justify-center overflow-hidden h-[55vh] min-h-[380px] max-h-[600px]">
+        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
+            <source src="assets/img/museum_karya.mp4" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 bg-slate-950/65 backdrop-blur-[1px]"></div>
+        <div class="relative z-10 mx-auto max-w-5xl px-6 lg:px-8 text-center">
+            <h1 class="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight drop-shadow-md">
+                Selamat Datang Di Museum Karya SMKN 4 Tasikmalaya
+            </h1>
+        </div>
+    </section>
+
+    <!-- ===== STATISTIK ===== -->
+    <section class="py-16 bg-slate-100 dark:bg-gray-950">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-wrap justify-center gap-6">
+                <div class="counter-card w-full sm:w-64 bg-slate-50 dark:bg-gray-900 rounded-2xl shadow-xs hover:shadow-sm transition-shadow p-8 text-center border border-slate-200 dark:border-gray-800">
+                    <div class="flex justify-center items-end gap-1">
+                        <h2 class="counter text-blue-700 dark:text-blue-500 font-extrabold text-4xl" data-target="48">48</h2>
+                    </div>
+                    <p class="text-slate-600 dark:text-gray-400 mb-3 font-medium">Total Karya</p>
+                </div>
+                <div class="counter-card w-full sm:w-64 bg-slate-50 dark:bg-gray-900 rounded-2xl shadow-xs hover:shadow-sm transition-shadow p-8 text-center border border-slate-200 dark:border-gray-800">
+                    <h2 class="counter text-slate-800 dark:text-white font-extrabold text-4xl" data-target="120">120</h2>
+                    <p class="text-slate-600 dark:text-gray-400 mb-4 font-medium">Total Siswa</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SEMUA KARYA ===== -->
+    <section id="karya" class="py-16 bg-slate-200/50 dark:bg-gray-900">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="flex items-center justify-between mb-12">
+                <h2 class="text-3xl font-bold text-slate-800 dark:text-white">Semua Karya</h2>
+                <a href="karya.html"
+                    class="text-blue-700 dark:text-blue-400 font-semibold hover:text-blue-800 dark:hover:text-blue-300 flex items-center gap-1 transition group">
+                    Lihat Semua
+                    <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </a>
+            </div>
+
+            <div id="allKaryaGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+                <!-- Card 1 -->
+                <div class="karya-card bg-slate-50 dark:bg-gray-800 rounded-xl overflow-hidden shadow-xs hover:shadow-md border border-slate-200 dark:border-gray-700/60 card-hover transition-all duration-300"
+                    data-title="Sistem Informasi Perpustakaan Digital"
+                    data-desc="Aplikasi manajemen perpustakaan berbasis web untuk memudahkan peminjaman dan pengembalian buku di lingkungan sekolah."
+                    data-category="PPLG"
+                    data-event="Museum Karya"
+                    data-siswa="Ahmad Rizky"
+                    data-guru="Bpk. Zul Hilmi, S.Kom"
+                    data-avatar=""
+                    data-avatar-letter="A"
+                    data-kelas="XII PPLG 1"
+                    data-jurusan-siswa="PPLG"
+                    data-angkatan="2026"
+                    data-tahun="2026"
+                    data-views="142"
+                    data-likes="35"
+                    data-tech="Laravel, Tailwind CSS, MySQL"
+                    data-live="https://example.com"
+                    data-file-path="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&auto=format&fit=crop&q=80"
+                    data-file-type="image/jpeg"
+                    data-download="#">
+
+                    <div class="iframe-container cursor-pointer" onclick="openModal(this.closest('.karya-card'))">
+                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&auto=format&fit=crop&q=80" alt="Sistem Informasi Perpustakaan Digital"
+                            class="w-full h-48 object-cover" />
+                        <div class="overlay"></div>
+                    </div>
+
+                    <div class="p-6">
+                        <span class="badge-custom mb-3 inline-block">PPLG</span>
+                        <p class="text-slate-600 dark:text-gray-300 text-sm mt-2">
+                            <strong class="text-slate-800 dark:text-white">Ahmad Rizky</strong>
+                        </p>
+                        <p class="font-semibold text-slate-800 dark:text-white mb-4 line-clamp-1">Sistem Informasi Perpustakaan Digital</p>
+                        <button onclick="openModal(this.closest('.karya-card'))"
+                            class="w-full py-2.5 bg-blue-700 hover:bg-blue-800 text-white font-medium rounded-lg transition shadow-xs cursor-pointer">
+                            Lihat Detail
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="karya-card bg-slate-50 dark:bg-gray-800 rounded-xl overflow-hidden shadow-xs hover:shadow-md border border-slate-200 dark:border-gray-700/60 card-hover transition-all duration-300"
+                    data-title="Desain UI/UX Mobile E-Commerce"
+                    data-desc="Rancangan antarmuka aplikasi belanja online bahan pangan lokal dengan fokus pada kemudahan navigasi pengguna lanjut usia."
+                    data-category="PPLG"
+                    data-event="Museum Karya"
+                    data-siswa="Siti Nurhaliza"
+                    data-guru="Ibu Elena, M.T"
+                    data-avatar=""
+                    data-avatar-letter="S"
+                    data-kelas="XII PPLG 2"
+                    data-jurusan-siswa="PPLG"
+                    data-angkatan="2026"
+                    data-tahun="2026"
+                    data-views="98"
+                    data-likes="24"
+                    data-tech="Figma, Adobe Illustrator"
+                    data-live="https://example.com"
+                    data-file-path="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=600&auto=format&fit=crop&q=80"
+                    data-file-type="image/jpeg"
+                    data-download="#">
+
+                    <div class="iframe-container cursor-pointer" onclick="openModal(this.closest('.karya-card'))">
+                        <img src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=600&auto=format&fit=crop&q=80" alt="Desain UI/UX Mobile E-Commerce"
+                            class="w-full h-48 object-cover" />
+                        <div class="overlay"></div>
+                    </div>
+
+                    <div class="p-6">
+                        <span class="badge-custom mb-3 inline-block">PPLG</span>
+                        <p class="text-slate-600 dark:text-gray-300 text-sm mt-2">
+                            <strong class="text-slate-800 dark:text-white">Siti Nurhaliza</strong>
+                        </p>
+                        <p class="font-semibold text-slate-800 dark:text-white mb-4 line-clamp-1">Desain UI/UX Mobile E-Commerce</p>
+                        <button onclick="openModal(this.closest('.karya-card'))"
+                            class="w-full py-2.5 bg-blue-700 hover:bg-blue-800 text-white font-medium rounded-lg transition shadow-xs cursor-pointer">
+                            Lihat Detail
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="karya-card bg-slate-50 dark:bg-gray-800 rounded-xl overflow-hidden shadow-xs hover:shadow-md border border-slate-200 dark:border-gray-700/60 card-hover transition-all duration-300"
+                    data-title="Aplikasi Monitoring Jaringan Sekolah"
+                    data-desc="Tools berbasis CLI dan Web Dashboard untuk memantau status router dan access point di SMKN 4 Tasikmalaya secara real-time."
+                    data-category="TKT"
+                    data-event="Museum Karya"
+                    data-siswa="Budi Santoso"
+                    data-guru="Bpk. Hendra, S.ST"
+                    data-avatar=""
+                    data-avatar-letter="B"
+                    data-kelas="XII TKT 1"
+                    data-jurusan-siswa="TKT"
+                    data-angkatan="2026"
+                    data-tahun="2026"
+                    data-views="210"
+                    data-likes="56"
+                    data-tech="Python, Mikrotik API, Vue.js"
+                    data-live=""
+                    data-file-path="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&auto=format&fit=crop&q=80"
+                    data-file-type="image/jpeg"
+                    data-download="#">
+
+                    <div class="iframe-container cursor-pointer" onclick="openModal(this.closest('.karya-card'))">
+                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&auto=format&fit=crop&q=80" alt="Aplikasi Monitoring Jaringan Sekolah"
+                            class="w-full h-48 object-cover" />
+                        <div class="overlay"></div>
+                    </div>
+
+                    <div class="p-6">
+                        <span class="badge-custom mb-3 inline-block">TKT</span>
+                        <p class="text-slate-600 dark:text-gray-300 text-sm mt-2">
+                            <strong class="text-slate-800 dark:text-white">Budi Santoso</strong>
+                        </p>
+                        <p class="font-semibold text-slate-800 dark:text-white mb-4 line-clamp-1">Aplikasi Monitoring Jaringan Sekolah</p>
+                        <button onclick="openModal(this.closest('.karya-card'))"
+                            class="w-full py-2.5 bg-blue-700 hover:bg-blue-800 text-white font-medium rounded-lg transition shadow-xs cursor-pointer">
+                            Lihat Detail
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="karya-card bg-slate-50 dark:bg-gray-800 rounded-xl overflow-hidden shadow-xs hover:shadow-md border border-slate-200 dark:border-gray-700/60 card-hover transition-all duration-300"
+                    data-title="Game Edukasi 2D 'Petualangan Si Kode'"
+                    data-desc="Game platformer interaktif yang mengajarkan logika dasar pemrograman kepada anak-anak sekolah dasar."
+                    data-category="PPLG"
+                    data-event="Museum Karya"
+                    data-siswa="Dina Mariana"
+                    data-guru="Bpk. Zul Hilmi, S.Kom"
+                    data-avatar=""
+                    data-avatar-letter="D"
+                    data-kelas="XII PPLG 2"
+                    data-jurusan-siswa="PPLG"
+                    data-angkatan="2026"
+                    data-tahun="2026"
+                    data-views="315"
+                    data-likes="89"
+                    data-tech="Unity, C#, Pixel Art"
+                    data-live="https://example.com"
+                    data-file-path="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&auto=format&fit=crop&q=80"
+                    data-file-type="image/jpeg"
+                    data-download="#">
+
+                    <div class="iframe-container cursor-pointer" onclick="openModal(this.closest('.karya-card'))">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&auto=format&fit=crop&q=80" alt="Game Edukasi 2D 'Petualangan Si Kode'"
+                            class="w-full h-48 object-cover" />
+                        <div class="overlay"></div>
+                    </div>
+
+                    <div class="p-6">
+                        <span class="badge-custom mb-3 inline-block">PPLG</span>
+                        <p class="text-slate-600 dark:text-gray-300 text-sm mt-2">
+                            <strong class="text-slate-800 dark:text-white">Dina Mariana</strong>
+                        </p>
+                        <p class="font-semibold text-slate-800 dark:text-white mb-4 line-clamp-1">Game Edukasi 2D 'Petualangan Si Kode'</p>
+                        <button onclick="openModal(this.closest('.karya-card'))"
+                            class="w-full py-2.5 bg-blue-700 hover:bg-blue-800 text-white font-medium rounded-lg transition shadow-xs cursor-pointer">
+                            Lihat Detail
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-slate-900 dark:bg-black text-white text-center py-12">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="border-t border-slate-800 dark:border-gray-800 pt-8">
+                <p class="text-slate-400 text-sm">&copy; 2026 Museum Karya SMKN 4 Tasikmalaya</p>
+                <p class="text-slate-400 text-sm">Design &amp; Development By PPLG</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== MODAL DETAIL ===== -->
+    <div id="detailModal"
+        class="hidden fixed inset-0 bg-slate-950/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+        <div class="bg-slate-50 dark:bg-gray-900 rounded-2xl shadow-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto transition-colors duration-300 border border-slate-200 dark:border-gray-800">
+            <div class="sticky top-0 px-6 py-4 border-b border-slate-200 dark:border-gray-700 flex justify-between items-center bg-slate-50/95 dark:bg-gray-900/95 backdrop-blur-md z-10">
+                <h3 id="modalTitle" class="text-xl font-bold text-slate-800 dark:text-white"></h3>
+                <button onclick="closeModal()" class="text-slate-500 hover:text-slate-700 dark:hover:text-gray-200 transition cursor-pointer">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="p-6 space-y-6">
+                <!-- Preview -->
+                <div id="modalPreview" class="space-y-4">
+                    <img id="modalImagePreview" class="hidden w-full rounded-xl object-contain max-h-[360px]" />
+                    <iframe id="modalIframePreview" class="hidden w-full h-80 rounded-xl border border-slate-200 dark:border-gray-700"
+                        allowfullscreen></iframe>
+                    <div id="modalPreviewEmpty"
+                        class="hidden w-full h-80 flex items-center justify-center rounded-xl bg-slate-200/60 dark:bg-gray-800 text-slate-600 dark:text-gray-400 border border-dashed border-slate-300 dark:border-gray-600">
+                        Tidak ada preview tersedia
+                    </div>
+                </div>
+
+                <!-- Badge -->
+                <div class="flex gap-2 flex-wrap">
+                    <span class="inline-block bg-emerald-200/60 dark:bg-emerald-950/70 text-emerald-900 dark:text-emerald-300 px-3 py-1 rounded-full text-xs font-semibold">
+                        Disetujui
+                    </span>
+                    <span id="modalCategory"
+                        class="inline-block bg-blue-200/60 dark:bg-blue-950/70 text-blue-900 dark:text-blue-300 px-3 py-1 rounded-full text-xs font-semibold"></span>
+                    <span id="modalEvent"
+                        class="inline-block bg-purple-200/60 dark:bg-purple-950/70 text-purple-900 dark:text-purple-300 px-3 py-1 rounded-full text-xs font-semibold"></span>
+                </div>
+
+                <!-- Deskripsi -->
+                <div>
+                    <h4 class="font-semibold text-slate-800 dark:text-white mb-2">Deskripsi</h4>
+                    <p id="modalDescription" class="text-slate-600 dark:text-gray-300 leading-relaxed text-sm sm:text-base"></p>
+                </div>
+
+                <!-- AVATAR + BIODATA SISWA -->
+                <div class="bg-slate-200/50 dark:bg-gray-800/60 border border-slate-200 dark:border-gray-700/50 p-4 rounded-xl">
+                    <div class="flex items-center gap-3">
+                        <div id="modalAvatar"
+                            class="w-12 h-12 bg-blue-700 text-white rounded-full flex items-center justify-center font-bold text-lg overflow-hidden shrink-0">
+                        </div>
+                        <div class="min-w-0">
+                            <p id="modalSiswa" class="font-semibold text-slate-800 dark:text-white truncate"></p>
+                            <p id="modalBiodata" class="text-sm text-slate-600 dark:text-gray-400"></p>
+                            <p id="modalGuru" class="text-sm text-slate-500 dark:text-gray-500 mt-0.5"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info tambahan -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-slate-200/50 dark:bg-gray-800/60 border border-slate-200 dark:border-gray-700/50 p-4 rounded-xl">
+                        <p class="text-xs text-slate-500 dark:text-gray-400 font-medium mb-1 uppercase tracking-wider">Kategori</p>
+                        <p id="modalKategoriDetail" class="font-semibold text-slate-800 dark:text-white text-sm sm:text-base"></p>
+                    </div>
+                    <div class="bg-slate-200/50 dark:bg-gray-800/60 border border-slate-200 dark:border-gray-700/50 p-4 rounded-xl">
+                        <p class="text-xs text-slate-500 dark:text-gray-400 font-medium mb-1 uppercase tracking-wider">Tahun</p>
+                        <p id="modalTahun" class="font-semibold text-slate-800 dark:text-white text-sm sm:text-base"></p>
+                    </div>
+                </div>
+
+                <!-- Teknologi -->
+                <div class="bg-slate-200/50 dark:bg-gray-800/60 border border-slate-200 dark:border-gray-700/50 p-4 rounded-xl">
+                    <p class="text-xs text-slate-500 dark:text-gray-400 font-medium mb-1 uppercase tracking-wider">Teknologi</p>
+                    <p id="modalTech" class="font-semibold text-slate-800 dark:text-white text-sm sm:text-base"></p>
+                </div>
+
+                <!-- Tombol Live -->
+                <div class="pt-4 border-t border-slate-200 dark:border-gray-700">
+                    <a id="liveBtn" href="#" target="_blank"
+                        class="block w-full px-4 py-2.5 bg-blue-700 hover:bg-blue-800 text-white rounded-xl font-semibold transition text-center shadow-xs">
+                        Buka Live
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/index.js"></script>
+</body>
+</html>
