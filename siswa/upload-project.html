@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kirim Project - Siswa</title>
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .btn-jurusan {
+            opacity: 0.55;
+            transition: all 0.15s ease-in-out;
+            cursor: pointer;
+        }
+
+        .btn-jurusan.active {
+            opacity: 1;
+            outline: 3px solid #111827;
+            outline-offset: 2px;
+            transform: scale(1.03);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans min-h-screen flex flex-col md:flex-row">
+
+    <!-- ==================== SIDEBAR SISWA ==================== -->
+    <aside class="w-full md:w-[260px] bg-[#0b1329] text-white min-h-screen flex flex-col justify-between p-5 select-none font-sans flex-shrink-0">
+        <div>
+            <!-- Profil Header -->
+            <div class="flex items-center gap-3 pb-6 border-b border-slate-800/60">
+                <div class="w-12 h-12 rounded-full bg-[#2563eb] flex items-center justify-center font-bold text-xl text-white shadow-sm">
+                    A
+                </div>
+                <span class="font-bold text-base tracking-wide text-white">Ahmad Siswa</span>
+            </div>
+
+            <!-- Menu Navigation -->
+            <nav class="mt-6 space-y-3">
+                <!-- Dashboard -->
+                <a href="/siswa/dashboard" class="flex items-center gap-4 px-3 py-2 text-slate-300 hover:text-white font-medium text-sm transition-colors">
+                    <svg class="w-5 h-5 text-slate-300" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+
+                <!-- Profil -->
+                <a href="/siswa/profil" class="flex items-center gap-4 px-3 py-2 text-slate-300 hover:text-white font-medium text-sm transition-colors">
+                    <svg class="w-5 h-5 text-slate-300" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                    <span>Profil</span>
+                </a>
+
+                <!-- My Karya Gue (Aktif / Tombol Biru Pill) -->
+                <a href="/siswa/karya-saya" class="flex items-center gap-4 px-3 py-2 text-slate-300 hover:text-white font-medium text-sm transition-colors">
+                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/>
+                    </svg>
+                    <span>My Karya Gue</span>
+                </a>
+
+                <!-- Kirim Project -->
+                <a href="/siswa/kirim-karya"  class="flex items-center gap-4 px-4 py-3 bg-[#2563eb] text-white font-bold text-sm rounded-2xl shadow-lg transition-all">
+                    <svg class="w-5 h-5 text-slate-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                    </svg>
+                    <span>Kirim Project</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Bottom Logout Button -->
+        <div class="pt-4 border-t border-slate-800/60">
+            <a href="/logout" class="block w-full py-3 bg-[#dc2626] hover:bg-red-700 text-white font-bold text-center text-sm rounded-xl shadow-md transition-all">
+                Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- ==================== KONTEN UTAMA ==================== -->
+    <main class="flex-1 p-6 md:p-8 overflow-y-auto flex justify-center items-start">
+        <div class="max-w-2xl w-full bg-white rounded-2xl shadow-lg p-6 md:p-8 my-auto">
+
+            <!-- Pilihan Jurusan Statis -->
+            <div class="flex flex-row justify-center gap-3 flex-wrap">
+                <!-- PPLG = Success (Hijau) -->
+                <button type="button" onclick="pilihJurusan('PPLG', event)" class="btn-jurusan w-[100px] px-3 py-2 rounded-lg text-white font-semibold text-sm bg-emerald-600 hover:bg-emerald-700">PPLG</button>
+                
+                <!-- TJKT / TKJ = Primary (Biru) -->
+                <button type="button" onclick="pilihJurusan('TKJ', event)" class="btn-jurusan w-[100px] px-3 py-2 rounded-lg text-white font-semibold text-sm bg-blue-600 hover:bg-blue-700">TJKT</button>
+                
+                <!-- DKV = Warning (Kuning/Oranye) -->
+                <button type="button" onclick="pilihJurusan('DKV', event)" class="btn-jurusan w-[100px] px-3 py-2 rounded-lg text-white font-semibold text-sm bg-amber-500 hover:bg-amber-600">DKV</button>
+                
+                <!-- TOI = Secondary (Abu-abu Tua) -->
+                <button type="button" onclick="pilihJurusan('TOI', event)" class="btn-jurusan w-[100px] px-3 py-2 rounded-lg text-white font-semibold text-sm bg-slate-600 hover:bg-slate-700">TOI</button>
+                
+                <!-- TSM = Danger (Merah) -->
+                <button type="button" onclick="pilihJurusan('TSM', event)" class="btn-jurusan w-[100px] px-3 py-2 rounded-lg text-white font-semibold text-sm bg-red-600 hover:bg-red-700">TSM</button>
+            </div>
+
+            <hr class="my-6 border-gray-200" />
+
+            <!-- Notice Pilihan Jurusan -->
+            <div id="pilihJurusanNotice">
+                <p id="pilihJurusanText" class="text-center text-sm font-medium text-gray-500 mb-2">Pilih Jurusan Kamu Terlebih Dahulu</p>
+
+                <div id="belumPilihJurusan" class="text-center text-gray-400 py-6">
+                    <svg class="w-8 h-8 mx-auto text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                    </svg>
+                    <p class="text-sm">Silahkan pilih jurusan di atas untuk menampilkan form Kirim.</p>
+                </div>
+            </div>
+
+            <!-- ==================== FORM PPLG ==================== -->
+            <form id="form_PPLG" action="/siswa/upload" method="POST" enctype="multipart/form-data" class="hidden space-y-6 mt-4" novalidate>
+                <div class="text-center mb-4">
+                    <span class="inline-block text-sm font-semibold px-4 py-1.5 rounded-full text-white bg-emerald-600">
+                        Form Kirim Karya - PPLG
+                    </span>
+                </div>
+                <input type="hidden" name="jurusan" value="PPLG" />
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Judul Karya *</label>
+                    <input type="text" name="title" required placeholder="Contoh: Aplikasi Kasir Berbasis Web" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Bahasa Pemrograman / Framework yang Digunakan *</label>
+                    <input type="text" name="technology_stack" required placeholder="Contoh: Laravel, React, Flutter" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi Karya *</label>
+                    <textarea name="description" required rows="4" placeholder="Jelaskan fitur dan cara kerja karya yang kamu buat....." class="w-full px-4 py-2 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Link Repository GitHub <span class="text-red-500">* (Wajib Khusus PPLG)</span>
+                    </label>
+                    <input type="url" name="github_link" required placeholder="https://github.com/username/repository-kamu" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Link Live Demo / Preview (Opsional)</label>
+                    <input type="url" name="live_link" placeholder="https://" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Link Embed / Iframe <span class="text-xs text-gray-500 font-normal">(Opsional jika mengunggah foto)</span></label>
+                    <input type="url" name="iframe_link" placeholder="https://www.youtube.com/embed/xxxxx" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Screenshot Tampilan Aplikasi <span class="text-xs text-gray-500 font-normal">(Wajib jika tidak ada link iframe)</span></label>
+                    <input type="file" name="file_path" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none" />
+                </div>
+
+                <div class="border border-gray-200 rounded-lg bg-gray-50 p-4 space-y-3">
+                    <h4 class="text-sm font-bold text-gray-800">Syarat & Ketentuan Upload Karya:</h4>
+                    <ul class="text-xs text-gray-600 list-disc list-inside space-y-1">
+                        <li>Karya atau kode program harus asli hasil buatan sendiri/tim kelompok (bukan plagiat).</li>
+                        <li>Link yang dicantumkan harus bersifat publik agar bisa diperiksa oleh Admin.</li>
+                        <li>Karya buatan siswa aktif / alumni SMKN 4 Tasikmalaya serta tidak mengandung SARA.</li>
+                    </ul>
+                    <hr class="border-gray-200 my-2" />
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" id="agree_PPLG" class="mt-1 h-4 w-4 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500 cursor-pointer" onchange="toggleSubmitButton('PPLG', 'bg-emerald-600 hover:bg-emerald-700')" />
+                        <label for="agree_PPLG" class="text-xs text-gray-700 leading-normal font-medium cursor-pointer select-none">
+                            Saya menyetujui semua syarat dan ketentuan di atas serta menjamin bahwa project ini adalah karya asli saya.
+                        </label>
+                    </div>
+                </div>
+
+                <div class="flex gap-4 pt-2">
+                    <button type="button" onclick="resetForm('PPLG')" class="flex-1 px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium">Reset</button>
+                    <button type="submit" id="submit_PPLG" disabled class="flex-1 px-6 py-2 bg-gray-400 text-white rounded-lg font-medium shadow-md cursor-not-allowed transition">Kirim Karya</button>
+                </div>
+            </form>
+
+            <!-- ==================== FORM TJKT / TKJ ==================== -->
+            <form id="form_TKJ" action="/siswa/upload" method="POST" enctype="multipart/form-data" class="hidden space-y-6 mt-4" novalidate>
+                <div class="text-center mb-4">
+                    <span class="inline-block text-sm font-semibold px-4 py-1.5 rounded-full text-white bg-blue-600">
+                        Form Kirim Karya - TJKT
+                    </span>
+                </div>
+                <input type="hidden" name="jurusan" value="TKJ" />
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Judul Karya / Project *</label>
+                    <input type="text" name="title" required placeholder="Contoh: Perancangan Topologi Jaringan Fiber Optic" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Nomor Telepon / WhatsApp *</label>
+                    <input type="tel" name="phone_number" required placeholder="Contoh: 081234567890" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Perangkat / Software Jaringan *</label>
+                    <input type="text" name="technology_stack" required placeholder="Contoh: Mikrotik RouterOS, Cisco Packet Tracer, Linux Server" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi Topologi & Sistem *</label>
+                    <textarea name="description" required rows="4" placeholder="Jelaskan konfigurasi, keunggulan, dan arsitektur jaringan yang dibuat....." class="w-full px-4 py-2 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Link Dokumentasi / Video Simulation (YouTube/Drive)</label>
+                    <input type="url" name="live_link" placeholder="https://" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Link Embed / Iframe <span class="text-xs text-gray-500 font-normal">(Opsional jika mengunggah foto)</span></label>
+                    <input type="url" name="iframe_link" placeholder="https://www.youtube.com/embed/xxxxx" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Foto / Skema Topologi Jaringan <span class="text-xs text-gray-500 font-normal">(Wajib jika tidak ada link iframe)</span></label>
+                    <input type="file" name="file_path" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
+                </div>
+
+                <div class="border border-gray-200 rounded-lg bg-gray-50 p-4 space-y-3">
+                    <h4 class="text-sm font-bold text-gray-800">Syarat & Ketentuan Upload Karya:</h4>
+                    <ul class="text-xs text-gray-600 list-disc list-inside space-y-1">
+                        <li>Topologi dan konfigurasi asli buatan sendiri/tim kelompok (bukan plagiat).</li>
+                        <li>Karya buatan siswa aktif / alumni SMKN 4 Tasikmalaya serta tidak mengandung SARA.</li>
+                    </ul>
+                    <hr class="border-gray-200 my-2" />
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" id="agree_TKJ" class="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 cursor-pointer" onchange="toggleSubmitButton('TKJ', 'bg-blue-600 hover:bg-blue-700')" />
+                        <label for="agree_TKJ" class="text-xs text-gray-700 leading-normal font-medium cursor-pointer select-none">
+                            Saya menyetujui semua syarat dan ketentuan di atas serta menjamin bahwa project jaringan ini asli buatan saya.
+                        </label>
+                    </div>
+                </div>
+
+                <div class="flex gap-4 pt-2">
+                    <button type="button" onclick="resetForm('TKJ')" class="flex-1 px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium">Reset</button>
+                    <button type="submit" id="submit_TKJ" disabled class="flex-1 px-6 py-2 bg-gray-400 text-white rounded-lg font-medium shadow-md cursor-not-allowed transition">Kirim Karya</button>
+                </div>
+            </form>
+
+            <!-- ==================== FORM DKV ==================== -->
+            <form id="form_DKV" action="/siswa/upload" method="POST" enctype="multipart/form-data" class="hidden space-y-6 mt-4" novalidate>
+                <div class="text-center mb-4">
+                    <span class="inline-block text-sm font-semibold px-4 py-1.5 rounded-full text-white bg-amber-500">
+                        Form Kirim Karya - DKV
+                    </span>
+                </div>
+                <input type="hidden" name="jurusan" value="DKV" />
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Judul Karya *</label>
+                    <input type="text" name="title" required placeholder="Contoh: Desain Poster Mascot" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Software Desain yang Digunakan *</label>
+                    <input type="text" name="technology_stack" required placeholder="Contoh: Adobe Photoshop, Figma, CorelDRAW" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi Karya *</label>
+                    <textarea name="description" required rows="4" placeholder="Jelaskan konsep dan makna dari karya desain kamu....." class="w-full px-4 py-2 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-amber-500 outline-none"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Link Portfolio (Behance/Dribbble/Drive)</label>
+                    <input type="url" name="live_link" placeholder="https://" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Link Embed / Iframe <span class="text-xs text-gray-500 font-normal">(Opsional jika mengunggah foto)</span></label>
+                    <input type="url" name="iframe_link" placeholder="https://www.youtube.com/embed/xxxxx" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">File Hasil Desain <span class="text-xs text-gray-500 font-normal">(Wajib jika tidak ada link iframe)</span></label>
+                    <input type="file" name="file_path" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none" />
+                </div>
+
+                <div class="border border-gray-200 rounded-lg bg-gray-50 p-4 space-y-3">
+                    <h4 class="text-sm font-bold text-gray-800">Syarat & Ketentuan Upload Karya:</h4>
+                    <ul class="text-xs text-gray-600 list-disc list-inside space-y-1">
+                        <li>Karya hasil buatan sendiri/tim kelompok (bukan plagiat).</li>
+                        <li>Karya buatan siswa aktif / alumni SMKN 4 Tasikmalaya serta tidak mengandung SARA.</li>
+                    </ul>
+                    <hr class="border-gray-200 my-2" />
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" id="agree_DKV" class="mt-1 h-4 w-4 text-amber-500 border-gray-300 rounded focus:ring-amber-500 cursor-pointer" onchange="toggleSubmitButton('DKV', 'bg-amber-500 hover:bg-amber-600')" />
+                        <label for="agree_DKV" class="text-xs text-gray-700 leading-normal font-medium cursor-pointer select-none">
+                            Saya menyetujui semua syarat dan ketentuan di atas serta menjamin bahwa karya ini asli buatan saya.
+                        </label>
+                    </div>
+                </div>
+
+                <div class="flex gap-4 pt-2">
+                    <button type="button" onclick="resetForm('DKV')" class="flex-1 px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium">Reset</button>
+                    <button type="submit" id="submit_DKV" disabled class="flex-1 px-6 py-2 bg-gray-400 text-white rounded-lg font-medium shadow-md cursor-not-allowed transition">Kirim Karya</button>
+                </div>
+            </form>
+
+            <!-- ==================== FORM TOI ==================== -->
+            <form id="form_TOI" action="/siswa/upload" method="POST" enctype="multipart/form-data" class="hidden space-y-6 mt-4" novalidate>
+                <div class="text-center mb-4">
+                    <span class="inline-block text-sm font-semibold px-4 py-1.5 rounded-full text-white bg-slate-600">
+                        Form Kirim Karya - TOI
+                    </span>
+                </div>
+                <input type="hidden" name="jurusan" value="TOI" />
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Judul Karya *</label>
+                    <input type="text" name="title" required placeholder="Contoh: Sistem Sortir Barang Otomatis" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-slate-500 outline-none" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Jenis Alat / Mesin Otomasi *</label>
+                    <input type="text" name="technology_stack" required placeholder="Contoh: PLC Omron, Arduino, Sensor IoT" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-slate-500 outline-none" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi Karya *</label>
+                    <textarea name="description" required rows="4" placeholder="Jelaskan fungsi dan sistem kerja alat industri yang kamu rancang....." class="w-full px-4 py-2 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-slate-500 outline-none"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Link Video Demo Alat (YouTube/Drive)</label>
+                    <input type="url" name="live_link" placeholder="https://" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-slate-500 outline-none" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Link Embed / Iframe <span class="text-xs text-gray-500 font-normal">(Opsional jika mengunggah foto)</span></label>
+                    <input type="url" name="iframe_link" placeholder="https://www.youtube.com/embed/xxxxx" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-slate-500 outline-none" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Foto Alat / Mesin <span class="text-xs text-gray-500 font-normal">(Wajib jika tidak ada link iframe)</span></label>
+                    <input type="file" name="file_path" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-slate-500 outline-none" />
+                </div>
+
+                <div class="border border-gray-200 rounded-lg bg-gray-50 p-4 space-y-3">
+                    <h4 class="text-sm font-bold text-gray-800">Syarat & Ketentuan Upload Karya:</h4>
+                    <ul class="text-xs text-gray-600 list-disc list-inside space-y-1">
+                        <li>Karya hasil buatan sendiri/tim kelompok (bukan plagiat).</li>
+                        <li>Karya buatan siswa aktif / alumni SMKN 4 Tasikmalaya serta tidak mengandung SARA.</li>
+                    </ul>
+                    <hr class="border-gray-200 my-2" />
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" id="agree_TOI" class="mt-1 h-4 w-4 text-slate-600 border-gray-300 rounded focus:ring-slate-500 cursor-pointer" onchange="toggleSubmitButton('TOI', 'bg-slate-600 hover:bg-slate-700')" />
+                        <label for="agree_TOI" class="text-xs text-gray-700 leading-normal font-medium cursor-pointer select-none">
+                            Saya menyetujui semua syarat dan ketentuan di atas serta menjamin bahwa alat ini buatan sendiri.
+                        </label>
+                    </div>
+                </div>
+
+                <div class="flex gap-4 pt-2">
+                    <button type="button" onclick="resetForm('TOI')" class="flex-1 px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium">Reset</button>
+                    <button type="submit" id="submit_TOI" disabled class="flex-1 px-6 py-2 bg-gray-400 text-white rounded-lg font-medium shadow-md cursor-not-allowed transition">Kirim Karya</button>
+                </div>
+            </form>
+
+            <!-- ==================== FORM TSM ==================== -->
+            <form id="form_TSM" action="/siswa/upload" method="POST" enctype="multipart/form-data" class="hidden space-y-6 mt-4" novalidate>
+                <div class="text-center mb-4">
+                    <span class="inline-block text-sm font-semibold px-4 py-1.5 rounded-full text-white bg-red-600">
+                        Form Kirim Karya - TSM
+                    </span>
+                </div>
+                <input type="hidden" name="jurusan" value="TSM" />
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Judul Karya / Modifikasi *</label>
+                    <input type="text" name="title" required placeholder="Contoh: Modifikasi Sistem Injeksi Sepeda Motor" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 outline-none" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Nomor Telepon / WhatsApp *</label>
+                    <input type="tel" name="phone_number" required placeholder="Contoh: 081234567890" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 outline-none" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Sistem / Komponen Otomotif yang Digunakan *</label>
+                    <input type="text" name="technology_stack" required placeholder="Contoh: Engine Management System (EMS), Karburator Racing, Kelistrikan" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 outline-none" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi Karya *</label>
+                    <textarea name="description" required rows="4" placeholder="Jelaskan perbaikan, servis, atau inovasi modifikasi kendaraan yang telah dibuat....." class="w-full px-4 py-2 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-red-500 outline-none"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Link Video Performa / Tes Mesin (YouTube/Drive)</label>
+                    <input type="url" name="live_link" placeholder="https://" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 outline-none" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Link Embed / Iframe <span class="text-xs text-gray-500 font-normal">(Opsional jika mengunggah foto)</span></label>
+                    <input type="url" name="iframe_link" placeholder="https://www.youtube.com/embed/xxxxx" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 outline-none" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Foto Kendaraan / Mesin <span class="text-xs text-gray-500 font-normal">(Wajib jika tidak ada link iframe)</span></label>
+                    <input type="file" name="file_path" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 outline-none" />
+                </div>
+
+                <div class="border border-gray-200 rounded-lg bg-gray-50 p-4 space-y-3">
+                    <h4 class="text-sm font-bold text-gray-800">Syarat & Ketentuan Upload Karya:</h4>
+                    <ul class="text-xs text-gray-600 list-disc list-inside space-y-1">
+                        <li>Project modifikasi atau karya asli pengerjaan sendiri/kelompok.</li>
+                        <li>Karya buatan siswa aktif / alumni SMKN 4 Tasikmalaya serta tidak mengandung SARA.</li>
+                    </ul>
+                    <hr class="border-gray-200 my-2" />
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" id="agree_TSM" class="mt-1 h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-red-500 cursor-pointer" onchange="toggleSubmitButton('TSM', 'bg-red-600 hover:bg-red-700')" />
+                        <label for="agree_TSM" class="text-xs text-gray-700 leading-normal font-medium cursor-pointer select-none">
+                            Saya menyetujui semua syarat dan ketentuan di atas serta menjamin bahwa project ini asli pengerjaan saya.
+                        </label>
+                    </div>
+                </div>
+
+                <div class="flex gap-4 pt-2">
+                    <button type="button" onclick="resetForm('TSM')" class="flex-1 px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium">Reset</button>
+                    <button type="submit" id="submit_TSM" disabled class="flex-1 px-6 py-2 bg-gray-400 text-white rounded-lg font-medium shadow-md cursor-not-allowed transition">Kirim Karya</button>
+                </div>
+            </form>
+
+        </div>
+    </main>
+
+    <!-- Script JavaScript Internal -->
+    <script>
+        const daftarJurusan = ["PPLG", "DKV", "TOI", "TKJ", "TSM"];
+
+        document.addEventListener("DOMContentLoaded", function () {
+            daftarJurusan.forEach((nama) => {
+                const form = document.getElementById("form_" + nama);
+                if (form) {
+                    form.addEventListener("submit", validateBeforeSubmit);
+                }
+            });
+        });
+
+        function pilihJurusan(nama, event = null) {
+            const belumPilihJurusan = document.getElementById("belumPilihJurusan");
+            const pilihJurusanText = document.getElementById("pilihJurusanText");
+
+            if (belumPilihJurusan) belumPilihJurusan.classList.add("hidden");
+            if (pilihJurusanText) pilihJurusanText.classList.add("hidden");
+
+            daftarJurusan.forEach((j) => {
+                const form = document.getElementById("form_" + j);
+                if (form) {
+                    if (j === nama) {
+                        form.classList.remove("hidden");
+                    } else {
+                        form.classList.add("hidden");
+                    }
+                }
+            });
+
+            document.querySelectorAll(".btn-jurusan").forEach((btn) => {
+                btn.classList.remove("active");
+            });
+
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add("active");
+            }
+        }
+
+        function toggleSubmitButton(nama, activeBgClass) {
+            const checkbox = document.getElementById("agree_" + nama);
+            const submitBtn = document.getElementById("submit_" + nama);
+
+            if (!checkbox || !submitBtn) return;
+
+            const bgClasses = activeBgClass.split(" ");
+
+            if (checkbox.checked) {
+                submitBtn.disabled = false;
+                submitBtn.classList.remove("bg-gray-400", "cursor-not-allowed");
+                submitBtn.classList.add(...bgClasses, "cursor-pointer");
+            } else {
+                submitBtn.disabled = true;
+                submitBtn.classList.remove(...bgClasses, "cursor-pointer");
+                submitBtn.classList.add("bg-gray-400", "cursor-not-allowed");
+            }
+        }
+
+        function validateBeforeSubmit(e) {
+            const form = e.target;
+            if (!form.checkValidity()) {
+                e.preventDefault();
+                alert("Harap lengkapi semua kolom wajib sebelum mengirim!");
+                const firstInvalid = form.querySelector(":invalid");
+                if (firstInvalid) {
+                    firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
+                    firstInvalid.focus();
+                }
+            }
+        }
+
+        function resetForm(nama) {
+            const form = document.getElementById("form_" + nama);
+            if (form) {
+                form.reset();
+                const colorMap = {
+                    'PPLG': 'bg-emerald-600 hover:bg-emerald-700',
+                    'TKJ': 'bg-blue-600 hover:bg-blue-700',
+                    'DKV': 'bg-amber-500 hover:bg-amber-600',
+                    'TOI': 'bg-slate-600 hover:bg-slate-700',
+                    'TSM': 'bg-red-600 hover:bg-red-700'
+                };
+                toggleSubmitButton(nama, colorMap[nama]);
+            }
+        }
+    </script>
+</body>
+</html>

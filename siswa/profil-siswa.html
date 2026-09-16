@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="https://via.placeholder.com/32">
+    <title>Profil Saya - Karya PPLG</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="flex h-screen bg-gray-100 overflow-hidden">
+
+        <!-- ================= SIDEBAR ================= -->
+        <div class="w-64 bg-gray-900 text-white shadow-lg flex flex-col shrink-0">
+            <div class="p-6 border-b border-gray-700">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg shrink-0">
+                        A
+                    </div>
+                    <div>
+                        <p class="font-bold text-sm">Ahmad Siswa</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="mt-6 flex-1 space-y-2 px-4">
+                <a href="dashboard.html"
+                class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-200 hover:bg-gray-800 text-gray-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="profil-siswa.html"
+                class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-200 bg-blue-600 text-white font-semibold shadow-sm text-left">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                    </svg>
+                    <span>Profil</span>
+                </a>
+
+                <a href="karya.html"
+                class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-200 hover:bg-gray-800 text-gray-400 hover:text-white text-left">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.3A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13H5.5z" />
+                    </svg>
+                    <span>My Karya Gue</span>
+                </a>
+
+                <a href="#"
+                class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-200 hover:bg-gray-800 text-gray-400 hover:text-white text-left">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.293a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                    <span>Kirim Project</span>
+                </a>
+            </nav>
+
+            <div class="border-t border-gray-700 px-6 py-4">
+                <button type="button" onclick="openLogoutModal()"
+                    class="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-semibold cursor-pointer">
+                    Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- ================= KONTEN UTAMA ================= -->
+        <div class="flex-1 flex flex-col overflow-y-auto">
+            
+            <!-- Header Topbar -->
+            <header class="bg-white shadow-sm z-10">
+                <div class="px-8 py-4 flex justify-between items-center">
+                    <h1 class="text-2xl font-bold text-gray-900">Profil Saya</h1>
+                </div>
+            </header>
+
+            <!-- Isi Halaman Profil -->
+            <div class="flex-1 p-6 md:p-10 overflow-y-auto">
+                <section class="max-w-4xl mx-auto bg-white rounded-xl shadow-sm p-6 md:p-10">
+                    
+                    <!-- Bagian Atas: Foto & Nama -->
+                    <div class="flex flex-col items-center text-center">
+                        <div class="p-1 rounded-full" style="background: linear-gradient(135deg, #2563eb, #1e40af);">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop" 
+                                 alt="Foto Profil Ahmad Siswa"
+                                 onclick="openModal('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop')"
+                                 class="w-28 h-28 md:w-32 md:h-32 rounded-full object-cover border-4 border-white cursor-pointer hover:opacity-90 transition">
+                        </div>
+
+                        <h2 class="mt-4 text-xl md:text-2xl font-bold text-gray-900">
+                            Ahmad Siswa
+                        </h2>
+
+                        <div class="mt-2 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm text-gray-500">
+                            <span>XII PPLG 1</span>
+                            <span class="text-gray-300">•</span>
+                            <span>PPLG</span>
+                            <span class="text-gray-300">•</span>
+                            <span>Angkatan 2024</span>
+                        </div>
+
+                        <a href="#"
+                           class="mt-5 inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg shadow-sm hover:shadow transition-all duration-200">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                            </svg>
+                            Edit Profil
+                        </a>
+                    </div>
+
+                    <div class="mt-8 mb-6 border-t border-gray-100"></div>
+
+                    <!-- Bagian Bawah: Karya Siswa -->
+                    <div>
+                        <h3 class="font-semibold text-lg text-gray-900 mb-4">
+                            My Karya Gue
+                        </h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            
+                            <!-- Card 1: Approved -->
+                            <article class="group bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden cursor-pointer"
+                                     onclick="openProfilModal(this)"
+                                     data-title="Aplikasi E-Commerce Sekolah"
+                                     data-desc="Platform toko online internal sekolah untuk jual beli karya siswa dan atribut sekolah secara digital."
+                                     data-jurusan="PPLG"
+                                     data-status="approved"
+                                     data-tech="Laravel, Tailwind CSS, MySQL"
+                                     data-live="https://example.com"
+                                     data-file-path="https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=600&auto=format&fit=crop"
+                                     data-file-type="image/jpeg"
+                                     data-tahun="2026">
+
+                                <div class="h-36 flex items-center justify-center bg-blue-50 overflow-hidden">
+                                    <img src="https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=600&auto=format&fit=crop"
+                                         alt="Aplikasi E-Commerce Sekolah"
+                                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200">
+                                </div>
+
+                                <div class="p-4">
+                                    <div class="flex items-start justify-between gap-2">
+                                        <h4 class="font-medium text-gray-900 text-sm leading-snug">
+                                            Aplikasi E-Commerce Sekolah
+                                        </h4>
+                                        <span class="shrink-0 text-[11px] font-medium bg-green-50 text-green-600 px-2 py-0.5 rounded-full">Disetujui</span>
+                                    </div>
+                                    <p class="mt-1 text-xs text-gray-400">PPLG</p>
+                                </div>
+                            </article>
+
+                            <!-- Card 2: Pending -->
+                            <article class="group bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden cursor-pointer"
+                                     onclick="openProfilModal(this)"
+                                     data-title="Sistem Kasir Kantin QRIS"
+                                     data-desc="Aplikasi POS kasir kantin terintegrasi pembayaran digital QRIS untuk mempercepat transaksi."
+                                     data-jurusan="PPLG"
+                                     data-status="pending"
+                                     data-tech="React, Node.js, Express"
+                                     data-live=""
+                                     data-file-path="https://images.unsplash.com/photo-1556742049-0a670f4a4591?q=80&w=600&auto=format&fit=crop"
+                                     data-file-type="image/jpeg"
+                                     data-tahun="2026">
+
+                                <div class="h-36 flex items-center justify-center bg-blue-50 overflow-hidden">
+                                    <img src="https://images.unsplash.com/photo-1556742049-0a670f4a4591?q=80&w=600&auto=format&fit=crop"
+                                         alt="Sistem Kasir Kantin QRIS"
+                                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200">
+                                </div>
+
+                                <div class="p-4">
+                                    <div class="flex items-start justify-between gap-2">
+                                        <h4 class="font-medium text-gray-900 text-sm leading-snug">
+                                            Sistem Kasir Kantin QRIS
+                                        </h4>
+                                        <span class="shrink-0 text-[11px] font-medium bg-amber-50 text-amber-600 px-2 py-0.5 rounded-full">Menunggu</span>
+                                    </div>
+                                    <p class="mt-1 text-xs text-gray-400">PPLG</p>
+                                </div>
+                            </article>
+
+                            <!-- Card 3: Rejected (Tanpa Foto Thumbnail) -->
+                            <article class="group bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden cursor-pointer"
+                                     onclick="openProfilModal(this)"
+                                     data-title="Game 2D Platformer Unity"
+                                     data-desc="Game petualangan 2D dengan tema edukasi lingkungan berbasis Unity Engine."
+                                     data-jurusan="PPLG"
+                                     data-status="rejected"
+                                     data-tech="Unity, C#"
+                                     data-live=""
+                                     data-file-path=""
+                                     data-file-type=""
+                                     data-tahun="2026">
+
+                                <div class="h-36 flex items-center justify-center bg-blue-50">
+                                    <svg class="w-10 h-10 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+
+                                <div class="p-4">
+                                    <div class="flex items-start justify-between gap-2">
+                                        <h4 class="font-medium text-gray-900 text-sm leading-snug">
+                                            Game 2D Platformer Unity
+                                        </h4>
+                                        <span class="shrink-0 text-[11px] font-medium bg-red-50 text-red-600 px-2 py-0.5 rounded-full">Ditolak</span>
+                                    </div>
+                                    <p class="mt-1 text-xs text-gray-400">PPLG</p>
+                                </div>
+                            </article>
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL LIGHTBOX FOTO PROFIL ================= -->
+    <div id="imageModal" class="hidden fixed inset-0 bg-black/70 z-[60] flex items-center justify-center p-4" onclick="if(event.target === this) closeModal()">
+        <button onclick="closeModal()" class="absolute top-5 right-5 text-white/80 hover:text-white transition cursor-pointer">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+        <img id="modalImage" src="" alt="Foto Profil"
+             class="max-w-full max-h-[85vh] rounded-lg shadow-2xl object-contain">
+    </div>
+
+    <!-- ================= MODAL DETAIL KARYA ================= -->
+    <div id="profilDetailModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="sticky top-0 px-6 py-4 border-b border-gray-200 flex justify-between items-center bg-white rounded-t-xl">
+                <h3 id="profilModalTitle" class="text-xl font-bold text-gray-900"></h3>
+                <button onclick="closeProfilModal()" class="text-gray-400 hover:text-gray-600 transition cursor-pointer">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="p-6 space-y-5">
+                <!-- Preview -->
+                <div>
+                    <img id="profilModalImage" class="hidden w-full rounded-lg object-contain max-h-72" />
+                    <iframe id="profilModalIframe" class="hidden w-full h-64 rounded-lg border" allowfullscreen></iframe>
+                    <div id="profilModalEmpty" class="hidden w-full h-64 flex items-center justify-center rounded-lg bg-gray-100 text-gray-500 border border-dashed">
+                        Tidak ada preview
+                    </div>
+                </div>
+
+                <!-- Status & Jurusan -->
+                <div class="flex gap-2 flex-wrap">
+                    <span id="profilModalStatus" class="px-3 py-1 rounded-full text-sm font-semibold"></span>
+                    <span id="profilModalJurusan" class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold"></span>
+                </div>
+
+                <!-- Deskripsi -->
+                <div>
+                    <h4 class="font-semibold text-gray-900 mb-1">Deskripsi</h4>
+                    <p id="profilModalDesc" class="text-gray-700 text-sm leading-relaxed"></p>
+                </div>
+
+                <!-- Info Tambahan -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-gray-50 p-3 rounded-lg">
+                        <p class="text-xs text-gray-500 mb-1">Tahun</p>
+                        <p id="profilModalTahun" class="font-semibold text-gray-900"></p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-lg">
+                        <p class="text-xs text-gray-500 mb-1">Teknologi</p>
+                        <p id="profilModalTech" class="font-semibold text-gray-900 text-sm"></p>
+                    </div>
+                </div>
+
+                <!-- Tombol Live -->
+                <div id="profilLiveWrapper" class="pt-2 hidden">
+                    <a id="profilLiveBtn" href="#" target="_blank"
+                       class="inline-block px-5 py-2.5 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition text-sm">
+                        Buka Live Demo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL LOGOUT ================= -->
+    <div id="logoutModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 overflow-hidden transform transition-all">
+            <div class="p-6 text-center">
+                <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                </div>
+
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Logout?</h3>
+
+                <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                    Kamu mau logout?<br>
+                    Udah kirim karya belom??<br><br>
+                    Kalau belom kirim dulu,<br>
+                    kalau sudah mantapp siip kawann...
+                </p>
+
+                <div class="flex gap-3">
+                    <button type="button" onclick="closeLogoutModal()"
+                        class="flex-1 px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-xs font-medium transition leading-snug cursor-pointer">
+                        Tidak
+                    </button>
+
+                    <button type="button" onclick="closeLogoutModal()"
+                        class="flex-1 px-3 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-xs font-medium transition leading-snug cursor-pointer">
+                        Yaa
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= JAVASCRIPT ================= -->
+    <script>
+        // Lightbox Foto Profil
+        function openModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+
+            modalImg.src = imageSrc;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Modal Detail Karya
+        function openProfilModal(card) {
+            const title = card.dataset.title;
+            const desc = card.dataset.desc;
+            const jurusan = card.dataset.jurusan;
+            const status = card.dataset.status;
+            const tech = card.dataset.tech;
+            const live = card.dataset.live;
+            const filePath = card.dataset.filePath;
+            const fileType = card.dataset.fileType || '';
+            const tahun = card.dataset.tahun;
+
+            document.getElementById('profilModalTitle').textContent = title;
+            document.getElementById('profilModalDesc').textContent = desc || '-';
+            document.getElementById('profilModalJurusan').textContent = jurusan;
+            document.getElementById('profilModalTahun').textContent = tahun;
+            document.getElementById('profilModalTech').textContent = tech;
+
+            // Status badge
+            const statusEl = document.getElementById('profilModalStatus');
+            if (status === 'approved') {
+                statusEl.textContent = 'Disetujui';
+                statusEl.className = 'px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-700';
+            } else if (status === 'pending') {
+                statusEl.textContent = 'Menunggu';
+                statusEl.className = 'px-3 py-1 rounded-full text-sm font-semibold bg-amber-100 text-amber-700';
+            } else {
+                statusEl.textContent = 'Ditolak';
+                statusEl.className = 'px-3 py-1 rounded-full text-sm font-semibold bg-red-100 text-red-700';
+            }
+
+            // Preview logic
+            const img = document.getElementById('profilModalImage');
+            const iframe = document.getElementById('profilModalIframe');
+            const empty = document.getElementById('profilModalEmpty');
+
+            img.classList.add('hidden');
+            iframe.classList.add('hidden');
+            empty.classList.add('hidden');
+
+            if (filePath && fileType.startsWith('image/')) {
+                img.src = filePath;
+                img.classList.remove('hidden');
+            } else if (live) {
+                iframe.src = live;
+                iframe.classList.remove('hidden');
+            } else if (filePath) {
+                img.src = filePath;
+                img.classList.remove('hidden');
+            } else {
+                empty.classList.remove('hidden');
+            }
+
+            // Live button
+            const liveWrapper = document.getElementById('profilLiveWrapper');
+            const liveBtn = document.getElementById('profilLiveBtn');
+            if (live) {
+                liveBtn.href = live;
+                liveWrapper.classList.remove('hidden');
+            } else {
+                liveWrapper.classList.add('hidden');
+            }
+
+            document.getElementById('profilDetailModal').classList.remove('hidden');
+        }
+
+        function closeProfilModal() {
+            document.getElementById('profilDetailModal').classList.add('hidden');
+            document.getElementById('profilModalIframe').src = '';
+        }
+
+        // Close Modal Detail Karya ketika klik overlay
+        document.getElementById('profilDetailModal')?.addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeProfilModal();
+            }
+        });
+
+        // Modal Logout Controls
+        function openLogoutModal() {
+            const modal = document.getElementById('logoutModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLogoutModal() {
+            const modal = document.getElementById('logoutModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+
+        document.getElementById('logoutModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLogoutModal();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+                closeProfilModal();
+                closeLogoutModal();
+            }
+        });
+    </script>
+</body>
+</html>
