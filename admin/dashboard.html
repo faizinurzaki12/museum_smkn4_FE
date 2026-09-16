@@ -4,50 +4,57 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="assets/img/favicon.png">
-    <title>Admin Dashboard - Museum Karya PPLG</title>
+    <title>Admin Dashboard - Museum Karya SMKN 4</title>
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     
-    <!-- CSS Internal Khusus Admin -->
+    <!-- CSS Internal Khusus Admin (Sidebar Cerah & Neubrutalism) -->
     <style>
-        /* Definisikan variabel warna custom agar mudah diubah */
-        :root {
-          --nav-bg: #0b0f17;          /* Warna background utama navbar */
-          --nav-link-idle: #9ca3af;    /* Warna teks saat tidak aktif (gray-400) */
-          --nav-link-hover: #161f30;   /* Warna background saat di-hover */
-          --nav-link-active: #1e293b;  /* Warna background saat aktif */
-          --nav-accent: #38bdf8;       /* Warna aksen border & teks aktif (sky-400) */
+        body {
+            background-color: #fcfcfc;
+            background-image: 
+                linear-gradient(to right, #ececec 1px, transparent 1px),
+                linear-gradient(to bottom, #ececec 1px, transparent 1px);
+            background-size: 24px 24px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
-        /* Class Custom untuk Navbar */
         .custom-nav-bg {
-          background-color: var(--nav-bg);
+          background-color: #fffdf9;
+          border-right: 3px solid #000000;
         }
 
-        /* Class Custom untuk Link Aktif */
         .nav-link-active {
-          background-color: var(--nav-link-active) !important;
-          color: var(--nav-accent) !important;
-          border-left: 4px solid var(--nav-accent) !important;
+          background-color: #ffcc00 !important;
+          color: #000000 !important;
+          border: 2px solid #000000 !important;
+          font-weight: 800 !important;
+          box-shadow: 2px 2px 0px #000000;
         }
 
-        /* Class Custom untuk Link Biasa (Hover Effect) */
         .nav-link-idle {
-          color: var(--nav-link-idle);
-          transition: all 0.2s ease-in-out;
+          color: #4b5563;
+          font-weight: 700;
+          border: 2px solid transparent;
+          transition: all 0.1s ease-in-out;
         }
 
         .nav-link-idle:hover {
-          background-color: var(--nav-link-hover);
-          color: #ffffff;
+          background-color: #f3f4f6;
+          color: #000000;
+          border: 2px solid #000000;
+          box-shadow: 2px 2px 0px #000000;
         }
 
-        /* Class Custom untuk Card Counter */
         .counter-card {
             opacity: 0;
             transform: translateY(40px);
-            transition: .7s ease;
+            transition: .5s ease;
+            background: #ffffff;
+            border: 3px solid #000000;
+            border-radius: 1rem;
+            box-shadow: 4px 4px 0px #000000;
         }
 
         .counter-card.show {
@@ -56,61 +63,96 @@
         }
 
         .counter-card:hover {
-            transform: translateY(-8px);
-            transition: .3s;
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px #000000;
+            transition: .2s;
+        }
+
+        .stats-section-card {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: .5s ease;
+            background: #ffffff;
+            border: 3px solid #000000;
+            border-radius: 1rem;
+            box-shadow: 4px 4px 0px #000000;
+        }
+
+        .stats-section-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .admin-header {
+            background: #ffffff;
+            border-bottom: 3px solid #000000;
+        }
+
+        .sidebar-brand {
+            border-bottom: 3px solid #000000;
+        }
+
+        .sidebar-logout {
+            border-top: 3px solid #000000;
+        }
+
+        .btn-neubrutal {
+            border: 2px solid #000000;
+            box-shadow: 2px 2px 0px #000000;
+            font-weight: 800;
+            transition: all 0.1s ease;
+        }
+        .btn-neubrutal:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 3px 3px 0px #000000;
+        }
+        .btn-neubrutal:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px #000000;
         }
     </style>
 </head>
-<body class="bg-gray-100">
-    <div class="flex h-screen bg-gray-100">
+<body>
+    <div class="flex h-screen overflow-hidden">
 
         <!-- SIDEBAR UTAMA -->
-        <div class="w-64 custom-nav-bg text-white shadow-lg flex flex-col justify-between">
+        <div class="w-64 custom-nav-bg text-gray-800 flex flex-col justify-between">
             <div>
-                <div class="p-6 border-b border-gray-800">
+                <div class="p-6 sidebar-brand">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-md">A</div>
+                        <div class="w-10 h-10 bg-[#ffcc00] border-2 border-black rounded-full flex items-center justify-center font-black text-black shadow-[2px_2px_0px_#000]">M</div>
                         <div>
-                            <p class="font-bold text-white">Museum Karya Smkn 4</p>
+                            <p class="font-extrabold text-gray-900 text-sm">Museum Karya SMKN 4</p>
                         </div>
                     </div>
                 </div>
                 <nav class="mt-6 space-y-2 px-4">
-                    <!-- Nav Link Aktif -->
-                    <a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-semibold shadow-sm nav-link-active">
+                    <a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-active">
                         <span>Dashboard</span>
                     </a>
-
-                    <!-- Nav Link Idle -->
                     <a href="karya.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
                         <span>Karya</span>
                     </a>
-
                     <a href="siswa.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
                         <span>Siswa</span>
                     </a>
-
                     <a href="kategori.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
                         <span>Kategori</span>
                     </a>
-
                     <a href="users.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
                         <span>Users</span>
                     </a>
-
                     <a href="artikel.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
                         <span>Artikel</span>
                     </a>
-
                     <a href="kode-unik.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
                         <span>Kode Unik</span>
                     </a>
                 </nav>
             </div>
             
-            <!-- TOMBOL LOGOUT -->
-            <div class="p-6 border-t border-gray-800">
-                <button type="button" onclick="openLogoutModal()" class="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-semibold cursor-pointer">
+            <div class="p-6 sidebar-logout bg-[#fffdf9]">
+                <button type="button" onclick="openLogoutModal()" class="w-full px-4 py-2.5 bg-red-500 text-white rounded-xl btn-neubrutal cursor-pointer">
                     Logout
                 </button>
             </div>
@@ -118,13 +160,13 @@
 
         <!-- AREA KONTEN UTAMA -->
         <div class="flex-1 flex flex-col overflow-hidden">
-            <header class="bg-white shadow-sm z-10">
+            <header class="admin-header z-10">
                 <div class="px-8 py-4 flex justify-between items-center">
-                    <h1 class="text-2xl font-bold text-gray-900">Dashboard Admin</h1>
+                    <h1 class="text-2xl font-black text-gray-900 tracking-tight">Dashboard Admin</h1>
                     <div class="flex items-center gap-4">
                         <div class="text-right">
-                            <p class="font-semibold text-gray-900">Administrator</p>
-                            <p class="text-sm text-gray-500">Login sebagai admin</p>
+                            <p class="font-extrabold text-gray-900">Administrator</p>
+                            <p class="text-xs text-gray-500 font-bold">Museum PPLG / TIK</p>
                         </div>
                     </div>
                 </div>
@@ -132,49 +174,153 @@
 
             <div class="flex-1 overflow-auto p-8 relative">
                 <!-- Loading Screen -->
-                <div id="loading-content" class="absolute inset-0 bg-gray-100 z-50 flex flex-col items-center justify-center transition-opacity duration-300 ease-out">
-                    <div class="flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-sm border border-gray-200">
-                        <div class="w-5 h-5 border-3 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-                        <p class="text-gray-700 font-medium text-sm tracking-wide">Memuat data...</p>
+                <div id="loading-content" class="absolute inset-0 bg-[#fcfcfc]/90 z-50 flex flex-col items-center justify-center transition-opacity duration-300 ease-out">
+                    <div class="flex items-center gap-3 bg-white px-6 py-3 rounded-xl border-3 border-black shadow-[4px_4px_0px_#000]">
+                        <div class="w-5 h-5 border-3 border-black border-t-[#ffcc00] rounded-full animate-spin"></div>
+                        <p class="text-gray-900 font-extrabold text-sm tracking-wide">Memuat data museum...</p>
                     </div>
                 </div>
 
-                <!-- Stats Cards (Menggunakan Class .counter-card) -->
+                <!-- Stats Cards -->
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                    <div class="bg-white rounded-lg shadow p-6 counter-card">
+                    <div class="p-6 counter-card">
                         <div class="flex items-center justify-between">
                             <div>
-                                <p class="text-gray-600 text-sm font-medium">Total Karya</p>
-                                <p class="text-3xl font-bold text-gray-900 mt-2">128</p>
+                                <p class="text-gray-600 text-xs font-black uppercase tracking-wider">Total Karya</p>
+                                <p class="text-3xl font-black text-gray-900 mt-2">128</p>
                             </div>
-                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 font-bold">📊</div>
+                            <div class="w-12 h-12 bg-blue-100 border-2 border-black rounded-xl flex items-center justify-center text-blue-600 font-bold shadow-[2px_2px_0px_#000]">🎨</div>
                         </div>
                     </div>
-                    <div class="bg-white rounded-lg shadow p-6 counter-card">
+                    <div class="p-6 counter-card">
                         <div class="flex items-center justify-between">
                             <div>
-                                <p class="text-gray-600 text-sm font-medium">Karya Menunggu</p>
-                                <p class="text-3xl font-bold text-yellow-600 mt-2">12</p>
+                                <p class="text-gray-600 text-xs font-black uppercase tracking-wider">Karya Menunggu</p>
+                                <p class="text-3xl font-black text-yellow-600 mt-2">12</p>
                             </div>
-                            <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center text-yellow-600 font-bold">⏳</div>
+                            <div class="w-12 h-12 bg-yellow-100 border-2 border-black rounded-xl flex items-center justify-center text-yellow-600 font-bold shadow-[2px_2px_0px_#000]">⏳</div>
                         </div>
                     </div>
-                    <div class="bg-white rounded-lg shadow p-6 counter-card">
+                    <div class="p-6 counter-card">
                         <div class="flex items-center justify-between">
                             <div>
-                                <p class="text-gray-600 text-sm font-medium">Karya Disetujui</p>
-                                <p class="text-3xl font-bold text-green-600 mt-2">116</p>
+                                <p class="text-gray-600 text-xs font-black uppercase tracking-wider">Karya Disetujui</p>
+                                <p class="text-3xl font-black text-green-600 mt-2">116</p>
                             </div>
-                            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-green-600 font-bold">✅</div>
+                            <div class="w-12 h-12 bg-green-100 border-2 border-black rounded-xl flex items-center justify-center text-green-600 font-bold shadow-[2px_2px_0px_#000]">✅</div>
                         </div>
                     </div>
-                    <div class="bg-white rounded-lg shadow p-6 counter-card">
+                    <div class="p-6 counter-card">
                         <div class="flex items-center justify-between">
                             <div>
-                                <p class="text-gray-600 text-sm font-medium">Total Siswa</p>
-                                <p class="text-3xl font-bold text-purple-600 mt-2">85</p>
+                                <p class="text-gray-600 text-xs font-black uppercase tracking-wider">Total Siswa</p>
+                                <p class="text-3xl font-black text-purple-600 mt-2">85</p>
                             </div>
-                            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 font-bold">👥</div>
+                            <div class="w-12 h-12 bg-purple-100 border-2 border-black rounded-xl flex items-center justify-center text-purple-600 font-bold shadow-[2px_2px_0px_#000]">🎓</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BAGIAN GRAFIK DISTRIBUSI KATEGORI KARYA -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
+                    <!-- Grafik Berdasarkan Kategori Utama -->
+                    <div class="p-6 stats-section-card lg:col-span-2 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-6">
+                                <div>
+                                    <h3 class="text-lg font-black text-gray-900">Statistik Berdasarkan Kategori Karya</h3>
+                                    <p class="text-xs font-bold text-gray-500">Persentase dan jumlah karya per bidang pengembangan</p>
+                                </div>
+                            </div>
+
+                            <!-- List Progress Bar Kategori -->
+                            <div class="space-y-5 my-4">
+                                <!-- Web Development -->
+                                <div>
+                                    <div class="flex justify-between text-xs font-black text-gray-900 mb-1.5">
+                                        <span>🌐 Web Development</span>
+                                        <span>48 Karya (37.5%)</span>
+                                    </div>
+                                    <div class="w-full bg-gray-100 h-4 rounded-lg border-2 border-black overflow-hidden shadow-[2px_2px_0px_#000]">
+                                        <div class="bg-[#ffcc00] h-full rounded-none border-r-2 border-black" style="width: 37.5%;"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Mobile App -->
+                                <div>
+                                    <div class="flex justify-between text-xs font-black text-gray-900 mb-1.5">
+                                        <span>📱 Mobile App Development</span>
+                                        <span>32 Karya (25%)</span>
+                                    </div>
+                                    <div class="w-full bg-gray-100 h-4 rounded-lg border-2 border-black overflow-hidden shadow-[2px_2px_0px_#000]">
+                                        <div class="bg-blue-400 h-full rounded-none border-r-2 border-black" style="width: 25%;"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Game Development -->
+                                <div>
+                                    <div class="flex justify-between text-xs font-black text-gray-900 mb-1.5">
+                                        <span>🎮 Game Development</span>
+                                        <span>28 Karya (22%)</span>
+                                    </div>
+                                    <div class="w-full bg-gray-100 h-4 rounded-lg border-2 border-black overflow-hidden shadow-[2px_2px_0px_#000]">
+                                        <div class="bg-purple-400 h-full rounded-none border-r-2 border-black" style="width: 22%;"></div>
+                                    </div>
+                                </div>
+
+                                <!-- UI/UX Design -->
+                                <div>
+                                    <div class="flex justify-between text-xs font-black text-gray-900 mb-1.5">
+                                        <span>🎨 UI/UX Design</span>
+                                        <span>20 Karya (15.5%)</span>
+                                    </div>
+                                    <div class="w-full bg-gray-100 h-4 rounded-lg border-2 border-black overflow-hidden shadow-[2px_2px_0px_#000]">
+                                        <div class="bg-green-400 h-full rounded-none border-r-2 border-black" style="width: 15.5%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Aktivitas Sistem Cepat -->
+                    <div class="p-6 stats-section-card flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-black text-gray-900 mb-4">Aktivitas Sistem</h3>
+                            <ul class="space-y-3 text-sm font-semibold text-gray-700">
+                                <li class="flex items-start gap-2.5 pb-2 border-b-2 border-dashed border-gray-200">
+                                    <span class="w-2.5 h-2.5 bg-green-500 rounded-full border border-black mt-1 shrink-0"></span>
+                                    <div>
+                                        <span class="block text-xs font-bold text-gray-900">Web Development</span>
+                                        <span class="text-xs text-gray-600">2 project profil sekolah baru disetujui.</span>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-2.5 pb-2 border-b-2 border-dashed border-gray-200">
+                                    <span class="w-2.5 h-2.5 bg-blue-500 rounded-full border border-black mt-1 shrink-0"></span>
+                                    <div>
+                                        <span class="block text-xs font-bold text-gray-900">Mobile App</span>
+                                        <span class="text-xs text-gray-600">1 aplikasi absensi siswa masuk antrean.</span>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-2.5 pb-2 border-b-2 border-dashed border-gray-200">
+                                    <span class="w-2.5 h-2.5 bg-purple-500 rounded-full border border-black mt-1 shrink-0"></span>
+                                    <div>
+                                        <span class="block text-xs font-bold text-gray-900">Game Development</span>
+                                        <span class="text-xs text-gray-600">Demo game edukasi baru diperbarui.</span>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <span class="w-2.5 h-2.5 bg-yellow-500 rounded-full border border-black mt-1 shrink-0"></span>
+                                    <div>
+                                        <span class="block text-xs font-bold text-gray-900">UI/UX Design</span>
+                                        <span class="text-xs text-gray-600">Redesign tampilan Figma divalidasi.</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-6 pt-4 border-t-2 border-black">
+                            <a href="karya.html" class="block text-center py-2.5 bg-[#ffcc00] text-black rounded-xl btn-neubrutal text-sm">
+                                Kelola Semua Karya
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -182,67 +328,40 @@
         </div>
     </div>
 
-    <!-- MODAL POP-UP LOGOUT KUSTOM -->
-    <div id="logoutModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-gray-100 transform transition-all scale-100">
-            <div class="bg-gradient-to-r from-amber-500 to-orange-500 p-5 text-white flex items-center gap-3">
-                <div class="p-2 bg-white/20 rounded-lg">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
-                    </svg>
-                </div>
-                <h3 class="text-lg font-bold">Konfirmasi Keluar</h3>
+    <!-- MODAL LOGOUT -->
+    <div id="logoutModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl border-3 border-black shadow-[6px_6px_0px_#000] max-w-md w-full overflow-hidden">
+            <div class="bg-[#ffcc00] border-b-3 border-black p-5 text-black flex items-center gap-3">
+                <h3 class="text-lg font-black tracking-tight">Konfirmasi Keluar</h3>
             </div>
-
             <div class="p-6 text-center">
-                <p class="text-gray-700 font-medium leading-relaxed text-base">
-                    kamu mau keluar? Periksa dulu karya siswanya
-                </p>
+                <p class="text-gray-800 font-bold text-base">Yakin ingin keluar dari panel admin Museum SMKN 4?</p>
             </div>
-
-            <div class="bg-gray-50 px-6 py-4 flex gap-3 justify-end border-t border-gray-100">
-                <button type="button" onclick="closeLogoutModal()" class="px-5 py-2.5 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition text-sm cursor-pointer">
-                    Tidak
-                </button>
-                <button type="button" onclick="confirmLogout()" class="px-5 py-2.5 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition text-sm shadow-md cursor-pointer">
-                    Yaa
-                </button>
+            <div class="bg-gray-50 px-6 py-4 flex gap-3 justify-end border-t-3 border-black">
+                <button type="button" onclick="closeLogoutModal()" class="px-5 py-2.5 bg-gray-200 text-gray-800 rounded-xl btn-neubrutal cursor-pointer">Tidak</button>
+                <button type="button" onclick="confirmLogout()" class="px-5 py-2.5 bg-red-500 text-white rounded-xl btn-neubrutal cursor-pointer">Yaa</button>
             </div>
         </div>
     </div>
 
     <!-- Script JavaScript Internal -->
     <script>
-        // Modal Logout Functions
-        function openLogoutModal() {
-            document.getElementById('logoutModal').classList.remove('hidden');
-        }
+        function openLogoutModal() { document.getElementById('logoutModal').classList.remove('hidden'); }
+        function closeLogoutModal() { document.getElementById('logoutModal').classList.add('hidden'); }
+        function confirmLogout() { window.location.href = 'login.html'; }
 
-        function closeLogoutModal() {
-            document.getElementById('logoutModal').classList.add('hidden');
-        }
-
-        function confirmLogout() {
-            window.location.href = 'login.html';
-        }
-
-        // Loading Screen & Counter Card Animation Handler
         window.addEventListener("load", function () {
             const loadingContent = document.getElementById("loading-content");
             const counterCards = document.querySelectorAll(".counter-card");
+            const statsSectionCards = document.querySelectorAll(".stats-section-card");
 
             if (loadingContent) {
                 setTimeout(() => {
                     loadingContent.classList.add("opacity-0");
                     setTimeout(() => {
                         loadingContent.classList.add("hidden");
-                        
-                        // Menampilkan animasi counter-card secara bertahap setelah loading selesai
-                        counterCards.forEach((card, index) => {
-                            setTimeout(() => {
-                                card.classList.add("show");
-                            }, index * 100);
-                        });
+                        counterCards.forEach((card, index) => setTimeout(() => card.classList.add("show"), index * 100));
+                        statsSectionCards.forEach((card, index) => setTimeout(() => card.classList.add("show"), (counterCards.length * 100) + (index * 150)));
                     }, 300);
                 }, 800);
             }

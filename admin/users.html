@@ -9,48 +9,106 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     
-    <!-- CSS Internal Khusus Admin -->
+    <!-- CSS Internal Khusus Admin (Gaya Neubrutalism) -->
     <style>
-        :root {
-          --nav-bg: #0b0f17;          /* Warna background utama navbar */
-          --nav-link-idle: #9ca3af;    /* Warna teks saat tidak aktif */
-          --nav-link-hover: #161f30;   /* Warna background saat di-hover */
-          --nav-link-active: #1e293b;  /* Warna background saat aktif */
-          --nav-accent: #38bdf8;       /* Warna aksen border & teks aktif */
+        /* Latar belakang grid kotak-kotak bersih */
+        body {
+            background-color: #fcfcfc;
+            background-image: 
+                linear-gradient(to right, #ececec 1px, transparent 1px),
+                linear-gradient(to bottom, #ececec 1px, transparent 1px);
+            background-size: 24px 24px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
+        /* Sidebar warna cerah */
         .custom-nav-bg {
-          background-color: var(--nav-bg);
+          background-color: #fffdf9;
+          border-right: 3px solid #000000;
         }
 
         .nav-link-active {
-          background-color: var(--nav-link-active) !important;
-          color: var(--nav-accent) !important;
-          border-left: 4px solid var(--nav-accent) !important;
+          background-color: #ffcc00 !important;
+          color: #000000 !important;
+          border: 2px solid #000000 !important;
+          font-weight: 800 !important;
+          box-shadow: 2px 2px 0px #000000;
         }
 
         .nav-link-idle {
-          color: var(--nav-link-idle);
-          transition: all 0.2s ease-in-out;
+          color: #4b5563;
+          font-weight: 700;
+          border: 2px solid transparent;
+          transition: all 0.1s ease-in-out;
         }
 
         .nav-link-idle:hover {
-          background-color: var(--nav-link-hover);
-          color: #ffffff;
+          background-color: #f3f4f6;
+          color: #000000;
+          border: 2px solid #000000;
+          box-shadow: 2px 2px 0px #000000;
+        }
+
+        /* Card Konten ala Neubrutalism */
+        .neubrutal-card {
+            background: #ffffff;
+            border: 3px solid #000000;
+            border-radius: 1rem;
+            box-shadow: 4px 4px 0px #000000;
+        }
+
+        /* Header & Panel Styles */
+        .admin-header {
+            background: #ffffff;
+            border-bottom: 3px solid #000000;
+        }
+
+        .sidebar-brand {
+            border-bottom: 3px solid #000000;
+        }
+
+        .sidebar-logout {
+            border-top: 3px solid #000000;
+        }
+
+        /* Tombol & Input Neubrutalism */
+        .btn-neubrutal {
+            border: 2px solid #000000;
+            box-shadow: 2px 2px 0px #000000;
+            font-weight: 800;
+            transition: all 0.1s ease;
+        }
+        .btn-neubrutal:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 3px 3px 0px #000000;
+        }
+        .btn-neubrutal:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px #000000;
+        }
+
+        .input-neubrutal {
+            border: 2px solid #000000;
+            box-shadow: 2px 2px 0px #000000;
+            font-weight: 600;
+            outline: none;
+        }
+        .input-neubrutal:focus {
+            background-color: #fffdf9;
         }
     </style>
 </head>
-<body class="bg-gray-100 font-sans antialiased">
-    <div class="flex h-screen overflow-hidden bg-gray-100">
+<body class="font-sans antialiased">
+    <div class="flex h-screen overflow-hidden">
 
-        <!-- SIDEBAR UTAMA -->
-        <div class="w-64 custom-nav-bg text-white shadow-lg flex flex-col justify-between shrink-0 hidden md:flex">
+        <!-- SIDEBAR UTAMA (Warna Cerah) -->
+        <div class="w-64 custom-nav-bg text-gray-800 flex flex-col justify-between shrink-0 hidden md:flex">
             <div>
-                <div class="p-6 border-b border-gray-800">
+                <div class="p-6 sidebar-brand">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-md">A</div>
+                        <div class="w-10 h-10 bg-[#ffcc00] border-2 border-black rounded-full flex items-center justify-center font-black text-black shadow-[2px_2px_0px_#000]">A</div>
                         <div>
-                            <p class="font-bold text-white">Museum Karya Smkn 4</p>
+                            <p class="font-extrabold text-gray-900 text-sm">Museum Karya Smkn 4</p>
                         </div>
                     </div>
                 </div>
@@ -72,7 +130,7 @@
                     </a>
 
                     <!-- Nav Link Aktif -->
-                    <a href="users.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-semibold shadow-sm nav-link-active">
+                    <a href="users.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-active">
                         <span>Users</span>
                     </a>
 
@@ -87,8 +145,8 @@
             </div>
             
             <!-- TOMBOL LOGOUT -->
-            <div class="p-6 border-t border-gray-800">
-                <button type="button" onclick="openLogoutModal()" class="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-semibold cursor-pointer">
+            <div class="p-6 sidebar-logout bg-[#fffdf9]">
+                <button type="button" onclick="openLogoutModal()" class="w-full px-4 py-2.5 bg-red-500 text-white rounded-xl btn-neubrutal cursor-pointer">
                     Logout
                 </button>
             </div>
@@ -96,13 +154,13 @@
 
         <!-- AREA KONTEN UTAMA -->
         <div class="flex-1 flex flex-col h-screen overflow-y-auto">
-            <header class="bg-white shadow-sm z-10 shrink-0 sticky top-0">
+            <header class="admin-header z-10 shrink-0 sticky top-0">
                 <div class="px-6 sm:px-8 py-4 flex justify-between items-center">
-                    <h1 class="text-lg sm:text-xl font-bold text-gray-900">Manajemen Akun Admin</h1>
+                    <h1 class="text-lg sm:text-2xl font-black text-gray-900 tracking-tight">Manajemen Akun Admin</h1>
                     <div class="flex items-center gap-4">
                         <div class="text-right">
-                            <p class="font-semibold text-gray-900 text-xs sm:text-sm">Administrator</p>
-                            <p class="text-[10px] sm:text-xs text-gray-500">Login sebagai admin</p>
+                            <p class="font-extrabold text-gray-900 text-xs sm:text-sm">Administrator</p>
+                            <p class="text-[10px] sm:text-xs text-gray-500 font-bold">Login sebagai admin</p>
                         </div>
                     </div>
                 </div>
@@ -111,57 +169,57 @@
             <!-- MAIN KONTEN -->
             <main class="flex-1 p-4 sm:p-6 md:p-8 relative">
                 <!-- SPINNER OVERLAY LOADING -->
-                <div id="loading-content" class="absolute inset-0 bg-gray-100 z-50 flex flex-col items-center justify-center transition-opacity duration-300 ease-out">
-                    <div class="flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-sm border border-gray-200">
-                        <div class="w-5 h-5 border-3 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-                        <p class="text-gray-700 font-medium text-sm tracking-wide">Memuat data...</p>
+                <div id="loading-content" class="absolute inset-0 bg-[#fcfcfc]/90 z-50 flex flex-col items-center justify-center transition-opacity duration-300 ease-out">
+                    <div class="flex items-center gap-3 bg-white px-6 py-3 rounded-xl border-3 border-black shadow-[4px_4px_0px_#000]">
+                        <div class="w-5 h-5 border-3 border-black border-t-[#ffcc00] rounded-full animate-spin"></div>
+                        <p class="text-gray-900 font-extrabold text-sm tracking-wide">Memuat data...</p>
                     </div>
                 </div>
 
                 <!-- HEADER PAGE & TOMBOL TAMBAH -->
                 <div class="mb-6 flex justify-between items-center">
-                    <h2 class="text-xl font-semibold text-gray-900">Daftar Akun Admin</h2>
-                    <button onclick="openCreateModal()" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold flex items-center gap-2 cursor-pointer">
+                    <h2 class="text-xl font-black text-gray-900">Daftar Akun Admin</h2>
+                    <button onclick="openCreateModal()" class="px-5 py-2.5 bg-[#ffcc00] text-black rounded-xl btn-neubrutal flex items-center gap-2 cursor-pointer text-sm">
                         <span>+</span> Tambah Admin
                     </button>
                 </div>
 
                 <!-- BOX CARI ADMIN -->
-                <div class="bg-white rounded-lg shadow mb-6 p-4">
-                    <h2 class="text-xl font-bold text-gray-900 mb-4">Cari Admin</h2>
+                <div class="neubrutal-card mb-6 p-6">
+                    <h2 class="text-xl font-black text-gray-900 mb-4">Cari Admin</h2>
                     <div class="flex flex-col sm:flex-row gap-3">
                         <form method="GET" action="users.html" class="flex flex-1 gap-3" onsubmit="event.preventDefault(); alert('Mencari data...');">
-                            <input id="searchInput" name="search" placeholder="Cari username atau email..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
-                            <button type="submit" class="bg-blue-600 text-white px-5 rounded-lg font-semibold hover:bg-blue-700 transition cursor-pointer">Cari</button>
+                            <input id="searchInput" name="search" placeholder="Cari username atau email..." class="flex-1 px-4 py-2.5 rounded-xl input-neubrutal text-sm text-gray-800">
+                            <button type="submit" class="bg-[#ffcc00] text-black px-6 py-2.5 rounded-xl btn-neubrutal cursor-pointer text-sm">Cari</button>
                         </form>
-                        <a href="users.html" class="px-6 py-2.5 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition text-sm whitespace-nowrap text-center cursor-pointer flex items-center justify-center">Reset</a>
+                        <a href="users.html" class="px-6 py-2.5 bg-gray-200 text-black rounded-xl btn-neubrutal text-sm whitespace-nowrap text-center cursor-pointer flex items-center justify-center">Reset</a>
                     </div>
                 </div>
 
                 <!-- TABEL DATA ADMIN -->
-                <div class="bg-white rounded-lg shadow overflow-hidden">
+                <div class="neubrutal-card overflow-hidden">
                     <div class="overflow-x-auto">
-                        <table class="w-full">
-                            <thead class="bg-gray-50 border-b border-gray-200">
+                        <table class="w-full border-collapse">
+                            <thead class="bg-gray-100 border-b-3 border-black">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider w-16">No</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Username</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Email</th>
-                                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-32">Aksi</th>
+                                    <th class="px-6 py-3 text-left text-xs font-black text-gray-900 uppercase tracking-wider w-16">No</th>
+                                    <th class="px-6 py-3 text-left text-xs font-black text-gray-900 uppercase tracking-wider">Username</th>
+                                    <th class="px-6 py-3 text-left text-xs font-black text-gray-900 uppercase tracking-wider">Email</th>
+                                    <th class="px-6 py-3 text-center text-xs font-black text-gray-900 uppercase tracking-wider w-36">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-gray-200">
+                            <tbody class="divide-y-2 divide-gray-200">
                                 <!-- Data Dummy 1 -->
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-6 py-4 text-sm text-gray-900">1</td>
-                                    <td class="px-6 py-4 text-sm font-medium text-gray-900">admin_utama</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">admin@smkn4.sch.id</td>
+                                <tr class="hover:bg-yellow-50/50">
+                                    <td class="px-6 py-4 text-sm font-bold text-gray-700">1</td>
+                                    <td class="px-6 py-4 text-sm font-bold text-gray-900">admin_utama</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium">admin@smkn4.sch.id</td>
                                     <td class="px-6 py-4 text-sm text-center">
                                         <div class="flex justify-center gap-2">
-                                            <button type="button" data-action="edit" data-id="1" data-username="admin_utama" data-email="admin@smkn4.sch.id" class="px-3 py-1 bg-blue-100 text-blue-600 rounded hover:bg-blue-200 transition font-medium text-xs cursor-pointer">
+                                            <button type="button" data-action="edit" data-id="1" data-username="admin_utama" data-email="admin@smkn4.sch.id" class="px-3 py-1.5 bg-blue-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer hover:translate-y-[-1px]">
                                                 Edit
                                             </button>
-                                            <button type="button" data-action="delete" data-id="1" data-username="admin_utama" class="px-3 py-1 bg-red-100 text-red-600 rounded hover:bg-red-200 transition font-medium text-xs cursor-pointer">
+                                            <button type="button" data-action="delete" data-id="1" data-username="admin_utama" class="px-3 py-1.5 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer hover:translate-y-[-1px]">
                                                 Hapus
                                             </button>
                                         </div>
@@ -169,16 +227,16 @@
                                 </tr>
 
                                 <!-- Data Dummy 2 -->
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-6 py-4 text-sm text-gray-900">2</td>
-                                    <td class="px-6 py-4 text-sm font-medium text-gray-900">operator_pplg</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">operator@smkn4.sch.id</td>
+                                <tr class="hover:bg-yellow-50/50">
+                                    <td class="px-6 py-4 text-sm font-bold text-gray-700">2</td>
+                                    <td class="px-6 py-4 text-sm font-bold text-gray-900">operator_pplg</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium">operator@smkn4.sch.id</td>
                                     <td class="px-6 py-4 text-sm text-center">
                                         <div class="flex justify-center gap-2">
-                                            <button type="button" data-action="edit" data-id="2" data-username="operator_pplg" data-email="operator@smkn4.sch.id" class="px-3 py-1 bg-blue-100 text-blue-600 rounded hover:bg-blue-200 transition font-medium text-xs cursor-pointer">
+                                            <button type="button" data-action="edit" data-id="2" data-username="operator_pplg" data-email="operator@smkn4.sch.id" class="px-3 py-1.5 bg-blue-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer hover:translate-y-[-1px]">
                                                 Edit
                                             </button>
-                                            <button type="button" data-action="delete" data-id="2" data-username="operator_pplg" class="px-3 py-1 bg-red-100 text-red-600 rounded hover:bg-red-200 transition font-medium text-xs cursor-pointer">
+                                            <button type="button" data-action="delete" data-id="2" data-username="operator_pplg" class="px-3 py-1.5 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer hover:translate-y-[-1px]">
                                                 Hapus
                                             </button>
                                         </div>
@@ -186,16 +244,16 @@
                                 </tr>
 
                                 <!-- Data Dummy 3 -->
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-6 py-4 text-sm text-gray-900">3</td>
-                                    <td class="px-6 py-4 text-sm font-medium text-gray-900">kaprog_pplg</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">kaprog.pplg@smkn4.sch.id</td>
+                                <tr class="hover:bg-yellow-50/50">
+                                    <td class="px-6 py-4 text-sm font-bold text-gray-700">3</td>
+                                    <td class="px-6 py-4 text-sm font-bold text-gray-900">kaprog_pplg</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium">kaprog.pplg@smkn4.sch.id</td>
                                     <td class="px-6 py-4 text-sm text-center">
                                         <div class="flex justify-center gap-2">
-                                            <button type="button" data-action="edit" data-id="3" data-username="kaprog_pplg" data-email="kaprog.pplg@smkn4.sch.id" class="px-3 py-1 bg-blue-100 text-blue-600 rounded hover:bg-blue-200 transition font-medium text-xs cursor-pointer">
+                                            <button type="button" data-action="edit" data-id="3" data-username="kaprog_pplg" data-email="kaprog.pplg@smkn4.sch.id" class="px-3 py-1.5 bg-blue-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer hover:translate-y-[-1px]">
                                                 Edit
                                             </button>
-                                            <button type="button" data-action="delete" data-id="3" data-username="kaprog_pplg" class="px-3 py-1 bg-red-100 text-red-600 rounded hover:bg-red-200 transition font-medium text-xs cursor-pointer">
+                                            <button type="button" data-action="delete" data-id="3" data-username="kaprog_pplg" class="px-3 py-1.5 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer hover:translate-y-[-1px]">
                                                 Hapus
                                             </button>
                                         </div>
@@ -206,10 +264,10 @@
                     </div>
 
                     <!-- PAGINASI / TOTAL DATA -->
-                    <div class="px-6 py-4 bg-gray-50 border-t border-gray-200 flex justify-between items-center text-sm text-gray-600">
-                        <span>Total: <span class="font-bold">3</span> Admin</span>
-                        <div class="flex gap-1">
-                            <span class="px-3 py-1 bg-blue-600 text-white rounded text-xs font-semibold">1</span>
+                    <div class="px-6 py-4 bg-gray-50 border-t-3 border-black flex justify-between items-center text-sm text-gray-800 font-bold">
+                        <span>Total: <span class="font-black">3</span> Admin</span>
+                        <div class="flex gap-2">
+                            <span class="px-3 py-1.5 border-2 border-black bg-[#ffcc00] text-black rounded-lg text-xs font-black shadow-[2px_2px_0px_#000]">1</span>
                         </div>
                     </div>
                 </div>
@@ -218,11 +276,11 @@
     </div>
 
     <!-- MODAL FORM TAMBAH / EDIT ADMIN -->
-    <div id="adminModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
-            <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-                <h3 id="modalTitle" class="text-lg font-semibold text-gray-900">Tambah Admin Baru</h3>
-                <button type="button" onclick="closeModal()" class="text-gray-400 hover:text-gray-600 cursor-pointer">✕</button>
+    <div id="adminModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl border-3 border-black shadow-[6px_6px_0px_#000] max-w-md w-full overflow-hidden">
+            <div class="bg-[#ffcc00] border-b-3 border-black p-5 text-black flex items-center justify-between">
+                <h3 id="modalTitle" class="text-lg font-black tracking-tight">Tambah Admin Baru</h3>
+                <button type="button" onclick="closeModal()" class="w-8 h-8 bg-white border-2 border-black rounded-lg font-black shadow-[2px_2px_0px_#000] cursor-pointer flex items-center justify-center">✕</button>
             </div>
 
             <form id="adminForm" class="p-6 space-y-4" action="#" onsubmit="event.preventDefault(); alert('Data admin berhasil disimpan!'); closeModal();">
@@ -230,65 +288,69 @@
                 <input type="hidden" id="adminId">
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Username</label>
-                    <input type="text" name="name" id="username" placeholder="Masukkan username" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" required>
+                    <label class="block text-sm font-black text-gray-900 mb-1">Username</label>
+                    <input type="text" name="name" id="username" placeholder="Masukkan username" class="w-full px-3 py-2 rounded-xl input-neubrutal text-sm" required>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                    <input type="email" name="email" id="email" placeholder="Masukkan email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" required>
+                    <label class="block text-sm font-black text-gray-900 mb-1">Email</label>
+                    <input type="email" name="email" id="email" placeholder="Masukkan email" class="w-full px-3 py-2 rounded-xl input-neubrutal text-sm" required>
                 </div>
 
                 <div id="passwordGroup">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                    <input type="password" name="password" id="password" placeholder="Masukkan password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
-                    <p id="passwordHelp" class="text-xs text-gray-400 mt-1 hidden">*Kosongkan password jika tidak ingin mengubahnya.</p>
+                    <label class="block text-sm font-black text-gray-900 mb-1">Password</label>
+                    <input type="password" name="password" id="password" placeholder="Masukkan password" class="w-full px-3 py-2 rounded-xl input-neubrutal text-sm">
+                    <p id="passwordHelp" class="text-xs text-gray-500 font-bold mt-1 hidden">*Kosongkan password jika tidak ingin mengubahnya.</p>
                 </div>
 
-                <div class="flex gap-3 pt-4">
-                    <button type="button" onclick="closeModal()" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium text-sm cursor-pointer">Batal</button>
-                    <button type="submit" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium text-sm cursor-pointer">Simpan</button>
+                <div class="flex gap-3 pt-4 border-t-2 border-gray-100">
+                    <button type="button" onclick="closeModal()" class="flex-1 px-4 py-2.5 bg-gray-200 text-gray-800 rounded-xl btn-neubrutal cursor-pointer text-sm">Batal</button>
+                    <button type="submit" class="flex-1 px-4 py-2.5 bg-[#ffcc00] text-black rounded-xl btn-neubrutal cursor-pointer text-sm">Simpan</button>
                 </div>
             </form>
         </div>
     </div>
 
     <!-- MODAL KONFIRMASI HAPUS ADMIN -->
-    <div id="deleteModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-lg shadow-xl max-w-sm w-full p-6 text-center">
-            <div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">!</div>
-            <h3 class="text-lg font-bold text-gray-900 mb-2">Hapus Akun Admin</h3>
-            <p class="text-sm text-gray-600 mb-6">Apakah Anda yakin ingin menghapus akun <span id="deleteAdminUsername" class="font-semibold text-gray-900">@username</span>?</p>
-            <div class="flex gap-3">
-                <button type="button" onclick="closeDeleteModal()" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition text-sm font-medium cursor-pointer">Batal</button>
-                <button type="button" onclick="confirmDelete()" class="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition text-sm font-medium cursor-pointer">Hapus</button>
+    <div id="deleteModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl border-3 border-black shadow-[6px_6px_0px_#000] max-w-sm w-full overflow-hidden">
+            <div class="bg-red-500 border-b-3 border-black p-5 text-white flex items-center gap-3">
+                <div class="w-8 h-8 bg-white border-2 border-black rounded-lg text-red-600 flex items-center justify-center font-black shadow-[2px_2px_0px_#000]">!</div>
+                <h3 class="text-lg font-black tracking-tight text-white">Hapus Akun Admin</h3>
+            </div>
+            <div class="p-6 text-center">
+                <p class="text-sm font-bold text-gray-800 mb-6">Apakah Anda yakin ingin menghapus akun <span id="deleteAdminUsername" class="font-black text-gray-900">@username</span>?</p>
+                <div class="flex gap-3">
+                    <button type="button" onclick="closeDeleteModal()" class="flex-1 px-4 py-2.5 bg-gray-200 text-gray-800 rounded-xl btn-neubrutal cursor-pointer text-sm">Batal</button>
+                    <button type="button" onclick="confirmDelete()" class="flex-1 px-4 py-2.5 bg-red-500 text-white rounded-xl btn-neubrutal cursor-pointer text-sm">Hapus</button>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- MODAL POP-UP LOGOUT KUSTOM -->
-    <div id="logoutModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-gray-100 transform transition-all scale-100">
-            <div class="bg-gradient-to-r from-amber-500 to-orange-500 p-5 text-white flex items-center gap-3">
-                <div class="p-2 bg-white/20 rounded-lg">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+    <div id="logoutModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl border-3 border-black shadow-[6px_6px_0px_#000] max-w-md w-full overflow-hidden transform transition-all scale-100">
+            <div class="bg-[#ffcc00] border-b-3 border-black p-5 text-black flex items-center gap-3">
+                <div class="p-2 bg-white border-2 border-black rounded-lg shadow-[2px_2px_0px_#000]">
+                    <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
                     </svg>
                 </div>
-                <h3 class="text-lg font-bold">Konfirmasi Keluar</h3>
+                <h3 class="text-lg font-black tracking-tight">Konfirmasi Keluar</h3>
             </div>
 
             <div class="p-6 text-center">
-                <p class="text-gray-700 font-medium leading-relaxed text-base">
+                <p class="text-gray-800 font-bold leading-relaxed text-base">
                     Apakah Anda yakin ingin keluar dari sistem?
                 </p>
             </div>
 
-            <div class="bg-gray-50 px-6 py-4 flex gap-3 justify-end border-t border-gray-100">
-                <button type="button" onclick="closeLogoutModal()" class="px-5 py-2.5 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition text-sm cursor-pointer">
+            <div class="bg-gray-50 px-6 py-4 flex gap-3 justify-end border-t-3 border-black">
+                <button type="button" onclick="closeLogoutModal()" class="px-5 py-2.5 bg-gray-200 text-gray-800 rounded-xl btn-neubrutal cursor-pointer">
                     Tidak
                 </button>
-                <button type="button" onclick="confirmLogout()" class="px-5 py-2.5 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition text-sm shadow-md cursor-pointer">
+                <button type="button" onclick="confirmLogout()" class="px-5 py-2.5 bg-red-500 text-white rounded-xl btn-neubrutal cursor-pointer">
                     Ya
                 </button>
             </div>
@@ -309,7 +371,7 @@
                     setTimeout(() => {
                         loadingContent.classList.add("hidden");
                     }, 300);
-                }, 1000);
+                }, 800);
             }
         });
 

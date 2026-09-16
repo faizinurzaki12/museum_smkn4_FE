@@ -9,48 +9,106 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     
-    <!-- CSS Internal Khusus Admin -->
+    <!-- CSS Internal Khusus Admin (Gaya Neubrutalism) -->
     <style>
-        :root {
-          --nav-bg: #0b0f17;          /* Warna background utama navbar */
-          --nav-link-idle: #9ca3af;    /* Warna teks saat tidak aktif */
-          --nav-link-hover: #161f30;   /* Warna background saat di-hover */
-          --nav-link-active: #1e293b;  /* Warna background saat aktif */
-          --nav-accent: #38bdf8;       /* Warna aksen border & teks aktif */
+        /* Latar belakang grid kotak-kotak bersih */
+        body {
+            background-color: #fcfcfc;
+            background-image: 
+                linear-gradient(to right, #ececec 1px, transparent 1px),
+                linear-gradient(to bottom, #ececec 1px, transparent 1px);
+            background-size: 24px 24px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
+        /* Sidebar warna cerah */
         .custom-nav-bg {
-          background-color: var(--nav-bg);
+          background-color: #fffdf9;
+          border-right: 3px solid #000000;
         }
 
         .nav-link-active {
-          background-color: var(--nav-link-active) !important;
-          color: var(--nav-accent) !important;
-          border-left: 4px solid var(--nav-accent) !important;
+          background-color: #ffcc00 !important;
+          color: #000000 !important;
+          border: 2px solid #000000 !important;
+          font-weight: 800 !important;
+          box-shadow: 2px 2px 0px #000000;
         }
 
         .nav-link-idle {
-          color: var(--nav-link-idle);
-          transition: all 0.2s ease-in-out;
+          color: #4b5563;
+          font-weight: 700;
+          border: 2px solid transparent;
+          transition: all 0.1s ease-in-out;
         }
 
         .nav-link-idle:hover {
-          background-color: var(--nav-link-hover);
-          color: #ffffff;
+          background-color: #f3f4f6;
+          color: #000000;
+          border: 2px solid #000000;
+          box-shadow: 2px 2px 0px #000000;
+        }
+
+        /* Card Konten ala Neubrutalism */
+        .neubrutal-card {
+            background: #ffffff;
+            border: 3px solid #000000;
+            border-radius: 1rem;
+            box-shadow: 4px 4px 0px #000000;
+        }
+
+        /* Header & Panel Styles */
+        .admin-header {
+            background: #ffffff;
+            border-bottom: 3px solid #000000;
+        }
+
+        .sidebar-brand {
+            border-bottom: 3px solid #000000;
+        }
+
+        .sidebar-logout {
+            border-top: 3px solid #000000;
+        }
+
+        /* Tombol & Input Neubrutalism */
+        .btn-neubrutal {
+            border: 2px solid #000000;
+            box-shadow: 2px 2px 0px #000000;
+            font-weight: 800;
+            transition: all 0.1s ease;
+        }
+        .btn-neubrutal:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 3px 3px 0px #000000;
+        }
+        .btn-neubrutal:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px #000000;
+        }
+
+        .input-neubrutal {
+            border: 2px solid #000000;
+            box-shadow: 2px 2px 0px #000000;
+            font-weight: 600;
+            outline: none;
+        }
+        .input-neubrutal:focus {
+            background-color: #fffdf9;
         }
     </style>
 </head>
-<body class="bg-gray-100 font-sans antialiased">
-    <div class="flex h-screen overflow-hidden bg-gray-100">
+<body class="font-sans antialiased">
+    <div class="flex h-screen overflow-hidden">
 
         <!-- SIDEBAR UTAMA -->
-        <div class="w-64 custom-nav-bg text-white shadow-lg flex flex-col justify-between shrink-0 hidden md:flex">
+        <div class="w-64 custom-nav-bg text-gray-800 flex flex-col justify-between shrink-0 hidden md:flex">
             <div>
-                <div class="p-6 border-b border-gray-800">
+                <div class="p-6 sidebar-brand">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-md">A</div>
+                        <div class="w-10 h-10 bg-[#ffcc00] border-2 border-black rounded-full flex items-center justify-center font-black text-black shadow-[2px_2px_0px_#000]">A</div>
                         <div>
-                            <p class="font-bold text-white">Museum Karya Smkn 4</p>
+                            <p class="font-extrabold text-gray-900 text-sm">Museum Karya Smkn 4</p>
                         </div>
                     </div>
                 </div>
@@ -76,7 +134,7 @@
                     </a>
 
                     <!-- Nav Link Aktif -->
-                    <a href="artikel.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-semibold shadow-sm nav-link-active">
+                    <a href="artikel.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-active">
                         <span>Artikel</span>
                     </a>
 
@@ -87,8 +145,8 @@
             </div>
             
             <!-- TOMBOL LOGOUT -->
-            <div class="p-6 border-t border-gray-800">
-                <button type="button" onclick="openLogoutModal()" class="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-semibold cursor-pointer">
+            <div class="p-6 sidebar-logout bg-[#fffdf9]">
+                <button type="button" onclick="openLogoutModal()" class="w-full px-4 py-2.5 bg-red-500 text-white rounded-xl btn-neubrutal cursor-pointer">
                     Logout
                 </button>
             </div>
@@ -96,16 +154,16 @@
 
         <!-- AREA KONTEN UTAMA -->
         <div class="flex-1 flex flex-col h-screen overflow-y-auto">
-            <header class="bg-white shadow-sm z-10 shrink-0 sticky top-0">
+            <header class="admin-header z-10 shrink-0 sticky top-0">
                 <div class="px-6 sm:px-8 py-4 flex justify-between items-center">
-                    <h1 class="text-lg sm:text-xl font-bold text-gray-900">Kelola Artikel</h1>
+                    <h1 class="text-lg sm:text-2xl font-black text-gray-900 tracking-tight">Kelola Artikel</h1>
                     <div class="flex items-center gap-4">
-                        <a href="tambah-artikel.html" class="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition flex items-center gap-2 text-xs sm:text-sm">
+                        <a href="tambah-artikel.html" class="px-4 py-2 bg-[#ffcc00] text-black rounded-xl btn-neubrutal flex items-center gap-2 text-xs sm:text-sm">
                             <span>+</span> Tambah Artikel
                         </a>
                         <div class="text-right hidden sm:block">
-                            <p class="font-semibold text-gray-900 text-xs sm:text-sm">Administrator</p>
-                            <p class="text-[10px] sm:text-xs text-gray-500">Login sebagai admin</p>
+                            <p class="font-extrabold text-gray-900 text-xs sm:text-sm">Administrator</p>
+                            <p class="text-[10px] sm:text-xs text-gray-500 font-bold">Login sebagai admin</p>
                         </div>
                     </div>
                 </div>
@@ -114,41 +172,41 @@
             <!-- MAIN KONTEN -->
             <main class="flex-1 p-4 sm:p-6 md:p-8 relative">
                 <!-- SPINNER OVERLAY LOADING -->
-                <div id="loading-content" class="absolute inset-0 bg-gray-100 z-40 flex flex-col items-center justify-center transition-opacity duration-300 ease-out m-0">
-                    <div class="flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-sm border border-gray-200">
-                        <div class="w-5 h-5 border-3 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-                        <p class="text-gray-700 font-medium text-sm tracking-wide">Memuat daftar artikel...</p>
+                <div id="loading-content" class="absolute inset-0 bg-[#fcfcfc]/90 z-40 flex flex-col items-center justify-center transition-opacity duration-300 ease-out m-0">
+                    <div class="flex items-center gap-3 bg-white px-6 py-3 rounded-xl border-3 border-black shadow-[4px_4px_0px_#000]">
+                        <div class="w-5 h-5 border-3 border-black border-t-[#ffcc00] rounded-full animate-spin"></div>
+                        <p class="text-gray-900 font-extrabold text-sm tracking-wide">Memuat daftar artikel...</p>
                     </div>
                 </div>
 
                 <!-- KARTU STATISTIK RINGKAS -->
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-                    <div class="bg-white rounded-lg shadow p-5">
-                        <p class="text-sm text-gray-500 mb-1">Total Artikel</p>
-                        <p class="text-2xl font-bold text-gray-900">4</p>
+                    <div class="neubrutal-card p-5">
+                        <p class="text-sm text-gray-600 font-bold mb-1">Total Artikel</p>
+                        <p class="text-2xl font-black text-gray-900">4</p>
                     </div>
-                    <div class="bg-white rounded-lg shadow p-5">
-                        <p class="text-sm text-gray-500 mb-1">Sudah Terbit</p>
-                        <p class="text-2xl font-bold text-green-600">3</p>
+                    <div class="neubrutal-card p-5">
+                        <p class="text-sm text-gray-600 font-bold mb-1">Sudah Terbit</p>
+                        <p class="text-2xl font-black text-green-600">3</p>
                     </div>
-                    <div class="bg-white rounded-lg shadow p-5">
-                        <p class="text-sm text-gray-500 mb-1">Draft</p>
-                        <p class="text-2xl font-bold text-yellow-600">1</p>
+                    <div class="neubrutal-card p-5">
+                        <p class="text-sm text-gray-600 font-bold mb-1">Draft</p>
+                        <p class="text-2xl font-black text-amber-600">1</p>
                     </div>
                 </div>
 
                 <!-- FILTER & SEARCH -->
-                <div class="bg-white rounded-lg shadow p-5 mb-6">
+                <div class="neubrutal-card p-5 mb-6">
                     <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
-                        <input id="searchInput" type="text" placeholder="Cari judul artikel..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm" />
+                        <input id="searchInput" type="text" placeholder="Cari judul artikel..." class="flex-1 px-4 py-2.5 rounded-xl input-neubrutal text-sm text-gray-800" />
 
-                        <select id="statusFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm text-gray-700">
+                        <select id="statusFilter" class="px-4 py-2.5 rounded-xl input-neubrutal text-sm text-gray-800 bg-white">
                             <option value="">Semua Status</option>
                             <option value="published">Terbit</option>
                             <option value="draft">Draft</option>
                         </select>
 
-                        <select id="categoryFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm text-gray-700">
+                        <select id="categoryFilter" class="px-4 py-2.5 rounded-xl input-neubrutal text-sm text-gray-800 bg-white">
                             <option value="">Semua Kategori</option>
                             <option value="Web Development">Web Development</option>
                             <option value="Mobile App">Mobile App</option>
@@ -156,87 +214,87 @@
                             <option value="Game Development">Game Development</option>
                         </select>
 
-                        <button type="button" onclick="runFilter()" class="px-5 py-2 bg-gray-800 text-white rounded-lg font-medium hover:bg-gray-900 transition text-sm cursor-pointer">Terapkan</button>
+                        <button type="button" onclick="runFilter()" class="px-5 py-2.5 bg-[#ffcc00] text-black rounded-xl btn-neubrutal text-sm cursor-pointer">Terapkan</button>
                     </div>
                 </div>
 
                 <!-- TABEL ARTIKEL -->
-                <div class="bg-white rounded-lg shadow">
+                <div class="neubrutal-card overflow-hidden">
                     <div class="overflow-x-auto overflow-y-auto max-h-[500px]">
-                        <table class="w-full">
-                            <thead class="bg-gray-50 border-b border-gray-200 sticky top-0 z-10">
+                        <table class="w-full border-collapse">
+                            <thead class="bg-gray-100 border-b-3 border-black sticky top-0 z-10">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Judul</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Kategori</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Penulis</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Status</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Sorotan</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Tanggal</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Aksi</th>
+                                    <th class="px-6 py-3 text-left text-xs font-black text-gray-900 uppercase">Judul</th>
+                                    <th class="px-6 py-3 text-left text-xs font-black text-gray-900 uppercase">Kategori</th>
+                                    <th class="px-6 py-3 text-left text-xs font-black text-gray-900 uppercase">Penulis</th>
+                                    <th class="px-6 py-3 text-left text-xs font-black text-gray-900 uppercase">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-black text-gray-900 uppercase">Sorotan</th>
+                                    <th class="px-6 py-3 text-left text-xs font-black text-gray-900 uppercase">Tanggal</th>
+                                    <th class="px-6 py-3 text-left text-xs font-black text-gray-900 uppercase">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody id="articleTableBody" class="divide-y divide-gray-200">
+                            <tbody id="articleTableBody" class="divide-y-2 divide-gray-200">
                                 <!-- Data Dummy 1 -->
-                                <tr class="article-row hover:bg-gray-50" data-title="tips membangun portofolio web modern untuk pemula" data-category="Web Development" data-status="published">
-                                    <td class="px-6 py-4 text-sm font-semibold text-gray-900 max-w-xs truncate">Tips Membangun Portofolio Web Modern untuk Pemula</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">Web Development</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">Admin Utama</td>
+                                <tr class="article-row hover:bg-yellow-50/50" data-title="tips membangun portofolio web modern untuk pemula" data-category="Web Development" data-status="published">
+                                    <td class="px-6 py-4 text-sm font-bold text-gray-900 max-w-xs truncate">Tips Membangun Portofolio Web Modern untuk Pemula</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium">Web Development</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium">Admin Utama</td>
                                     <td class="px-6 py-4 text-sm">
-                                        <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">Terbit</span>
+                                        <span class="inline-block px-3 py-1 rounded-lg text-xs font-black bg-green-200 text-green-900 border-2 border-black shadow-[2px_2px_0px_#000]">Terbit</span>
                                     </td>
                                     <td class="px-6 py-4 text-sm">⭐</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">10 Sep 2026</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium">10 Sep 2026</td>
                                     <td class="px-6 py-4 text-sm whitespace-nowrap">
-                                        <a href="edit-artikel.html" class="text-blue-600 hover:text-blue-800 mr-3 font-semibold">Edit</a>
-                                        <button type="button" onclick="if(confirm('Hapus artikel ini?')) alert('Artikel berhasil dihapus!');" class="text-red-600 hover:text-red-800 font-semibold cursor-pointer">Hapus</button>
+                                        <a href="edit-artikel.html" class="px-3 py-1.5 bg-blue-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] inline-block mr-2 hover:translate-y-[-1px]">Edit</a>
+                                        <button type="button" onclick="if(confirm('Hapus artikel ini?')) alert('Artikel berhasil dihapus!');" class="px-3 py-1.5 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer hover:translate-y-[-1px]">Hapus</button>
                                     </td>
                                 </tr>
 
                                 <!-- Data Dummy 2 -->
-                                <tr class="article-row hover:bg-gray-50" data-title="panduan belajar flutter dari dasar hingga mahir" data-category="Mobile App" data-status="published">
-                                    <td class="px-6 py-4 text-sm font-semibold text-gray-900 max-w-xs truncate">Panduan Belajar Flutter dari Dasar hingga Mahir</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">Mobile App</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">Kaprog PPLG</td>
+                                <tr class="article-row hover:bg-yellow-50/50" data-title="panduan belajar flutter dari dasar hingga mahir" data-category="Mobile App" data-status="published">
+                                    <td class="px-6 py-4 text-sm font-bold text-gray-900 max-w-xs truncate">Panduan Belajar Flutter dari Dasar hingga Mahir</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium">Mobile App</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium">Kaprog PPLG</td>
                                     <td class="px-6 py-4 text-sm">
-                                        <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">Terbit</span>
+                                        <span class="inline-block px-3 py-1 rounded-lg text-xs font-black bg-green-200 text-green-900 border-2 border-black shadow-[2px_2px_0px_#000]">Terbit</span>
                                     </td>
                                     <td class="px-6 py-4 text-sm">—</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">08 Sep 2026</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium">08 Sep 2026</td>
                                     <td class="px-6 py-4 text-sm whitespace-nowrap">
-                                        <a href="edit-artikel.html" class="text-blue-600 hover:text-blue-800 mr-3 font-semibold">Edit</a>
-                                        <button type="button" onclick="if(confirm('Hapus artikel ini?')) alert('Artikel berhasil dihapus!');" class="text-red-600 hover:text-red-800 font-semibold cursor-pointer">Hapus</button>
+                                        <a href="edit-artikel.html" class="px-3 py-1.5 bg-blue-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] inline-block mr-2 hover:translate-y-[-1px]">Edit</a>
+                                        <button type="button" onclick="if(confirm('Hapus artikel ini?')) alert('Artikel berhasil dihapus!');" class="px-3 py-1.5 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer hover:translate-y-[-1px]">Hapus</button>
                                     </td>
                                 </tr>
 
                                 <!-- Data Dummy 3 -->
-                                <tr class="article-row hover:bg-gray-50" data-title="tren ui/ux design terbaik di tahun 2026" data-category="UI/UX Design" data-status="draft">
-                                    <td class="px-6 py-4 text-sm font-semibold text-gray-900 max-w-xs truncate">Tren UI/UX Design Terbaik di Tahun 2026</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">UI/UX Design</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">Operator PPLG</td>
+                                <tr class="article-row hover:bg-yellow-50/50" data-title="tren ui/ux design terbaik di tahun 2026" data-category="UI/UX Design" data-status="draft">
+                                    <td class="px-6 py-4 text-sm font-bold text-gray-900 max-w-xs truncate">Tren UI/UX Design Terbaik di Tahun 2026</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium">UI/UX Design</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium">Operator PPLG</td>
                                     <td class="px-6 py-4 text-sm">
-                                        <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">Draft</span>
+                                        <span class="inline-block px-3 py-1 rounded-lg text-xs font-black bg-yellow-200 text-yellow-900 border-2 border-black shadow-[2px_2px_0px_#000]">Draft</span>
                                     </td>
                                     <td class="px-6 py-4 text-sm">—</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">05 Sep 2026</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium">05 Sep 2026</td>
                                     <td class="px-6 py-4 text-sm whitespace-nowrap">
-                                        <a href="edit-artikel.html" class="text-blue-600 hover:text-blue-800 mr-3 font-semibold">Edit</a>
-                                        <button type="button" onclick="if(confirm('Hapus artikel ini?')) alert('Artikel berhasil dihapus!');" class="text-red-600 hover:text-red-800 font-semibold cursor-pointer">Hapus</button>
+                                        <a href="edit-artikel.html" class="px-3 py-1.5 bg-blue-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] inline-block mr-2 hover:translate-y-[-1px]">Edit</a>
+                                        <button type="button" onclick="if(confirm('Hapus artikel ini?')) alert('Artikel berhasil dihapus!');" class="px-3 py-1.5 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer hover:translate-y-[-1px]">Hapus</button>
                                     </td>
                                 </tr>
 
                                 <!-- Data Dummy 4 -->
-                                <tr class="article-row hover:bg-gray-50" data-title="mengenal unity engine untuk membuat game 2d" data-category="Game Development" data-status="published">
-                                    <td class="px-6 py-4 text-sm font-semibold text-gray-900 max-w-xs truncate">Mengenal Unity Engine untuk Membuat Game 2D</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">Game Development</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">Admin Utama</td>
+                                <tr class="article-row hover:bg-yellow-50/50" data-title="mengenal unity engine untuk membuat game 2d" data-category="Game Development" data-status="published">
+                                    <td class="px-6 py-4 text-sm font-bold text-gray-900 max-w-xs truncate">Mengenal Unity Engine untuk Membuat Game 2D</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium">Game Development</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium">Admin Utama</td>
                                     <td class="px-6 py-4 text-sm">
-                                        <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">Terbit</span>
+                                        <span class="inline-block px-3 py-1 rounded-lg text-xs font-black bg-green-200 text-green-900 border-2 border-black shadow-[2px_2px_0px_#000]">Terbit</span>
                                     </td>
                                     <td class="px-6 py-4 text-sm">⭐</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">01 Sep 2026</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium">01 Sep 2026</td>
                                     <td class="px-6 py-4 text-sm whitespace-nowrap">
-                                        <a href="edit-artikel.html" class="text-blue-600 hover:text-blue-800 mr-3 font-semibold">Edit</a>
-                                        <button type="button" onclick="if(confirm('Hapus artikel ini?')) alert('Artikel berhasil dihapus!');" class="text-red-600 hover:text-red-800 font-semibold cursor-pointer">Hapus</button>
+                                        <a href="edit-artikel.html" class="px-3 py-1.5 bg-blue-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] inline-block mr-2 hover:translate-y-[-1px]">Edit</a>
+                                        <button type="button" onclick="if(confirm('Hapus artikel ini?')) alert('Artikel berhasil dihapus!');" class="px-3 py-1.5 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer hover:translate-y-[-1px]">Hapus</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -248,28 +306,28 @@
     </div>
 
     <!-- MODAL POP-UP LOGOUT KUSTOM -->
-    <div id="logoutModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-gray-100 transform transition-all scale-100">
-            <div class="bg-gradient-to-r from-amber-500 to-orange-500 p-5 text-white flex items-center gap-3">
-                <div class="p-2 bg-white/20 rounded-lg">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+    <div id="logoutModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl border-3 border-black shadow-[6px_6px_0px_#000] max-w-md w-full overflow-hidden transform transition-all scale-100">
+            <div class="bg-[#ffcc00] border-b-3 border-black p-5 text-black flex items-center gap-3">
+                <div class="p-2 bg-white border-2 border-black rounded-lg shadow-[2px_2px_0px_#000]">
+                    <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
                     </svg>
                 </div>
-                <h3 class="text-lg font-bold">Konfirmasi Keluar</h3>
+                <h3 class="text-lg font-black tracking-tight">Konfirmasi Keluar</h3>
             </div>
 
             <div class="p-6 text-center">
-                <p class="text-gray-700 font-medium leading-relaxed text-base">
+                <p class="text-gray-800 font-bold leading-relaxed text-base">
                     Apakah Anda yakin ingin keluar dari sistem?
                 </p>
             </div>
 
-            <div class="bg-gray-50 px-6 py-4 flex gap-3 justify-end border-t border-gray-100">
-                <button type="button" onclick="closeLogoutModal()" class="px-5 py-2.5 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition text-sm cursor-pointer">
+            <div class="bg-gray-50 px-6 py-4 flex gap-3 justify-end border-t-3 border-black">
+                <button type="button" onclick="closeLogoutModal()" class="px-5 py-2.5 bg-gray-200 text-gray-800 rounded-xl btn-neubrutal cursor-pointer">
                     Tidak
                 </button>
-                <button type="button" onclick="confirmLogout()" class="px-5 py-2.5 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition text-sm shadow-md cursor-pointer">
+                <button type="button" onclick="confirmLogout()" class="px-5 py-2.5 bg-red-500 text-white rounded-xl btn-neubrutal cursor-pointer">
                     Ya
                 </button>
             </div>

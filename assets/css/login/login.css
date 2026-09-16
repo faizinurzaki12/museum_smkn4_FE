@@ -9,11 +9,17 @@ body {
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    /* Latar belakang grid kotak-kotak bersih ala referensi */
+    background-color: #fcfcfc;
+    background-image: 
+        linear-gradient(to right, #ececec 1px, transparent 1px),
+        linear-gradient(to bottom, #ececec 1px, transparent 1px);
+    background-size: 24px 24px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    position: relative;
 }
 
 .main-wrapper {
@@ -24,6 +30,7 @@ body {
     justify-content: center;
     box-sizing: border-box;
     overflow: hidden;
+    z-index: 10;
 }
 
 /* Icon toggle mode terang/gelap */
@@ -46,6 +53,7 @@ body {
     padding-left: 2.5rem;
     padding-right: 2.5rem;
     overflow: hidden;
+    flex: 1;
 }
 
 .login-logo {
@@ -59,32 +67,35 @@ body {
     width: 36px;
     height: 36px;
     font-size: 1.1rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #ffcc00;
+    border: 2px solid #000000;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
-    color: white;
+    font-weight: 800;
+    color: #000000;
+    box-shadow: 2px 2px 0px #000000;
 }
 
 .login-logo-text {
     font-size: 1.25rem;
-    font-weight: 700;
-    color: #667eea;
+    font-weight: 800;
+    color: #000000;
 }
 
 .login-title {
     font-size: clamp(1.15rem, 2.5vh, 1.5rem);
     margin-bottom: clamp(0.1rem, 0.5vh, 0.25rem);
-    font-weight: 700;
-    color: #1f2937;
+    font-weight: 900;
+    color: #000000;
 }
 
 .login-subtitle {
     font-size: clamp(0.75rem, 1.6vh, 0.875rem);
     margin-bottom: clamp(0.5rem, 2vh, 1.25rem);
-    color: #6b7280;
+    color: #4b5563;
+    font-weight: 500;
 }
 
 .login-form-group {
@@ -95,24 +106,26 @@ body {
     font-size: clamp(0.75rem, 1.6vh, 0.85rem);
     margin-bottom: clamp(0.15rem, 0.5vh, 0.35rem);
     display: block;
-    font-weight: 600;
-    color: #1f2937;
+    font-weight: 800;
+    color: #000000;
 }
 
 .login-input {
     padding: clamp(0.4rem, 1.1vh, 0.55rem) 0.9rem;
     font-size: clamp(0.8rem, 1.7vh, 0.9rem);
     width: 100%;
-    border: 2px solid #e5e7eb;
-    border-radius: 0.5rem;
-    transition: all 0.3s ease;
+    background: #f0f4ff;
+    border: 2px solid #000000;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
     font-family: inherit;
 }
 
 .login-input:focus {
     outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    background: #ffffff;
+    box-shadow: 3px 3px 0px #000000;
 }
 
 .login-checkbox {
@@ -127,25 +140,39 @@ body {
     width: 18px;
     height: 18px;
     cursor: pointer;
-    accent-color: #667eea;
+    accent-color: #000000;
 }
 
 .login-checkbox label {
     cursor: pointer;
-    color: #6b7280;
+    color: #4b5563;
+    font-weight: 600;
 }
 
+/* Tombol Login Gaya Neubrutalism */
 .login-button {
     padding: clamp(0.5rem, 1.3vh, 0.7rem);
     margin-bottom: clamp(0.5rem, 1.3vh, 1rem);
     width: 100%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
-    font-weight: 600;
+    background: #ffcc00;
+    color: #000000;
+    border: 2px solid #000000;
+    border-radius: 0.75rem;
+    font-weight: 800;
     cursor: pointer;
-    transition: all 0.3s ease;
+    box-shadow: 3px 3px 0px #000000;
+    transition: all 0.1s ease;
+}
+
+.login-button:hover {
+    background: #ffdb4d;
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0px #000000;
+}
+
+.login-button:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px #000000;
 }
 
 .login-divider {
@@ -153,55 +180,66 @@ body {
     margin-bottom: clamp(0.5rem, 1.3vh, 1rem);
     display: flex;
     align-items: center;
-    color: #d1d5db;
+    color: #000000;
 }
 
 .login-divider::before,
 .login-divider::after {
     content: "";
     flex: 1;
-    height: 1px;
-    background: #e5e7eb;
+    height: 2px;
+    background: #000000;
 }
 
 .login-divider span {
     padding: 0 1rem;
-    color: #9ca3af;
+    color: #000000;
     font-size: 0.85rem;
+    font-weight: 700;
 }
 
 .login-social-btn {
     padding: 0.55rem;
     flex: 1;
-    border: 2px solid #e5e7eb;
+    border: 2px solid #000000;
     background: white;
-    border-radius: 0.5rem;
+    border-radius: 0.75rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.6rem;
     text-decoration: none;
-    color: #374151;
-    font-weight: 600;
+    color: #000000;
+    font-weight: 700;
+    box-shadow: 2px 2px 0px #000000;
+    transition: all 0.1s ease;
 }
 
+.login-social-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0px #000000;
+}
+
+/* Container Utama dengan Border Tebal & Hard Shadow */
 .login-container {
     display: flex;
     width: 100%;
     max-width: 1000px;
     max-height: 100%;
     margin: 0 auto;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-    border-radius: 1rem;
+    border: 3px solid #000000;
+    box-shadow: 6px 6px 0px #000000;
+    border-radius: 1.5rem;
     overflow: hidden;
     background: white;
-    animation: slideIn 0.5s ease;
+    animation: slideIn 0.4s ease;
 }
 
 .login-right {
     flex: 1;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-left: 3px solid #000000;
     padding: 3rem 2rem;
     display: flex;
     flex-direction: column;
@@ -213,7 +251,7 @@ body {
 
 .login-alert {
     background: #fef2f2;
-    border: 1px solid #fecaca;
+    border: 2px solid #000000;
     color: #b91c1c;
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
@@ -233,21 +271,17 @@ body {
     flex-shrink: 0;
 }
 
-.login-footer {
-    color: #6b7280;
-    font-size: 0.95rem;
-}
-
 .login-register-text {
     text-align: center;
     font-size: clamp(0.75rem, 1.6vh, 0.85rem);
-    color: #6b7280;
+    color: #4b5563;
     margin: clamp(0.25rem, 1vh, 0.5rem) 0 0;
+    font-weight: 600;
 }
 
 .login-register-link {
-    color: #667eea;
-    font-weight: 600;
+    color: #2563eb;
+    font-weight: 800;
     text-decoration: none;
     margin-left: 0.25rem;
 }
@@ -258,7 +292,7 @@ body {
 
 .right-title {
     font-size: 2rem;
-    font-weight: 700;
+    font-weight: 900;
     margin-bottom: 1rem;
     line-height: 1.2;
 }
@@ -268,6 +302,7 @@ body {
     line-height: 1.6;
     margin-bottom: 2rem;
     opacity: 0.95;
+    font-weight: 600;
 }
 
 .right-features {
@@ -282,25 +317,16 @@ body {
     align-items: flex-start;
 }
 
-.right-feature-icon {
-    font-size: 1.5rem;
-    flex-shrink: 0;
-}
-
 .right-feature-title {
-    font-weight: 600;
+    font-weight: 800;
     margin-bottom: 0.25rem;
 }
 
-.right-feature-text {
-    font-size: 0.95rem;
-    line-height: 1.4;
-}
-
+/* Modal Style */
 .modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(15, 15, 25, 0.55);
+    background: rgba(0, 0, 0, 0.5);
     display: none;
     align-items: center;
     justify-content: center;
@@ -314,25 +340,28 @@ body {
 
 .modal-box {
     background: white;
+    border: 3px solid #000000;
     border-radius: 1rem;
     max-width: 360px;
     width: 100%;
     padding: 2rem 1.75rem 1.75rem;
     text-align: center;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    box-shadow: 5px 5px 0px #000000;
     animation: slideIn 0.25s ease;
 }
 
 .modal-icon-circle {
     width: 56px;
     height: 56px;
+    border: 2px solid #000000;
     border-radius: 50%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #ffcc00;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 1.1rem;
-    color: white;
+    color: #000000;
+    box-shadow: 2px 2px 0px #000000;
 }
 
 .modal-icon-circle svg {
@@ -342,36 +371,119 @@ body {
 
 .modal-title {
     font-size: 1.15rem;
-    font-weight: 700;
-    color: #1f2937;
+    font-weight: 900;
+    color: #000000;
     margin-bottom: 0.5rem;
 }
 
 .modal-text {
-    color: #6b7280;
+    color: #4b5563;
     font-size: 0.9rem;
     line-height: 1.5;
     margin-bottom: 1.5rem;
+    font-weight: 500;
 }
 
 .modal-close-btn {
     width: 100%;
     padding: 0.75rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
-    font-weight: 600;
+    background: #ffcc00;
+    color: #000000;
+    border: 2px solid #000000;
+    border-radius: 0.75rem;
+    font-weight: 800;
     cursor: pointer;
+    box-shadow: 2px 2px 0px #000000;
+}
+
+.modal-close-btn:hover {
+    background: #ffdb4d;
+}
+
+/* Elemen Dekorasi Sudut / Floating Shapes ala Referensi */
+.shape {
+    position: absolute;
+    border: 2px solid #000000;
+    font-weight: bold;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 3px 3px 0px #000000;
+    z-index: 1;
+}
+
+.shape-1 {
+    top: 15%;
+    left: 8%;
+    width: 45px;
+    height: 45px;
+    background: #ffffff;
+    border-radius: 0.5rem;
+    font-size: 1.25rem;
+}
+
+.shape-2 {
+    top: 45%;
+    left: 4%;
+    background: #ff5252;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 9999px;
+    font-weight: 800;
+    transform: rotate(-6deg);
+}
+
+.shape-3 {
+    bottom: 25%;
+    left: 10%;
+    width: 45px;
+    height: 45px;
+    background: #9333ea;
+    border-radius: 0.75rem;
+    transform: rotate(10deg);
+}
+
+.shape-4 {
+    top: 35%;
+    right: 8%;
+    background: #2dd4bf;
+    color: #000000;
+    padding: 0.4rem 0.8rem;
+    border-radius: 9999px;
+    font-weight: 800;
+    transform: rotate(4deg);
+}
+
+.shape-5 {
+    top: 18%;
+    right: 15%;
+    width: 50px;
+    height: 50px;
+    background: #fde047;
+    border-radius: 0.75rem;
+    transform: rotate(12deg);
+}
+
+.shape-6 {
+    bottom: 15%;
+    right: 12%;
+    width: 45px;
+    height: 45px;
+    background: #ffffff;
+    border-radius: 0.5rem;
 }
 
 @media (max-width: 768px) {
     .login-container {
         flex-direction: column;
-        max-width: 100%;
-        border-radius: 0;
+        max-width: 90%;
+        border-radius: 1rem;
     }
     .login-right {
+        display: none;
+    }
+    .shape {
         display: none;
     }
 }
@@ -401,94 +513,4 @@ body {
     color: #ef4444;
     font-size: 0.875rem;
     margin-top: 0.25rem;
-}
-
-/* Dark Mode */
-.dark body {
-    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
-}
-
-.dark .login-container {
-    background: #111827;
-}
-
-.dark .login-title {
-    color: #f3f4f6;
-}
-
-.dark .login-subtitle {
-    color: #9ca3af;
-}
-
-.dark .login-label {
-    color: #e5e7eb;
-}
-
-.dark .login-input {
-    background: #1f2937;
-    border-color: #374151;
-    color: #f3f4f6;
-}
-
-.dark .login-input::placeholder {
-    color: #6b7280;
-}
-
-.dark .login-input:focus {
-    border-color: #818cf8;
-    box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.15);
-}
-
-.dark .login-input.error {
-    background: #450a0a;
-    border-color: #ef4444;
-}
-
-.dark .login-checkbox label {
-    color: #9ca3af;
-}
-
-.dark .login-divider {
-    color: #4b5563;
-}
-
-.dark .login-divider::before,
-.dark .login-divider::after {
-    background: #374151;
-}
-
-.dark .login-divider span {
-    color: #6b7280;
-}
-
-.dark .login-social-btn {
-    background: #1f2937;
-    border-color: #374151;
-    color: #e5e7eb;
-}
-
-.dark .login-alert {
-    background: #450a0a;
-    border-color: #7f1d1d;
-    color: #fca5a5;
-}
-
-.dark .login-register-text {
-    color: #9ca3af;
-}
-
-.dark .login-register-link {
-    color: #818cf8;
-}
-
-.dark .modal-box {
-    background: #1f2937;
-}
-
-.dark .modal-title {
-    color: #f3f4f6;
-}
-
-.dark .modal-text {
-    color: #9ca3af;
 }

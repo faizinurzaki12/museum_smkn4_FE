@@ -9,89 +9,221 @@
     <style type="text/tailwindcss">
         @custom-variant dark (&:where(.dark, .dark *));
     </style>
+    <style>
+        /* CSS untuk Background Kotak-kotak (Grid Pattern) */
+        .bg-grid-pattern {
+            background-image: 
+                linear-gradient(to right, rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        /* CSS untuk Background Gambar Testimoni/Kata Pengunjung */
+        .bg-testimonial-pattern {
+            background-color: #D48EE3; /* Warna cadangan jika gambar lambat dimuat */
+            background-image: url('assets/img/testimonial-bg.png'); /* Ganti path gambar kamu */
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
     <link rel="stylesheet" href="assets/css/index.css">
 </head>
-<body class="scroll-smooth bg-slate-100 dark:bg-gray-950 text-slate-700 dark:text-gray-100 transition-colors duration-300 antialiased">
+<body class="scroll-smooth bg-[#FFFDF5] text-slate-900 antialiased">
 
-    <!-- ===== HEADER ===== -->
-    <header class="navbar shadow-xs sticky top-0 z-50 bg-slate-50/90 backdrop-blur-md dark:bg-gray-900 transition-colors duration-300 border-b border-slate-200/80 dark:border-gray-800">
-        <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
-            <div class="flex lg:flex-1 items-center gap-2">
-                <img src="assets/img/smk4.png" alt="SMK4 Logo" class="w-10 h-10 rounded-full object-cover" />
-                <span class="text-2xl font-bold text-blue-700 dark:text-blue-500">Museum Karya</span>
+    <!-- ===== HEADER (Floating Capsule Navbar Tanpa Icon) ===== -->
+    <header class="sticky top-4 z-50 px-4">
+        <nav class="mx-auto flex max-w-7xl items-center justify-between bg-white px-6 py-3 rounded-full border-4 border-black shadow-[6px_6px_0px_#000]">
+            
+            <!-- Logo & Title -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-white border-3 border-black flex items-center justify-center font-black shadow-[2px_2px_0px_#000]">
+                    <img src="assets/img/smk4.jpeg" alt="Logo" class="w-7 h-7 object-cover rounded-md" />
+                </div>
+                <span class="text-base sm:text-lg font-black tracking-wider text-black">MUSEUM.KARYA</span>
             </div>
-            <div class="flex flex-wrap items-center justify-center gap-3 lg:gap-x-8 lg:justify-end lg:items-center">
-                <a href="index.html" class="text-sm font-semibold text-blue-700 dark:text-blue-500 border-b-2 border-blue-700 dark:border-blue-500 pb-1">Beranda</a>
-                <a href="karya.html" class="text-sm font-semibold text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white transition">Karya</a>
-                <a href="artikel.html" class="text-sm font-semibold text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white transition">Artikel</a>
-                <a href="tentang.html" class="text-sm font-semibold text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white transition">Tentang</a>
-                <a href="auth/login.html" class="text-sm font-semibold text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white transition">Login</a>
-                <button id="themeToggle" onclick="toggleTheme()" aria-label="Ganti mode terang/gelap"
-                    class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-200/70 hover:bg-slate-200 dark:bg-gray-800 text-slate-700 dark:text-yellow-300 transition-colors cursor-pointer">
-                    <svg class="icon-sun w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
-                    <svg class="icon-moon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                    </svg>
+
+            <!-- Menu Links (Tanpa Icon) -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-xs font-black text-black hover:text-[#74B9FF] transition">
+                    BERANDA
+                </a>
+                <a href="karya.html" class="text-xs font-black text-slate-600 hover:text-black transition">
+                    KARYA
+                </a>
+                <a href="artikel.html" class="text-xs font-black text-slate-600 hover:text-black transition">
+                    ARTIKEL
+                </a>
+                <a href="tentang.html" class="text-xs font-black text-slate-600 hover:text-black transition">
+                    TENTANG
+                </a>
+            </div>
+
+            <!-- Right Actions (Theme toggle & Login) -->
+            <div class="flex items-center gap-3">
+                <button class="w-10 h-10 rounded-full bg-[#FFD23F] border-3 border-black flex items-center justify-center shadow-[3px_3px_0px_#000] cursor-pointer hover:translate-y-[-2px] transition">
+                    🌙
                 </button>
+                <a href="auth/login.html" class="text-xs font-black px-5 py-2.5 bg-[#74B9FF] text-black border-3 border-black rounded-full shadow-[3px_3px_0px_#000] hover:bg-[#54a0ff] transition flex items-center">
+                    LOGIN ADMIN
+                </a>
             </div>
         </nav>
     </header>
 
-    <!-- ===== HERO ===== -->
+    <!-- ===== HERO (Video Section) ===== -->
     <section id="beranda"
-        class="my-bg relative text-white flex items-center justify-center overflow-hidden h-[55vh] min-h-[380px] max-h-[600px]">
-        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
+        class="relative text-white flex items-center justify-center overflow-hidden h-[60vh] min-h-[400px] border-b-4 border-black bg-black mt-4">
+        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover opacity-50">
             <source src="assets/img/museum_karya.mp4" type="video/mp4">
         </video>
-        <div class="absolute inset-0 bg-slate-950/65 backdrop-blur-[1px]"></div>
+        <div class="absolute inset-0 bg-[#74B9FF]/30 mix-blend-multiply"></div>
         <div class="relative z-10 mx-auto max-w-5xl px-6 lg:px-8 text-center">
-            <h1 class="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight drop-shadow-md">
-                Selamat Datang Di Museum Karya SMKN 4 Tasikmalaya
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black leading-tight text-white drop-shadow-[4px_4px_0px_#000]">
+                SELAMAT DATANG DI MUSEUM KARYA SMKN 4 TASIKMALAYA
             </h1>
         </div>
     </section>
 
-    <!-- ===== STATISTIK ===== -->
-    <section class="py-16 bg-slate-100 dark:bg-gray-950">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-wrap justify-center gap-6">
-                <div class="counter-card w-full sm:w-64 bg-slate-50 dark:bg-gray-900 rounded-2xl shadow-xs hover:shadow-sm transition-shadow p-8 text-center border border-slate-200 dark:border-gray-800">
-                    <div class="flex justify-center items-end gap-1">
-                        <h2 class="counter text-blue-700 dark:text-blue-500 font-extrabold text-4xl" data-target="48">48</h2>
-                    </div>
-                    <p class="text-slate-600 dark:text-gray-400 mb-3 font-medium">Total Karya</p>
+    <!-- ===== LOGO JURUSAN BERJALAN (Full Width di Bawah Video) ===== -->
+    <div class="w-full bg-white border-b-4 border-black py-6 shadow-[0px_6px_0px_#000] overflow-hidden relative">
+        <div class="flex animate-marquee items-center gap-20 whitespace-nowrap">
+            <!-- Set 1 Logo -->
+            <div class="flex items-center gap-20">
+                <div class="flex items-center gap-3">
+                    <img src="assets/img/dkv.jpeg" alt="DKV" class="w-12 h-12 object-cover rounded-2xl border-3 border-black shadow-[3px_3px_0px_#000]">
+                    <span class="font-black text-black text-lg tracking-wider">DKV</span>
                 </div>
-                <div class="counter-card w-full sm:w-64 bg-slate-50 dark:bg-gray-900 rounded-2xl shadow-xs hover:shadow-sm transition-shadow p-8 text-center border border-slate-200 dark:border-gray-800">
-                    <h2 class="counter text-slate-800 dark:text-white font-extrabold text-4xl" data-target="120">120</h2>
-                    <p class="text-slate-600 dark:text-gray-400 mb-4 font-medium">Total Siswa</p>
+                <div class="flex items-center gap-3">
+                    <img src="assets/img/pplg.jpeg" alt="PPLG" class="w-12 h-12 object-cover rounded-2xl border-3 border-black shadow-[3px_3px_0px_#000]">
+                    <span class="font-black text-black text-lg tracking-wider">PPLG</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <img src="assets/img/tkj.jpeg" alt="TKJ" class="w-12 h-12 object-cover rounded-2xl border-3 border-black shadow-[3px_3px_0px_#000]">
+                    <span class="font-black text-black text-lg tracking-wider">TKJ</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <img src="assets/img/toi.jpeg" alt="TOI" class="w-12 h-12 object-cover rounded-2xl border-3 border-black shadow-[3px_3px_0px_#000]">
+                    <span class="font-black text-black text-lg tracking-wider">TOI</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <img src="assets/img/tsm.jpeg" alt="TSM" class="w-12 h-12 object-cover rounded-2xl border-3 border-black shadow-[3px_3px_0px_#000]">
+                    <span class="font-black text-black text-lg tracking-wider">TSM</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <img src="assets/img/smk4.jpeg" alt="SMKN 4" class="w-12 h-12 object-cover rounded-2xl border-3 border-black shadow-[3px_3px_0px_#000]">
+                    <span class="font-black text-black text-lg tracking-wider">SMKN 4</span>
+                </div>
+            </div>
+            <!-- Set 2 Logo (Duplikat untuk Looping Seamless) -->
+            <div class="flex items-center gap-20">
+                <div class="flex items-center gap-3">
+                    <img src="assets/img/dkv.jpeg" alt="DKV" class="w-12 h-12 object-cover rounded-2xl border-3 border-black shadow-[3px_3px_0px_#000]">
+                    <span class="font-black text-black text-lg tracking-wider">DKV</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <img src="assets/img/pplg.jpeg" alt="PPLG" class="w-12 h-12 object-cover rounded-2xl border-3 border-black shadow-[3px_3px_0px_#000]">
+                    <span class="font-black text-black text-lg tracking-wider">PPLG</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <img src="assets/img/tkj.jpeg" alt="TKJ" class="w-12 h-12 object-cover rounded-2xl border-3 border-black shadow-[3px_3px_0px_#000]">
+                    <span class="font-black text-black text-lg tracking-wider">TKJ</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <img src="assets/img/toi.jpeg" alt="TOI" class="w-12 h-12 object-cover rounded-2xl border-3 border-black shadow-[3px_3px_0px_#000]">
+                    <span class="font-black text-black text-lg tracking-wider">TOI</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <img src="assets/img/tsm.jpeg" alt="TSM" class="w-12 h-12 object-cover rounded-2xl border-3 border-black shadow-[3px_3px_0px_#000]">
+                    <span class="font-black text-black text-lg tracking-wider">TSM</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <img src="assets/img/smk4.jpeg" alt="SMKN 4" class="w-12 h-12 object-cover rounded-2xl border-3 border-black shadow-[3px_3px_0px_#000]">
+                    <span class="font-black text-black text-lg tracking-wider">SMKN 4</span>
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- ===== STATISTIK ===== -->
+    <section class="py-16 bg-[#FFFDF5] border-b-4 border-black">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-wrap justify-center gap-8">
+                <div class="counter-card w-full sm:w-72 bg-white rounded-3xl p-8 text-center border-4 border-black shadow-[6px_6px_0px_#000] rotate-[-1deg]">
+                    <div class="flex justify-center items-end gap-1">
+                        <h2 class="counter text-black font-black text-6xl" data-target="48">48</h2>
+                    </div>
+                    <p class="text-black mt-2 font-black uppercase text-sm tracking-widest bg-[#FFD23F] border-2 border-black py-1 rounded-xl shadow-[2px_2px_0px_#000]">Total Karya</p>
+                </div>
+                <div class="counter-card w-full sm:w-72 bg-white rounded-3xl p-8 text-center border-4 border-black shadow-[6px_6px_0px_#000] rotate-[1deg]">
+                    <h2 class="counter text-black font-black text-6xl" data-target="120">120</h2>
+                    <p class="text-black mt-2 font-black uppercase text-sm tracking-widest bg-[#74B9FF] border-2 border-black py-1 rounded-xl shadow-[2px_2px_0px_#000]">Total Siswa</p>
+                </div>
+            </div>
+        </div>
+        <section class="py-16 bg-[#FFFDF5] border-b-4 border-black">
+        <div class="max-w-4xl mx-auto px-6">
+            
+            <div class="bg-[#121619] rounded-3xl border-4 border-black shadow-[8px_8px_0px_#000] overflow-hidden font-mono">
+                
+                <!-- Terminal Title Bar -->
+                <div class="bg-[#1D232A] px-6 py-3 border-b-4 border-black flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3.5 h-3.5 rounded-full bg-[#FF5F56] inline-block border border-black"></span>
+                        <span class="w-3.5 h-3.5 rounded-full bg-[#FFBD2E] inline-block border border-black"></span>
+                        <span class="w-3.5 h-3.5 rounded-full bg-[#27C93F] inline-block border border-black"></span>
+                    </div>
+                    <span class="text-xs text-slate-400 tracking-wider">bash - curating-artifacts.sh</span>
+                    <div class="w-12"></div> <!-- Spacer biar seimbang -->
+                </div>
+
+                <!-- Terminal Body / Logs -->
+                <div id="terminalScreen" class="p-6 sm:p-8 text-white space-y-3 min-h-[220px] max-h-[350px] overflow-y-auto text-xs sm:text-sm">
+                    
+                    <div class="space-y-2" id="terminalLogs">
+                        <p class="text-[#27C93F]">
+                            visitor@museum:~$ <span class="text-slate-200">npm run initialize-creative-mind</span>
+                        </p>
+                        <p class="text-slate-400 pl-4">&gt; Loading functional approaches... <span class="text-[#27C93F] font-bold">[OK]</span></p>
+                        <p class="text-slate-400 pl-4">&gt; Injecting bold aesthetics... <span class="text-[#27C93F] font-bold">[OK]</span></p>
+                        <p class="text-slate-400 pl-4">&gt; Optimizing technical performance... <span class="text-[#27C93F] font-bold">[100%]</span></p>
+                    </div>
+
+                    <!-- Input Bar Interaktif di dalam Terminal -->
+                    <div class="flex items-center gap-2 pt-2">
+                        <span class="text-[#27C93F]">visitor@museum:~$</span>
+                        <input type="text" id="terminalInput" 
+                            class="w-full bg-transparent text-white focus:outline-none placeholder-slate-600 font-mono"
+                            placeholder="ketik 'help' atau perintah lain..." 
+                            autocomplete="off" />
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
     </section>
 
+
     <!-- ===== SEMUA KARYA ===== -->
-    <section id="karya" class="py-16 bg-slate-200/50 dark:bg-gray-900">
+    <section id="karya" class="py-16 bg-[#FFFDF5] bg-grid-pattern border-b-4 border-black overflow-hidden">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div class="flex items-center justify-between mb-12">
-                <h2 class="text-3xl font-bold text-slate-800 dark:text-white">Semua Karya</h2>
+                <h2 class="text-3xl sm:text-4xl font-black text-black tracking-tight bg-[#FFD23F] px-4 py-2 border-3 border-black shadow-[4px_4px_0px_#000] inline-block">SEMUA KARYA</h2>
                 <a href="karya.html"
-                    class="text-blue-700 dark:text-blue-400 font-semibold hover:text-blue-800 dark:hover:text-blue-300 flex items-center gap-1 transition group">
+                    class="text-black font-black px-5 py-3 bg-[#88D498] border-3 border-black rounded-2xl shadow-[4px_4px_0px_#000] hover:bg-[#72c784] flex items-center gap-2 transition-all">
                     Lihat Semua
-                    <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none"
+                    <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none"
                         stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
                     </svg>
                 </a>
             </div>
 
             <div id="allKaryaGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-
                 <!-- Card 1 -->
-                <div class="karya-card bg-slate-50 dark:bg-gray-800 rounded-xl overflow-hidden shadow-xs hover:shadow-md border border-slate-200 dark:border-gray-700/60 card-hover transition-all duration-300"
+                <div class="karya-card bg-white rounded-3xl overflow-hidden border-4 border-black shadow-[6px_6px_0px_#000] card-hover transition-all duration-200"
                     data-title="Sistem Informasi Perpustakaan Digital"
                     data-desc="Aplikasi manajemen perpustakaan berbasis web untuk memudahkan peminjaman dan pengembalian buku di lingkungan sekolah."
                     data-category="PPLG"
@@ -112,27 +244,27 @@
                     data-file-type="image/jpeg"
                     data-download="#">
 
-                    <div class="iframe-container cursor-pointer" onclick="openModal(this.closest('.karya-card'))">
+                    <div class="iframe-container cursor-pointer border-b-4 border-black" onclick="openModal(this.closest('.karya-card'))">
                         <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&auto=format&fit=crop&q=80" alt="Sistem Informasi Perpustakaan Digital"
                             class="w-full h-48 object-cover" />
                         <div class="overlay"></div>
                     </div>
 
                     <div class="p-6">
-                        <span class="badge-custom mb-3 inline-block">PPLG</span>
-                        <p class="text-slate-600 dark:text-gray-300 text-sm mt-2">
-                            <strong class="text-slate-800 dark:text-white">Ahmad Rizky</strong>
+                        <span class="badge-custom mb-3 inline-block bg-[#FFD23F] border-2 border-black font-black text-black px-3 py-1 rounded-xl text-xs shadow-[2px_2px_0px_#000]">PPLG</span>
+                        <p class="text-slate-700 text-xs font-black mt-1">
+                            Oleh: <strong class="text-black">Ahmad Rizky</strong>
                         </p>
-                        <p class="font-semibold text-slate-800 dark:text-white mb-4 line-clamp-1">Sistem Informasi Perpustakaan Digital</p>
+                        <p class="font-black text-black text-lg my-2 line-clamp-1">Sistem Informasi Perpustakaan Digital</p>
                         <button onclick="openModal(this.closest('.karya-card'))"
-                            class="w-full py-2.5 bg-blue-700 hover:bg-blue-800 text-white font-medium rounded-lg transition shadow-xs cursor-pointer">
-                            Lihat Detail
+                            class="w-full mt-4 py-3 bg-[#74B9FF] hover:bg-[#54a0ff] text-black font-black rounded-2xl border-3 border-black shadow-[3px_3px_0px_#000] cursor-pointer transition-all">
+                            LIHAT DETAIL
                         </button>
                     </div>
                 </div>
 
                 <!-- Card 2 -->
-                <div class="karya-card bg-slate-50 dark:bg-gray-800 rounded-xl overflow-hidden shadow-xs hover:shadow-md border border-slate-200 dark:border-gray-700/60 card-hover transition-all duration-300"
+                <div class="karya-card bg-white rounded-3xl overflow-hidden border-4 border-black shadow-[6px_6px_0px_#000] card-hover transition-all duration-200"
                     data-title="Desain UI/UX Mobile E-Commerce"
                     data-desc="Rancangan antarmuka aplikasi belanja online bahan pangan lokal dengan fokus pada kemudahan navigasi pengguna lanjut usia."
                     data-category="PPLG"
@@ -153,37 +285,37 @@
                     data-file-type="image/jpeg"
                     data-download="#">
 
-                    <div class="iframe-container cursor-pointer" onclick="openModal(this.closest('.karya-card'))">
+                    <div class="iframe-container cursor-pointer border-b-4 border-black" onclick="openModal(this.closest('.karya-card'))">
                         <img src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=600&auto=format&fit=crop&q=80" alt="Desain UI/UX Mobile E-Commerce"
                             class="w-full h-48 object-cover" />
                         <div class="overlay"></div>
                     </div>
 
                     <div class="p-6">
-                        <span class="badge-custom mb-3 inline-block">PPLG</span>
-                        <p class="text-slate-600 dark:text-gray-300 text-sm mt-2">
-                            <strong class="text-slate-800 dark:text-white">Siti Nurhaliza</strong>
+                        <span class="badge-custom mb-3 inline-block bg-[#FFD23F] border-2 border-black font-black text-black px-3 py-1 rounded-xl text-xs shadow-[2px_2px_0px_#000]">PPLG</span>
+                        <p class="text-slate-700 text-xs font-black mt-1">
+                            Oleh: <strong class="text-black">Siti Nurhaliza</strong>
                         </p>
-                        <p class="font-semibold text-slate-800 dark:text-white mb-4 line-clamp-1">Desain UI/UX Mobile E-Commerce</p>
+                        <p class="font-black text-black text-lg my-2 line-clamp-1">Desain UI/UX Mobile E-Commerce</p>
                         <button onclick="openModal(this.closest('.karya-card'))"
-                            class="w-full py-2.5 bg-blue-700 hover:bg-blue-800 text-white font-medium rounded-lg transition shadow-xs cursor-pointer">
-                            Lihat Detail
+                            class="w-full mt-4 py-3 bg-[#74B9FF] hover:bg-[#54a0ff] text-black font-black rounded-2xl border-3 border-black shadow-[3px_3px_0px_#000] cursor-pointer transition-all">
+                            LIHAT DETAIL
                         </button>
                     </div>
                 </div>
 
                 <!-- Card 3 -->
-                <div class="karya-card bg-slate-50 dark:bg-gray-800 rounded-xl overflow-hidden shadow-xs hover:shadow-md border border-slate-200 dark:border-gray-700/60 card-hover transition-all duration-300"
+                <div class="karya-card bg-white rounded-3xl overflow-hidden border-4 border-black shadow-[6px_6px_0px_#000] card-hover transition-all duration-200"
                     data-title="Aplikasi Monitoring Jaringan Sekolah"
                     data-desc="Tools berbasis CLI dan Web Dashboard untuk memantau status router dan access point di SMKN 4 Tasikmalaya secara real-time."
-                    data-category="TKT"
+                    data-category="TKJ"
                     data-event="Museum Karya"
                     data-siswa="Budi Santoso"
                     data-guru="Bpk. Hendra, S.ST"
                     data-avatar=""
                     data-avatar-letter="B"
-                    data-kelas="XII TKT 1"
-                    data-jurusan-siswa="TKT"
+                    data-kelas="XII TKJ 1"
+                    data-jurusan-siswa="TKJ"
                     data-angkatan="2026"
                     data-tahun="2026"
                     data-views="210"
@@ -194,27 +326,27 @@
                     data-file-type="image/jpeg"
                     data-download="#">
 
-                    <div class="iframe-container cursor-pointer" onclick="openModal(this.closest('.karya-card'))">
+                    <div class="iframe-container cursor-pointer border-b-4 border-black" onclick="openModal(this.closest('.karya-card'))">
                         <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&auto=format&fit=crop&q=80" alt="Aplikasi Monitoring Jaringan Sekolah"
                             class="w-full h-48 object-cover" />
                         <div class="overlay"></div>
                     </div>
 
                     <div class="p-6">
-                        <span class="badge-custom mb-3 inline-block">TKT</span>
-                        <p class="text-slate-600 dark:text-gray-300 text-sm mt-2">
-                            <strong class="text-slate-800 dark:text-white">Budi Santoso</strong>
+                        <span class="badge-custom mb-3 inline-block bg-[#88D498] border-2 border-black font-black text-black px-3 py-1 rounded-xl text-xs shadow-[2px_2px_0px_#000]">TKJ</span>
+                        <p class="text-slate-700 text-xs font-black mt-1">
+                            Oleh: <strong class="text-black">Budi Santoso</strong>
                         </p>
-                        <p class="font-semibold text-slate-800 dark:text-white mb-4 line-clamp-1">Aplikasi Monitoring Jaringan Sekolah</p>
+                        <p class="font-black text-black text-lg my-2 line-clamp-1">Aplikasi Monitoring Jaringan Sekolah</p>
                         <button onclick="openModal(this.closest('.karya-card'))"
-                            class="w-full py-2.5 bg-blue-700 hover:bg-blue-800 text-white font-medium rounded-lg transition shadow-xs cursor-pointer">
-                            Lihat Detail
+                            class="w-full mt-4 py-3 bg-[#74B9FF] hover:bg-[#54a0ff] text-black font-black rounded-2xl border-3 border-black shadow-[3px_3px_0px_#000] cursor-pointer transition-all">
+                            LIHAT DETAIL
                         </button>
                     </div>
                 </div>
 
                 <!-- Card 4 -->
-                <div class="karya-card bg-slate-50 dark:bg-gray-800 rounded-xl overflow-hidden shadow-xs hover:shadow-md border border-slate-200 dark:border-gray-700/60 card-hover transition-all duration-300"
+                <div class="karya-card bg-white rounded-3xl overflow-hidden border-4 border-black shadow-[6px_6px_0px_#000] card-hover transition-all duration-200"
                     data-title="Game Edukasi 2D 'Petualangan Si Kode'"
                     data-desc="Game platformer interaktif yang mengajarkan logika dasar pemrograman kepada anak-anak sekolah dasar."
                     data-category="PPLG"
@@ -235,124 +367,307 @@
                     data-file-type="image/jpeg"
                     data-download="#">
 
-                    <div class="iframe-container cursor-pointer" onclick="openModal(this.closest('.karya-card'))">
+                    <div class="iframe-container cursor-pointer border-b-4 border-black" onclick="openModal(this.closest('.karya-card'))">
                         <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&auto=format&fit=crop&q=80" alt="Game Edukasi 2D 'Petualangan Si Kode'"
                             class="w-full h-48 object-cover" />
                         <div class="overlay"></div>
                     </div>
 
                     <div class="p-6">
-                        <span class="badge-custom mb-3 inline-block">PPLG</span>
-                        <p class="text-slate-600 dark:text-gray-300 text-sm mt-2">
-                            <strong class="text-slate-800 dark:text-white">Dina Mariana</strong>
+                        <span class="badge-custom mb-3 inline-block bg-[#FFD23F] border-2 border-black font-black text-black px-3 py-1 rounded-xl text-xs shadow-[2px_2px_0px_#000]">PPLG</span>
+                        <p class="text-slate-700 text-xs font-black mt-1">
+                            Oleh: <strong class="text-black">Dina Mariana</strong>
                         </p>
-                        <p class="font-semibold text-slate-800 dark:text-white mb-4 line-clamp-1">Game Edukasi 2D 'Petualangan Si Kode'</p>
+                        <p class="font-black text-black text-lg my-2 line-clamp-1">Game Edukasi 2D 'Petualangan Si Kode'</p>
                         <button onclick="openModal(this.closest('.karya-card'))"
-                            class="w-full py-2.5 bg-blue-700 hover:bg-blue-800 text-white font-medium rounded-lg transition shadow-xs cursor-pointer">
-                            Lihat Detail
+                            class="w-full mt-4 py-3 bg-[#74B9FF] hover:bg-[#54a0ff] text-black font-black rounded-2xl border-3 border-black shadow-[3px_3px_0px_#000] cursor-pointer transition-all">
+                            LIHAT DETAIL
                         </button>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- ===== FOOTER ===== -->
-    <footer class="bg-slate-900 dark:bg-black text-white text-center py-12">
+    <!-- ===== KATA PENGUNJUNG (4 Card, Efek Blur, Card Dibuat Lebih Lebar/Lega) ===== -->
+    <section class="py-16 bg-testimonial-pattern border-b-4 border-black overflow-hidden relative">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
-            <div class="border-t border-slate-800 dark:border-gray-800 pt-8">
-                <p class="text-slate-400 text-sm">&copy; 2026 Museum Karya SMKN 4 Tasikmalaya</p>
-                <p class="text-slate-400 text-sm">Design &amp; Development By PPLG</p>
+            
+            <!-- Judul Section -->
+            <div class="text-center mb-12 relative">
+                <h2 class="text-3xl sm:text-4xl font-black text-black tracking-tight bg-[#FFD23F] px-8 py-2.5 border-3 border-black shadow-[4px_4px_0px_#000] inline-block">
+                    Kata Pengunjung
+                </h2>
             </div>
+
+            <!-- Carousel Wrapper (4 Kolom dengan max-w lebih lebar & padding lega) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 py-4" id="testimonialContainer">
+                
+                <!-- Card 1: Pengunjung 1 -->
+                <div class="testimonial-card bg-white rounded-3xl p-7 border-4 border-black shadow-[6px_6px_0px_#000] flex flex-col justify-between transition-all duration-300 opacity-100 filter-none scale-100" data-index="0">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 bg-white border-2 border-black rounded-full flex items-center justify-center font-black text-base shadow-[2px_2px_0px_#000]">👨‍💻</div>
+                                <div>
+                                    <h4 class="font-black text-black text-base">Rehan Pratama</h4>
+                                    <p class="text-xs font-bold text-slate-500">Siswa SMK Umum</p>
+                                </div>
+                            </div>
+                            <span class="text-3xl font-black text-black">❞</span>
+                        </div>
+                        <p class="text-slate-800 font-bold text-xs sm:text-sm leading-relaxed">
+                            Keren banget web Museum Karya ini! Aplikasinya interaktif dan jadi inspirasi buat bikin projek software sendiri ke depannya di sekolah.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2: Pengunjung 2 -->
+                <div class="testimonial-card bg-white rounded-3xl p-7 border-4 border-black shadow-[6px_6px_0px_#000] flex flex-col justify-between transition-all duration-300 opacity-40 blur-[2px] scale-95" data-index="1">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 bg-white border-2 border-black rounded-full flex items-center justify-center font-black text-base shadow-[2px_2px_0px_#000]">👩‍🏫</div>
+                                <div>
+                                    <h4 class="font-black text-black text-base">Ibu Dewi, M.Pd</h4>
+                                    <p class="text-xs font-bold text-slate-500">Guru Pembimbing</p>
+                                </div>
+                            </div>
+                            <span class="text-3xl font-black text-black">❞</span>
+                        </div>
+                        <p class="text-slate-800 font-bold text-xs sm:text-sm leading-relaxed">
+                            Wadah pameran digital yang luar biasa untuk menampilkan kreativitas anak-anak PPLG dan TIK SMKN 4 Tasikmalaya. Sangat membanggakan!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Pengunjung 3 -->
+                <div class="testimonial-card bg-white rounded-3xl p-7 border-4 border-black shadow-[6px_6px_0px_#000] flex flex-col justify-between transition-all duration-300 opacity-40 blur-[2px] scale-95" data-index="2">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 bg-white border-2 border-black rounded-full flex items-center justify-center font-black text-base shadow-[2px_2px_0px_#000]">🎓</div>
+                                <div>
+                                    <h4 class="font-black text-black text-base">Fikri Haikal</h4>
+                                    <p class="text-xs font-bold text-slate-500">Alumni PPLG</p>
+                                </div>
+                            </div>
+                            <span class="text-3xl font-black text-black">❞</span>
+                        </div>
+                        <p class="text-slate-800 font-bold text-xs sm:text-sm leading-relaxed">
+                            Fitur detail karya dan live demo-nya sangat informatif. Desain ala neo-brutalisme web ini juga unik dan beda dari yang lain. Sukses terus!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 4: Pengunjung 4 -->
+                <div class="testimonial-card bg-white rounded-3xl p-7 border-4 border-black shadow-[6px_6px_0px_#000] flex flex-col justify-between transition-all duration-300 opacity-40 blur-[2px] scale-95" data-index="3">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 bg-white border-2 border-black rounded-full flex items-center justify-center font-black text-base shadow-[2px_2px_0px_#000]">⭐</div>
+                                <div>
+                                    <h4 class="font-black text-black text-base">Nabila Zahra</h4>
+                                    <p class="text-xs font-bold text-slate-500">Pengunjung Umum</p>
+                                </div>
+                            </div>
+                            <span class="text-3xl font-black text-black">❞</span>
+                        </div>
+                        <p class="text-slate-800 font-bold text-xs sm:text-sm leading-relaxed">
+                            Navigasinya gampang banget dipakai buat lihat-lihat hasil karya siswa. Keren, hasil kodingan dan desainnya rapi-rapi banget!
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Tombol Navigasi Bulat di Bawah -->
+            <div class="flex justify-center items-center gap-4 mt-8">
+                <button onclick="prevTestimonial()" class="w-11 h-11 bg-white border-3 border-black rounded-full flex items-center justify-center font-black text-lg shadow-[3px_3px_0px_#000] hover:translate-y-[-2px] transition cursor-pointer">
+                    &lt;
+                </button>
+                <button onclick="nextTestimonial()" class="w-11 h-11 bg-white border-3 border-black rounded-full flex items-center justify-center font-black text-lg shadow-[3px_3px_0px_#000] hover:translate-y-[-2px] transition cursor-pointer">
+                    &gt;
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-black text-white text-center py-12 border-t-4 border-black">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <p class="font-black text-base text-[#FFFDF5]">&copy; 2026 Museum Karya SMKN 4 Tasikmalaya</p>
+            <p class="font-black text-sm text-[#FFD23F] mt-2 inline-block bg-white/10 px-4 py-1.5 rounded-xl border-2 border-dashed border-[#FFD23F]">Design &amp; Development By PPLG</p>
         </div>
     </footer>
 
     <!-- ===== MODAL DETAIL ===== -->
     <div id="detailModal"
-        class="hidden fixed inset-0 bg-slate-950/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-50 dark:bg-gray-900 rounded-2xl shadow-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto transition-colors duration-300 border border-slate-200 dark:border-gray-800">
-            <div class="sticky top-0 px-6 py-4 border-b border-slate-200 dark:border-gray-700 flex justify-between items-center bg-slate-50/95 dark:bg-gray-900/95 backdrop-blur-md z-10">
-                <h3 id="modalTitle" class="text-xl font-bold text-slate-800 dark:text-white"></h3>
-                <button onclick="closeModal()" class="text-slate-500 hover:text-slate-700 dark:hover:text-gray-200 transition cursor-pointer">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
+        class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl border-4 border-black shadow-[8px_8px_0px_#000] max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="sticky top-0 px-6 py-4 border-b-4 border-black flex justify-between items-center bg-[#FFD23F] z-10">
+                <h3 id="modalTitle" class="text-xl font-black text-black"></h3>
+                <button onclick="closeModal()" class="w-10 h-10 bg-white border-3 border-black rounded-xl flex items-center justify-center font-black text-black hover:bg-[#FF6B6B] hover:text-white transition cursor-pointer shadow-[3px_3px_0px_#000]">
+                    ✕
                 </button>
             </div>
 
             <div class="p-6 space-y-6">
                 <!-- Preview -->
                 <div id="modalPreview" class="space-y-4">
-                    <img id="modalImagePreview" class="hidden w-full rounded-xl object-contain max-h-[360px]" />
-                    <iframe id="modalIframePreview" class="hidden w-full h-80 rounded-xl border border-slate-200 dark:border-gray-700"
+                    <img id="modalImagePreview" class="hidden w-full rounded-2xl object-contain max-h-[360px] border-3 border-black shadow-[4px_4px_0px_#000]" />
+                    <iframe id="modalIframePreview" class="hidden w-full h-80 rounded-2xl border-3 border-black shadow-[4px_4px_0px_#000]"
                         allowfullscreen></iframe>
                     <div id="modalPreviewEmpty"
-                        class="hidden w-full h-80 flex items-center justify-center rounded-xl bg-slate-200/60 dark:bg-gray-800 text-slate-600 dark:text-gray-400 border border-dashed border-slate-300 dark:border-gray-600">
+                        class="hidden w-full h-80 flex items-center justify-center rounded-2xl bg-[#FFFDF5] text-black border-3 border-black font-black shadow-[4px_4px_0px_#000]">
                         Tidak ada preview tersedia
                     </div>
                 </div>
 
                 <!-- Badge -->
                 <div class="flex gap-2 flex-wrap">
-                    <span class="inline-block bg-emerald-200/60 dark:bg-emerald-950/70 text-emerald-900 dark:text-emerald-300 px-3 py-1 rounded-full text-xs font-semibold">
+                    <span class="inline-block bg-[#88D498] text-black px-3 py-1.5 rounded-xl border-2 border-black text-xs font-black shadow-[2px_2px_0px_#000]">
                         Disetujui
                     </span>
                     <span id="modalCategory"
-                        class="inline-block bg-blue-200/60 dark:bg-blue-950/70 text-blue-900 dark:text-blue-300 px-3 py-1 rounded-full text-xs font-semibold"></span>
+                        class="inline-block bg-[#FFD23F] text-black px-3 py-1.5 rounded-xl border-2 border-black text-xs font-black shadow-[2px_2px_0px_#000]"></span>
                     <span id="modalEvent"
-                        class="inline-block bg-purple-200/60 dark:bg-purple-950/70 text-purple-900 dark:text-purple-300 px-3 py-1 rounded-full text-xs font-semibold"></span>
+                        class="inline-block bg-[#B8A9FA] text-black px-3 py-1.5 rounded-xl border-2 border-black text-xs font-black shadow-[2px_2px_0px_#000]"></span>
                 </div>
 
                 <!-- Deskripsi -->
                 <div>
-                    <h4 class="font-semibold text-slate-800 dark:text-white mb-2">Deskripsi</h4>
-                    <p id="modalDescription" class="text-slate-600 dark:text-gray-300 leading-relaxed text-sm sm:text-base"></p>
+                    <h4 class="font-black text-black mb-2 text-lg">Deskripsi</h4>
+                    <p id="modalDescription" class="text-slate-800 font-bold leading-relaxed text-sm sm:text-base bg-[#FFFDF5] p-4 rounded-2xl border-2 border-black"></p>
                 </div>
 
                 <!-- AVATAR + BIODATA SISWA -->
-                <div class="bg-slate-200/50 dark:bg-gray-800/60 border border-slate-200 dark:border-gray-700/50 p-4 rounded-xl">
-                    <div class="flex items-center gap-3">
+                <div class="bg-[#74B9FF]/20 border-3 border-black p-4 rounded-2xl shadow-[4px_4px_0px_#000]">
+                    <div class="flex items-center gap-4">
                         <div id="modalAvatar"
-                            class="w-12 h-12 bg-blue-700 text-white rounded-full flex items-center justify-center font-bold text-lg overflow-hidden shrink-0">
+                            class="w-14 h-14 bg-[#FFD23F] text-black border-3 border-black rounded-full flex items-center justify-center font-black text-xl overflow-hidden shrink-0 shadow-[3px_3px_0px_#000]">
                         </div>
                         <div class="min-w-0">
-                            <p id="modalSiswa" class="font-semibold text-slate-800 dark:text-white truncate"></p>
-                            <p id="modalBiodata" class="text-sm text-slate-600 dark:text-gray-400"></p>
-                            <p id="modalGuru" class="text-sm text-slate-500 dark:text-gray-500 mt-0.5"></p>
+                            <p id="modalSiswa" class="font-black text-black text-lg truncate"></p>
+                            <p id="modalBiodata" class="text-xs font-black text-slate-700"></p>
+                            <p id="modalGuru" class="text-xs font-bold text-slate-600 mt-0.5"></p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Info tambahan -->
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-slate-200/50 dark:bg-gray-800/60 border border-slate-200 dark:border-gray-700/50 p-4 rounded-xl">
-                        <p class="text-xs text-slate-500 dark:text-gray-400 font-medium mb-1 uppercase tracking-wider">Kategori</p>
-                        <p id="modalKategoriDetail" class="font-semibold text-slate-800 dark:text-white text-sm sm:text-base"></p>
+                    <div class="bg-[#FFA552]/30 border-3 border-black p-4 rounded-2xl shadow-[4px_4px_0px_#000]">
+                        <p class="text-xs text-black font-black mb-1 uppercase tracking-wider">Kategori</p>
+                        <p id="modalKategoriDetail" class="font-black text-black text-base"></p>
                     </div>
-                    <div class="bg-slate-200/50 dark:bg-gray-800/60 border border-slate-200 dark:border-gray-700/50 p-4 rounded-xl">
-                        <p class="text-xs text-slate-500 dark:text-gray-400 font-medium mb-1 uppercase tracking-wider">Tahun</p>
-                        <p id="modalTahun" class="font-semibold text-slate-800 dark:text-white text-sm sm:text-base"></p>
+                    <div class="bg-[#88D498]/30 border-3 border-black p-4 rounded-2xl shadow-[4px_4px_0px_#000]">
+                        <p class="text-xs text-black font-black mb-1 uppercase tracking-wider">Tahun</p>
+                        <p id="modalTahun" class="font-black text-black text-base"></p>
                     </div>
                 </div>
 
                 <!-- Teknologi -->
-                <div class="bg-slate-200/50 dark:bg-gray-800/60 border border-slate-200 dark:border-gray-700/50 p-4 rounded-xl">
-                    <p class="text-xs text-slate-500 dark:text-gray-400 font-medium mb-1 uppercase tracking-wider">Teknologi</p>
-                    <p id="modalTech" class="font-semibold text-slate-800 dark:text-white text-sm sm:text-base"></p>
+                <div class="bg-[#B8A9FA]/30 border-3 border-black p-4 rounded-2xl shadow-[4px_4px_0px_#000]">
+                    <p class="text-xs text-black font-black mb-1 uppercase tracking-wider">Teknologi</p>
+                    <p id="modalTech" class="font-black text-black text-base"></p>
                 </div>
 
                 <!-- Tombol Live -->
-                <div class="pt-4 border-t border-slate-200 dark:border-gray-700">
+                <div class="pt-2">
                     <a id="liveBtn" href="#" target="_blank"
-                        class="block w-full px-4 py-2.5 bg-blue-700 hover:bg-blue-800 text-white rounded-xl font-semibold transition text-center shadow-xs">
-                        Buka Live
+                        class="block w-full px-4 py-3.5 bg-[#FFD23F] hover:bg-[#ffc107] text-black rounded-2xl font-black transition text-center border-3 border-black shadow-[4px_4px_0px_#000]">
+                        BUKA LIVE DEMO 🚀
                     </a>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Script JavaScript untuk Testimonial Bergantian (Carousel 1 per 1 dengan efek blur) -->
+    <script>
+        let currentIndex = 0;
+        const cards = document.querySelectorAll('.testimonial-card');
+
+        function updateTestimonials() {
+            cards.forEach((card, index) => {
+                if (index === currentIndex) {
+                    // Kartu aktif: Jelas, tidak blur, ukuran normal
+                    card.classList.remove('opacity-40', 'blur-[2px]', 'scale-95');
+                    card.classList.add('opacity-100', 'filter-none', 'scale-100');
+                } else {
+                    // Kartu lainnya: Blur, agak transparan, sedikit mengecil
+                    card.classList.add('opacity-40', 'blur-[2px]', 'scale-95');
+                    card.classList.remove('opacity-100', 'filter-none', 'scale-100');
+                }
+            });
+        }
+
+        function nextTestimonial() {
+            currentIndex = (currentIndex + 1) % cards.length;
+            updateTestimonials();
+        }
+
+        function prevTestimonial() {
+            currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+            updateTestimonials();
+        }
+
+        // Inisialisasi awal saat halaman dimuat
+        updateTestimonials();
+        const terminalInput = document.getElementById('terminalInput');
+        const terminalLogs = document.getElementById('terminalLogs');
+        const terminalScreen = document.getElementById('terminalScreen');
+
+        terminalInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const cmd = terminalInput.value.trim();
+                const cleanCmd = cmd.toLowerCase();
+
+                const userLine = document.createElement('p');
+                userLine.className = 'text-[#27C93F] mt-2';
+                userLine.innerHTML = `visitor@museum:~$ <span class="text-slate-200">${escapeHtml(cmd)}</span>`;
+                terminalLogs.appendChild(userLine);
+
+                const responseLine = document.createElement('div');
+                responseLine.className = 'text-slate-400 pl-4 space-y-1 mt-1';
+
+                if (cleanCmd === 'help') {
+                    responseLine.innerHTML = `
+                        <p class="text-[#FFD23F] font-bold">Daftar Perintah:</p>
+                        <p>&gt; <span class="text-white">stats</span> : Cek statistik karya dan siswa.</p>
+                        <p>&gt; <span class="text-white">about</span> : Info tentang museum.</p>
+                        <p>&gt; <span class="text-white">clear</span> : Bersihkan layar terminal.</p>
+                    `;
+                } else if (cleanCmd === 'stats') {
+                    responseLine.innerHTML = `
+                        <p>&gt; Total Karya Terindeks: <span class="text-[#27C93F] font-bold">48 Artefak</span></p>
+                        <p>&gt; Total Siswa Kontributor: <span class="text-[#74B9FF] font-bold">120 Siswa Aktif</span></p>
+                    `;
+                } else if (cleanCmd === 'about') {
+                    responseLine.innerHTML = `<p>&gt; Museum Karya SMKN 4 Tasikmalaya - Wadah pameran digital inovasi teknologi PPLG & TIK.</p>`;
+                } else if (cleanCmd === 'clear') {
+                    terminalLogs.innerHTML = '';
+                    terminalInput.value = '';
+                    return;
+                } else if (cleanCmd !== '') {
+                    responseLine.innerHTML = `<p class="text-[#FF5F56]">&gt; Perintah tidak dikenal: ${escapeHtml(cmd)}. Ketik 'help'.</p>`;
+                }
+
+                if (cleanCmd !== '') {
+                    terminalLogs.appendChild(responseLine);
+                }
+
+                terminalInput.value = '';
+                terminalScreen.scrollTop = terminalScreen.scrollHeight;
+            }
+        });
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+    </script>
     <script src="assets/js/index.js"></script>
 </body>
 </html>
