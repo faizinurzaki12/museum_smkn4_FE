@@ -71,45 +71,47 @@
 
             <!-- 2. Menu Links (Tampilan Desktop & Dropdown Melayang di Mobile) -->
             <div id="navLinks"
-                class="hidden md:flex flex-col md:flex-row gap-3 md:gap-8 md:items-center
-                    absolute md:static left-0 right-0 top-[calc(100%+16px)] md:top-auto
-                    bg-white dark:bg-zinc-900 md:bg-transparent md:dark:bg-transparent 
-                    rounded-3xl md:rounded-none border-4 md:border-0 border-black dark:border-white md:border-none
-                    shadow-[6px_6px_0px_#000] dark:shadow-[6px_6px_0px_#fff] md:shadow-none 
-                    p-5 md:p-0 z-50 text-center md:text-left">
-                
-                <a href="index.html"
-                    class="text-sm md:text-xs font-black text-slate-700 dark:text-slate-300 md:text-slate-600 bg-transparent
-                        hover:bg-black/5 dark:hover:bg-white/10 md:hover:bg-transparent hover:text-black dark:hover:text-white transition
-                        rounded-2xl md:rounded-none px-4 md:px-0 py-3 md:py-0  ">
-                    BERANDA
-                </a>
-                <a href="karya.html"
-                    class="text-sm md:text-xs font-black text-black dark:text-white bg-[#74B9FF]/20 md:bg-transparent
-                        hover:bg-[#74B9FF]/40 md:hover:bg-transparent hover:text-[#74B9FF] transition
-                        rounded-2xl md:rounded-none px-4 md:px-0 py-3 md:py-0">
-                    KARYA
-                </a>
-                <a href="artikel.html"
-                    class="text-sm md:text-xs font-black text-slate-700 dark:text-slate-300 md:text-slate-600 bg-transparent
-                        hover:bg-black/5 dark:hover:bg-white/10 md:hover:bg-transparent hover:text-black dark:hover:text-white transition
-                        rounded-2xl md:rounded-none px-4 md:px-0 py-3 md:py-0">
-                    ARTIKEL
-                </a>
-                <a href="tentang.html"
-                    class="text-sm md:text-xs font-black text-slate-700 dark:text-slate-300 md:text-slate-600 bg-transparent
-                        hover:bg-black/5 dark:hover:bg-white/10 md:hover:bg-transparent hover:text-black dark:hover:text-white transition
-                        rounded-2xl md:rounded-none px-4 md:px-0 py-3 md:py-0">
-                    TENTANG
-                </a>
+              class="hidden md:flex flex-col md:flex-row gap-3 md:gap-8 md:items-center
+                  absolute md:static left-0 right-0 top-[calc(100%+16px)] md:top-auto
+                  bg-zinc-900/95 md:bg-transparent backdrop-blur-md md:backdrop-blur-none
+                  rounded-3xl md:rounded-none border-2 md:border-0 border-zinc-700 md:border-none
+                  shadow-xl md:shadow-none 
+                  p-5 md:p-0 z-50 text-center md:text-left transition-all">
+              
+              <!-- BERANDA -->
+              <a href="index.html"
+                  class="text-sm md:text-xs font-black text-zinc-300 hover:text-white transition px-4 md:px-0 py-3 md:py-0 rounded-2xl md:rounded-none">
+                  BERANDA
+              </a>
 
-                <!-- Tombol LOGIN di Menu Mobile -->
-                <a href="auth/login.html" 
-                    class="md:hidden mt-2 text-xs font-black px-5 py-3 bg-[#74B9FF] text-black border-3 border-black rounded-2xl shadow-[3px_3px_0px_#000] active:translate-y-[1px] transition block text-center">
-                    LOGIN
-                </a>
-            </div>
+              <!-- KARYA -->
+              <a href="karya.html"
+                  class="text-sm md:text-xs font-black text-white 
+                      bg-zinc-800/80 md:bg-transparent 
+                      border-2 border-zinc-600 md:border-0 md:border-b-2 md:border-cyan-400 
+                      rounded-2xl md:rounded-none 
+                      px-4 md:px-0 py-3 md:py-1 transition">
+                  KARYA
+              </a>
 
+              <!-- ARTIKEL -->
+              <a href="artikel.html"
+                  class="text-sm md:text-xs font-black text-zinc-300 hover:text-white transition px-4 md:px-0 py-3 md:py-0 rounded-2xl md:rounded-none">
+                  ARTIKEL
+              </a>
+
+              <!-- TENTANG (Aktif: Kapsul Gelap di Mobile, Garis Bawah di Desktop) -->
+              <a href="tentang.html"
+                  class="text-sm md:text-xs font-black text-zinc-300 hover:text-white transition px-4 md:px-0 py-3 md:py-0 rounded-2xl md:rounded-none">
+                  TENTANG
+              </a>
+
+              <!-- Tombol LOGIN di Menu Mobile -->
+              <a href="auth/login.html" 
+                  class="md:hidden mt-2 text-xs font-black px-5 py-3 bg-[#74B9FF] text-black border-2 border-black rounded-2xl shadow-[2px_2px_0px_#000] active:translate-y-[1px] transition block text-center">
+                  LOGIN
+              </a>
+          </div>
             <!-- 3. Right Actions (Theme Toggle, Login Desktop, & Hamburger) -->
             <div class="flex items-center gap-2 sm:gap-3">
                 <button
@@ -125,7 +127,6 @@
                     class="hidden md:inline-block text-[10px] sm:text-xs font-black px-3 sm:px-5 py-2 sm:py-2.5 bg-[#74B9FF] text-black border-3 border-black dark:border-white rounded-full shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff] hover:bg-[#54a0ff] transition whitespace-nowrap">
                     LOGIN
                 </a>
-
                 <!-- Hamburger Button (Mobile) -->
                 <button 
                     id="menuToggle" 
