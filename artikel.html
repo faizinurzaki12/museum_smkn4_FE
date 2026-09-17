@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
@@ -7,177 +7,231 @@
     <title>Artikel - Museum Karya SMKN 4 Tasikmalaya</title>
     <link rel="icon" type="image/png" href="assets/img/favicon.png">
 
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style type="text/tailwindcss">
         @custom-variant dark (&:where(.dark, .dark *));
+
+        /* Pola Sinar Memancar (Sunburst Background) BIRU MUDA & PUTIH untuk Hero Section */
+        .bg-sunburst {
+            background-color: #ffffff;
+            background-image: repeating-conic-gradient(
+                from 0deg at 50% 50%,
+                rgba(56, 189, 248, 0.22) 0deg,
+                rgba(56, 189, 248, 0.22) 20deg,
+                transparent 20deg,
+                transparent 40deg
+            );
+        }
+        .dark .bg-sunburst {
+            background-color: #09090b;
+            background-image: repeating-conic-gradient(
+                from 0deg at 50% 50%,
+                rgba(56, 189, 248, 0.06) 0deg,
+                rgba(56, 189, 248, 0.06) 20deg,
+                transparent 20deg,
+                transparent 40deg
+            );
+        }
+
+        /* Pola Kotak-kotak (Grid Pattern untuk Background Section Artikel di Bawah) */
+        .bg-grid-pattern {
+            background-color: #ffffff;
+            background-image: 
+                linear-gradient(to right, rgba(0, 0, 0, 0.08) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .dark .bg-grid-pattern {
+            background-color: #09090b;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="assets/css/theme.css">
 </head>
 
-<body class="scroll-smooth bg-slate-100 dark:bg-gray-950 text-slate-800 dark:text-gray-100 transition-colors duration-300 antialiased flex flex-col min-h-screen">
+<body class="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-colors duration-300 antialiased flex flex-col min-h-screen">
 
-    <!-- ===== HEADER ===== -->
-    <header class="navbar shadow-xs sticky top-0 z-50 bg-slate-50/90 backdrop-blur-md dark:bg-gray-900 transition-colors duration-300 border-b border-slate-200/80 dark:border-gray-800">
-        <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
-            <div class="flex lg:flex-1 items-center gap-2">
-                <img src="assets/img/smk4.png" alt="SMK4 Logo" class="w-10 h-10 rounded-full object-cover" />
-                <span class="text-2xl font-bold text-blue-700 dark:text-blue-500">Museum Karya</span>
+    <!-- ===== HEADER / NAVBAR (Tetap Putih & Terpisah dari Sunburst) ===== -->
+    <header class="sticky top-4 z-50 px-4 lg:px-8 pt-4">
+        <div class="mx-auto max-w-7xl bg-white dark:bg-zinc-900 border-3 border-zinc-900 dark:border-zinc-100 rounded-full px-6 py-3 shadow-[4px_4px_0px_0px_#18181b] dark:shadow-[4px_4px_0px_0px_#f4f4f5] flex items-center justify-between transition-colors duration-300">
+            
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 flex items-center justify-center bg-zinc-100 dark:bg-zinc-800 rounded-xl border-2 border-zinc-900 dark:border-zinc-100 shadow-[2px_2px_0px_0px_#18181b]">
+                    <img src="assets/img/smk4.png" alt="SMK4 Logo" class="w-5 h-5 object-cover rounded-md" />
+                </div>
+                <span class="text-xs sm:text-sm font-black uppercase tracking-wider text-zinc-900 dark:text-white">Museum Karya</span>
             </div>
-            <div class="flex flex-wrap items-center justify-center gap-3 lg:gap-x-8 lg:justify-end lg:items-center">
-                <a href="index.html"
-                    class="text-sm font-semibold text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white transition">Beranda</a>
-                <a href="karya.html"
-                    class="text-sm font-semibold text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white transition">Karya</a>
-                <a href="artikel.html"
-                    class="text-sm font-semibold text-blue-700 dark:text-blue-500 border-b-2 border-blue-700 dark:border-blue-500 pb-1">Artikel</a>
-                <a href="tentang.html"
-                    class="text-sm font-semibold text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white transition">Tentang</a>
-                <a href="auth/login.html"
-                    class="text-sm font-semibold text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white transition">Login</a>
+
+            <div class="hidden md:flex items-center gap-x-8">
+                <a href="index.html" class="text-xs font-black tracking-wider text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition">Beranda</a>
+                <a href="karya.html" class="text-xs font-black tracking-wider text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition">Karya</a>
+                <a href="artikel.html" class="text-xs font-black tracking-wider text-zinc-900 dark:text-white underline decoration-2 underline-offset-4">Artikel</a>
+                <a href="tentang.html" class="text-xs font-black tracking-wider text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition">Tentang</a>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <a href="auth/login.html" class="text-xs font-black bg-cyan-300 dark:bg-cyan-600 text-zinc-900 dark:text-white border-2 border-zinc-900 dark:border-zinc-100 px-4 py-2 rounded-full shadow-[2px_2px_0px_0px_#18181b] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition">
+                    Login
+                </a>
                 <button id="themeToggle" onclick="toggleTheme()" aria-label="Ganti mode terang/gelap"
-                    class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-200/70 hover:bg-slate-200 dark:bg-gray-800 text-slate-700 dark:text-yellow-300 transition-colors">
-                    <svg class="icon-sun w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
-                    <svg class="icon-moon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                    </svg>
+                    class="w-9 h-9 flex items-center justify-center bg-sky-300 dark:bg-sky-700 rounded-full border-2 border-zinc-900 shadow-[2px_2px_0px_0px_#18181b] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all">
+                    🌙
                 </button>
             </div>
-        </nav>
+        </div>
     </header>
 
-    <!-- ===== HERO ===== -->
-    <section class="bg-gradient-to-r from-sky-700 via-blue-700 to-indigo-800 text-white py-20">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="rounded-[2rem] border border-white/10 bg-white/10 backdrop-blur-xl p-10 shadow-xl">
-                <div class="max-w-3xl">
-                    <p class="text-sm uppercase tracking-[0.3em] text-sky-200 font-semibold mb-4">Berita &amp; Kegiatan</p>
-                    <h1 class="text-4xl lg:text-6xl font-bold leading-tight">
-                        Artikel Museum Karya SMKN 4 Tasikmalaya
-                    </h1>
-                    <p class="mt-6 max-w-2xl text-sky-100 text-base sm:text-lg leading-8">
-                        Temukan liputan kegiatan, informasi terbaru, dan cerita inspiratif dari Museum Karya. Cari
-                        artikel yang paling menarik untukmu.
-                    </p>
+    <!-- ===== HERO SECTION (Background Biru Muda & Putih Sunburst) ===== -->
+    <div class="bg-sunburst border-b-3 border-zinc-900 dark:border-zinc-100 pb-20 lg:pb-28 pt-8 transition-colors duration-300">
+        <section class="relative pt-12 lg:pt-16 pb-8 text-center overflow-hidden">
+            <div class="relative z-10 mx-auto max-w-3xl px-6 lg:px-8 flex flex-col items-center">
+                
+                <!-- Badge Kecil di Atas -->
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 mb-6 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white font-black text-xs uppercase tracking-widest rounded-full border-2 border-zinc-900 dark:border-zinc-100 shadow-[3px_3px_0px_0px_#18181b]">
+                    <span>Berita &amp; Kegiatan</span>
                 </div>
+
+                <!-- Judul Utama Atas -->
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-zinc-900 dark:text-white mb-4">
+                    Artikel Museum Karya
+                </h1>
+
+                <!-- Kotak Judul Kuning Khas Neo-Brutalisme -->
+                <div class="bg-yellow-300 text-zinc-900 border-3 border-zinc-900 px-8 py-4 rounded-3xl shadow-[6px_6px_0px_0px_#18181b] mb-6 transform -rotate-1">
+                    <span class="text-xl sm:text-2xl lg:text-3xl font-black uppercase tracking-tight">SMKN 4 TASIKMALAYA</span>
+                </div>
+
+                <!-- Deskripsi -->
+                <p class="max-w-xl text-sm sm:text-base font-bold text-zinc-600 dark:text-zinc-300 leading-relaxed">
+                    Temukan liputan kegiatan, informasi terbaru, dan cerita inspiratif dari Museum Karya. Cari artikel yang paling menarik untukmu.
+                </p>
+
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
-    <!-- ===== DAFTAR ARTIKEL (DATA DUMMY) ===== -->
-    <main class="max-w-7xl mx-auto px-6 py-16 flex-grow w-full">
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <!-- ===== DAFTAR ARTIKEL (Background KOTAK-KOTAK / Grid Pattern) ===== -->
+    <main class="bg-grid-pattern py-16 flex-grow w-full">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-            <!-- Artikel 1 -->
-            <article class="group overflow-hidden rounded-[1.75rem] border border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-gray-900 shadow-xs transition duration-300 hover:-translate-y-1 hover:shadow-md">
-                <div class="overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80" alt="Pameran Karya PPLG"
-                        class="w-full h-60 object-cover transition duration-500 group-hover:scale-105">
-                </div>
-
-                <div class="p-6">
-                    <span class="inline-flex rounded-full bg-sky-200/60 text-sky-900 px-3 py-1 text-xs font-semibold dark:bg-sky-500/15 dark:text-sky-200">
-                        Kegiatan Sekolah
-                    </span>
-
-                    <h2 class="text-xl font-bold text-slate-800 dark:text-white mt-4 leading-snug line-clamp-2">
-                        Pameran Karya Digital PPLG SMKN 4 Tasikmalaya Berhasil Memukau Pengunjung
-                    </h2>
-
-                    <p class="mt-3 text-slate-600 dark:text-gray-300 text-sm leading-relaxed line-clamp-3">
-                        Siswa jurusan PPLG menampilkan puluhan proyek aplikasi web dan mobile inovatif dalam ajang pameran tahunan Museum Karya.
-                    </p>
-
-                    <div class="mt-6 flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-gray-400 font-medium">
-                        <span>Admin PPLG</span>
-                        <span>•</span>
-                        <span>10 Sep 2026</span>
+                <!-- Artikel 1 -->
+                <article class="bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden border-3 border-zinc-900 dark:border-zinc-100 shadow-[6px_6px_0px_0px_#18181b] dark:shadow-[6px_6px_0px_0px_#f4f4f5] transition-all duration-300 hover:-translate-y-1 flex flex-col">
+                    <div class="overflow-hidden border-b-3 border-zinc-900 dark:border-zinc-100">
+                        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80" alt="Pameran Karya PPLG"
+                            class="w-full h-60 object-cover">
                     </div>
 
-                    <a href="artikel/show.html"
-                        class="mt-6 inline-flex items-center justify-center rounded-full bg-blue-700 hover:bg-blue-800 px-5 py-2.5 text-sm font-semibold text-white transition shadow-xs">
-                        Baca Selengkapnya &rarr;
-                    </a>
-                </div>
-            </article>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <span class="inline-flex w-fit rounded-xl bg-sky-200 text-zinc-900 border-2 border-zinc-900 px-3 py-1 text-xs font-black shadow-[2px_2px_0px_0px_#18181b] mb-4">
+                            Kegiatan Sekolah
+                        </span>
 
-            <!-- Artikel 2 -->
-            <article class="group overflow-hidden rounded-[1.75rem] border border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-gray-900 shadow-xs transition duration-300 hover:-translate-y-1 hover:shadow-md">
-                <div class="overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80" alt="Tips Coding Web"
-                        class="w-full h-60 object-cover transition duration-500 group-hover:scale-105">
-                </div>
+                        <h2 class="text-xl font-black text-zinc-900 dark:text-white leading-snug line-clamp-2">
+                            Pameran Karya Digital PPLG SMKN 4 Tasikmalaya Berhasil Memukau Pengunjung
+                        </h2>
 
-                <div class="p-6">
-                    <span class="inline-flex rounded-full bg-sky-200/60 text-sky-900 px-3 py-1 text-xs font-semibold dark:bg-sky-500/15 dark:text-sky-200">
-                        Edukasi &amp; Teknologi
-                    </span>
+                        <p class="mt-3 text-zinc-600 dark:text-zinc-300 text-xs sm:text-sm font-medium leading-relaxed line-clamp-3">
+                            Siswa jurusan PPLG menampilkan puluhan proyek aplikasi web dan mobile inovatif dalam ajang pameran tahunan Museum Karya.
+                        </p>
 
-                    <h2 class="text-xl font-bold text-slate-800 dark:text-white mt-4 leading-snug line-clamp-2">
-                        Tips Membangun Portofolio Web Interaktif bagi Pemula di SMK
-                    </h2>
+                        <div class="mt-6 flex flex-wrap items-center gap-2 text-xs text-zinc-500 dark:text-zinc-400 font-bold">
+                            <span>Admin PPLG</span>
+                            <span>•</span>
+                            <span>10 Sep 2026</span>
+                        </div>
 
-                    <p class="mt-3 text-slate-600 dark:text-gray-300 text-sm leading-relaxed line-clamp-3">
-                        Simak panduan praktis bagaimana menyusun portofolio berbasis web yang menarik minat industri dan klien profesional.
-                    </p>
+                        <div class="mt-auto pt-6">
+                            <a href="artikel/show.html"
+                                class="w-full inline-flex items-center justify-center rounded-xl bg-cyan-300 hover:bg-cyan-400 px-5 py-3 text-sm font-black text-zinc-900 border-2 border-zinc-900 shadow-[3px_3px_0px_0px_#18181b] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition">
+                                Baca Selengkapnya &rarr;
+                            </a>
+                        </div>
+                    </div>
+                </article>
 
-                    <div class="mt-6 flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-gray-400 font-medium">
-                        <span>Budi Santoso</span>
-                        <span>•</span>
-                        <span>08 Sep 2026</span>
+                <!-- Artikel 2 -->
+                <article class="bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden border-3 border-zinc-900 dark:border-zinc-100 shadow-[6px_6px_0px_0px_#18181b] dark:shadow-[6px_6px_0px_0px_#f4f4f5] transition-all duration-300 hover:-translate-y-1 flex flex-col">
+                    <div class="overflow-hidden border-b-3 border-zinc-900 dark:border-zinc-100">
+                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80" alt="Tips Coding Web"
+                            class="w-full h-60 object-cover">
                     </div>
 
-                    <a href="artikel/show.html"
-                        class="mt-6 inline-flex items-center justify-center rounded-full bg-blue-700 hover:bg-blue-800 px-5 py-2.5 text-sm font-semibold text-white transition shadow-xs">
-                        Baca Selengkapnya &rarr;
-                    </a>
-                </div>
-            </article>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <span class="inline-flex w-fit rounded-xl bg-pink-200 text-zinc-900 border-2 border-zinc-900 px-3 py-1 text-xs font-black shadow-[2px_2px_0px_0px_#18181b] mb-4">
+                            Edukasi &amp; Teknologi
+                        </span>
 
-            <!-- Artikel 3 -->
-            <article class="group overflow-hidden rounded-[1.75rem] border border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-gray-900 shadow-xs transition duration-300 hover:-translate-y-1 hover:shadow-md">
-                <div class="overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="Kolaborasi Siswa"
-                        class="w-full h-60 object-cover transition duration-500 group-hover:scale-105">
-                </div>
+                        <h2 class="text-xl font-black text-zinc-900 dark:text-white leading-snug line-clamp-2">
+                            Tips Membangun Portofolio Web Interaktif bagi Pemula di SMK
+                        </h2>
 
-                <div class="p-6">
-                    <span class="inline-flex rounded-full bg-sky-200/60 text-sky-900 px-3 py-1 text-xs font-semibold dark:bg-sky-500/15 dark:text-sky-200">
-                        Inspirasi
-                    </span>
+                        <p class="mt-3 text-zinc-600 dark:text-zinc-300 text-xs sm:text-sm font-medium leading-relaxed line-clamp-3">
+                            Simak panduan praktis bagaimana menyusun portofolio berbasis web yang menarik minat industri dan klien profesional.
+                        </p>
 
-                    <h2 class="text-xl font-bold text-slate-800 dark:text-white mt-4 leading-snug line-clamp-2">
-                        Pentingnya Kolaborasi Tim dalam Pengembangan Perangkat Lunak
-                    </h2>
+                        <div class="mt-6 flex flex-wrap items-center gap-2 text-xs text-zinc-500 dark:text-zinc-400 font-bold">
+                            <span>Budi Santoso</span>
+                            <span>•</span>
+                            <span>08 Sep 2026</span>
+                        </div>
 
-                    <p class="mt-3 text-slate-600 dark:text-gray-300 text-sm leading-relaxed line-clamp-3">
-                        Belajar bekerja dalam tim merupakan keterampilan utama yang diasah dalam pembuatan proyek-proyek di Museum Karya.
-                    </p>
+                        <div class="mt-auto pt-6">
+                            <a href="artikel/show.html"
+                                class="w-full inline-flex items-center justify-center rounded-xl bg-cyan-300 hover:bg-cyan-400 px-5 py-3 text-sm font-black text-zinc-900 border-2 border-zinc-900 shadow-[3px_3px_0px_0px_#18181b] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition">
+                                Baca Selengkapnya &rarr;
+                            </a>
+                        </div>
+                    </div>
+                </article>
 
-                    <div class="mt-6 flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-gray-400 font-medium">
-                        <span>Siti Nurhaliza</span>
-                        <span>•</span>
-                        <span>05 Sep 2026</span>
+                <!-- Artikel 3 -->
+                <article class="bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden border-3 border-zinc-900 dark:border-zinc-100 shadow-[6px_6px_0px_0px_#18181b] dark:shadow-[6px_6px_0px_0px_#f4f4f5] transition-all duration-300 hover:-translate-y-1 flex flex-col">
+                    <div class="overflow-hidden border-b-3 border-zinc-900 dark:border-zinc-100">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="Kolaborasi Siswa"
+                            class="w-full h-60 object-cover">
                     </div>
 
-                    <a href="artikel/show.html"
-                        class="mt-6 inline-flex items-center justify-center rounded-full bg-blue-700 hover:bg-blue-800 px-5 py-2.5 text-sm font-semibold text-white transition shadow-xs">
-                        Baca Selengkapnya &rarr;
-                    </a>
-                </div>
-            </article>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <span class="inline-flex w-fit rounded-xl bg-emerald-200 text-zinc-900 border-2 border-zinc-900 px-3 py-1 text-xs font-black shadow-[2px_2px_0px_0px_#18181b] mb-4">
+                            Inspirasi
+                        </span>
 
+                        <h2 class="text-xl font-black text-zinc-900 dark:text-white leading-snug line-clamp-2">
+                            Pentingnya Kolaborasi Tim dalam Pengembangan Perangkat Lunak
+                        </h2>
+
+                        <p class="mt-3 text-zinc-600 dark:text-zinc-300 text-xs sm:text-sm font-medium leading-relaxed line-clamp-3">
+                            Belajar bekerja dalam tim merupakan keterampilan utama yang diasah dalam pembuatan proyek-proyek di Museum Karya.
+                        </p>
+
+                        <div class="mt-6 flex flex-wrap items-center gap-2 text-xs text-zinc-500 dark:text-zinc-400 font-bold">
+                            <span>Siti Nurhaliza</span>
+                            <span>•</span>
+                            <span>05 Sep 2026</span>
+                        </div>
+
+                        <div class="mt-auto pt-6">
+                            <a href="artikel/show.html"
+                                class="w-full inline-flex items-center justify-center rounded-xl bg-cyan-300 hover:bg-cyan-400 px-5 py-3 text-sm font-black text-zinc-900 border-2 border-zinc-900 shadow-[3px_3px_0px_0px_#18181b] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition">
+                                Baca Selengkapnya &rarr;
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
         </div>
     </main>
 
     <!-- ===== FOOTER ===== -->
-    <footer class="bg-slate-900 dark:bg-black text-white text-center py-12 border-t border-slate-800 dark:border-gray-900">
+    <footer class="bg-zinc-900 text-white text-center py-8 border-t-3 border-zinc-900">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
-            <p class="text-slate-400 text-sm">&copy; 2026 Museum Karya SMKN 4 Tasikmalaya</p>
-            <p class="text-slate-400 text-sm">Design &amp; Development By PPLG</p>
+            <p class="text-xs font-bold">&copy; 2026 Museum Karya SMKN 4 Tasikmalaya</p>
+            <p class="text-xs font-bold text-cyan-300 mt-1">Design &amp; Development By PPLG</p>
         </div>
     </footer>
     <script src="assets/js/artikel.js"></script>

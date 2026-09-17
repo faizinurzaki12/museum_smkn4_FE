@@ -9,148 +9,218 @@
     <style type="text/tailwindcss">
       @custom-variant dark (&:where(.dark, .dark *));
     </style>
+    <style>
+      /* Icon toggle mode terang/gelap */
+      .icon-moon {
+        display: block;
+      }
+      .icon-sun {
+        display: none;
+      }
+      .dark .icon-moon {
+        display: none;
+      }
+      .dark .icon-sun {
+        display: block;
+      }
+
+      /* Gaya Khusus Neo-Brutalism */
+      .neop-navbar-container {
+        border: 3px solid #000;
+        box-shadow: 4px 4px 0px 0px #000;
+        border-radius: 9999px;
+      }
+      .dark .neop-navbar-container {
+        border: 3px solid #fff;
+        box-shadow: 4px 4px 0px 0px #fff;
+      }
+
+      .neop-card {
+        border: 3px solid #000;
+        box-shadow: 5px 5px 0px 0px #000;
+        border-radius: 1rem;
+        transition: all 0.1s ease;
+      }
+      .dark .neop-card {
+        border: 3px solid #fff;
+        box-shadow: 5px 5px 0px 0px #fff;
+      }
+      .neop-card:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 7px 7px 0px 0px #000;
+      }
+      .dark .neop-card:hover {
+        box-shadow: 7px 7px 0px 0px #fff;
+      }
+
+      .neop-btn-box {
+        border: 2px solid #000;
+        box-shadow: 2px 2px 0px 0px #000;
+        transition: all 0.1s ease;
+      }
+      .neop-btn-box:active {
+        transform: translate(2px, 2px);
+        box-shadow: 0px 0px 0px 0px #000;
+      }
+      .dark .neop-btn-box {
+        border: 2px solid #fff;
+        box-shadow: 2px 2px 0px 0px #fff;
+      }
+      .dark .neop-btn-box:active {
+        box-shadow: 0px 0px 0px 0px #fff;
+      }
+
+      .neop-badge {
+        border: 2px solid #000;
+        box-shadow: 2px 2px 0px 0px #000;
+      }
+      .dark .neop-badge {
+        border: 2px solid #fff;
+        box-shadow: 2px 2px 0px 0px #fff;
+      }
+    </style>
     <link rel="stylesheet" href="assets/css/theme.css">
   </head>
   <body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300 antialiased min-h-screen flex flex-col justify-between">
     <!-- ===== MAIN WRAPPER ===== -->
     <div>
-      <!-- ===== HEADER (Disesuaikan dengan Nav Index) ===== -->
-      <header class="navbar shadow-sm sticky top-0 z-50 bg-white dark:bg-gray-900 transition-colors duration-300">
-        <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
-          <div class="flex lg:flex-1 items-center gap-2">
-            <img src="assets/img/smk4.png" alt="SMK4 Logo" class="w-10 h-10 rounded-full object-cover" />
-            <span class="text-2xl font-bold text-blue-700 dark:text-blue-500">Museum Karya</span>
+      <!-- ===== HEADER (NEO-BRUTALISM FLOATING PILL NAVBAR) ===== -->
+      <header class="sticky top-4 z-50 px-4">
+        <nav class="mx-auto max-w-7xl neop-navbar-container bg-white dark:bg-gray-900 px-4 py-2.5 flex items-center justify-between transition-colors duration-300">
+          
+          <!-- Logo & Brand -->
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 bg-white dark:bg-blue-600 border-2 border-black dark:border-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] rounded-lg flex items-center justify-center text-sm">
+              🏛️
+            </div>
+            <span class="text-base sm:text-lg font-black tracking-tight text-black dark:text-white uppercase">MUSEUM.KARYA</span>
           </div>
-          <div class="flex flex-wrap items-center justify-center gap-3 lg:gap-x-8 lg:justify-end lg:items-center">
-            <a href="index.html" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition">Beranda</a>
-            <a href="karya.html" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition">Karya</a>
-            <a href="artikel.html" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition">Artikel</a>
-            <a href="tentang.html" class="text-sm font-semibold text-blue-600 border-b-2 border-blue-600 pb-1">Tentang</a>
-            <a href="auth/login.html" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition">Login</a>
+
+          <!-- Menu Navigasi Tengah -->
+          <div class="hidden md:flex items-center gap-x-8">
+            <a href="index.html" class="text-xs lg:text-sm font-bold text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition">BERANDA</a>
+            <a href="karya.html" class="text-xs lg:text-sm font-bold text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition">KARYA</a>
+            <a href="artikel.html" class="text-xs lg:text-sm font-bold text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition">ARTIKEL</a>
+            <a href="tentang.html" class="text-xs lg:text-sm font-black text-black dark:text-white border-b-2 border-black dark:border-white pb-0.5">TENTANG</a>
+          </div>
+
+          <!-- Bagian Kanan (Theme Toggle & Login Button) -->
+          <div class="flex items-center gap-3">
             <button
               id="themeToggle"
               onclick="toggleTheme()"
               aria-label="Ganti mode terang/gelap"
-              class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-yellow-300 cursor-pointer"
+              class="neop-btn-box w-9 h-9 flex items-center justify-center rounded-full bg-yellow-300 dark:bg-gray-800 text-black dark:text-yellow-300 cursor-pointer"
             >
-              <svg class="icon-sun w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                />
+              <svg class="icon-sun w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
               </svg>
-              <svg class="icon-moon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+              <svg class="icon-moon w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
               </svg>
             </button>
+            <a href="auth/login.html" class="neop-btn-box px-4 py-1.5 bg-cyan-300 dark:bg-cyan-600 text-black dark:text-white font-black text-xs sm:text-sm rounded-full uppercase tracking-wider">
+              LOGIN
+            </a>
           </div>
+
         </nav>
       </header>
 
       <!-- ===== MAIN CONTENT CONTAINER ===== -->
-      <main class="py-10 sm:py-12">
+      <main class="py-12 sm:py-16">
         <!-- ===== HERO ===== -->
-        <section class="pb-8 text-center">
+        <section class="pb-10 text-center">
           <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <span class="inline-block px-3.5 py-1 mb-3 text-xs font-semibold uppercase tracking-wider text-blue-700 dark:text-blue-300 bg-blue-100/70 dark:bg-blue-950/60 rounded-full"> Informasi Proyek </span>
-            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white mb-3 tracking-tight">Tentang Museum Karya</h1>
-            <p class="text-slate-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed">Mengenal latar belakang pengerjaan proyek, tujuan pengembangannya, dan tim di balik platform ini.</p>
+            <span class="inline-block px-4 py-1.5 mb-4 text-xs font-black uppercase tracking-wider text-black dark:text-black bg-yellow-300 rounded-full neop-badge"> Informasi Proyek </span>
+            <h1 class="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white mb-4 tracking-tight uppercase">Tentang Museum Karya</h1>
+            <p class="text-slate-700 dark:text-gray-300 text-sm sm:text-base font-medium max-w-2xl mx-auto leading-relaxed">Mengenal latar belakang pengerjaan proyek, tujuan pengembangannya, dan tim di balik platform ini.</p>
           </div>
         </section>
 
         <!-- ===== TENTANG PROYEK ===== -->
         <section id="tentang-proyek" class="mx-auto max-w-4xl px-4 sm:px-6">
-          <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 sm:p-10 shadow-sm border border-slate-200/80 dark:border-gray-800 transition-colors duration-300">
+          <div class="neop-card bg-white dark:bg-gray-900 p-6 sm:p-10 transition-colors duration-300">
             <!-- Narasi Utama -->
-            <div class="space-y-4 sm:space-y-6 text-slate-700 dark:text-gray-300 leading-relaxed text-sm sm:text-base md:text-lg">
+            <div class="space-y-4 sm:space-y-6 text-slate-800 dark:text-gray-200 leading-relaxed text-sm sm:text-base md:text-lg font-medium">
               <p>
-                <strong class="text-slate-900 dark:text-white font-semibold">Museum Karya</strong> hadir sebagai wadah digital terintegrasi yang dirancang khusus untuk menampung, mendokumentasikan, dan mempublikasikan berbagai hasil karya
-                siswa-siswi SMKN 4 Tasikmalaya. Potensi kreativitas dan inovasi yang dihasilkan oleh para siswa sangat kaya, sehingga sangat disayangkan apabila karya-karya luar biasa tersebut hanya tersimpan tanpa sempat diapresiasi secara
-                luas.
+                <strong class="text-black dark:text-white font-black">Museum Karya</strong> hadir sebagai wadah digital terintegrasi yang dirancang khusus untuk menampung, mendokumentasikan, dan mempublikasikan berbagai hasil karya siswa-siswi SMKN 4 Tasikmalaya. Potensi kreativitas dan inovasi yang dihasilkan oleh para siswa sangat kaya, sehingga sangat disayangkan apabila karya-karya luar biasa tersebut hanya tersimpan tanpa sempat diapresiasi secara luas.
               </p>
               <p>
-                Platform ini dikembangkan melalui <span class="text-blue-600 dark:text-blue-400 font-semibold">kolaborasi antar tim pengembang</span> yang mulai dikerjakan secara intensif pada tanggal
-                <span class="text-blue-600 dark:text-blue-400 font-semibold">28 Juni 2026</span>. Melalui kolaborasi ini, diharapkan Museum Karya dapat menjadi galeri digital terdepan yang tidak hanya memamerkan portofolio terbaik siswa,
-                tetapi juga menginspirasi lahirnya karya-karya baru di lingkungan SMKN 4 Tasikmalaya.
+                Platform ini dikembangkan melalui <span class="bg-cyan-200 dark:bg-cyan-900 text-black dark:text-cyan-200 px-1.5 py-0.5 font-bold border border-black dark:border-white rounded">kolaborasi antar tim pengembang</span> yang mulai dikerjakan secara intensif pada tanggal <span class="bg-yellow-200 dark:bg-yellow-900 text-black dark:text-yellow-200 px-1.5 py-0.5 font-bold border border-black dark:border-white rounded">28 Juni 2026</span>. Melalui kolaborasi ini, diharapkan Museum Karya dapat menjadi galeri digital terdepan yang tidak hanya memamerkan portofolio terbaik siswa, tetapi juga menginspirasi lahirnya karya-karya baru di lingkungan SMKN 4 Tasikmalaya.
               </p>
             </div>
 
             <!-- Callout Bridge -->
-            <div class="mt-8 p-5 sm:p-6 rounded-xl bg-slate-50 dark:bg-gray-800/60 border border-slate-200 dark:border-gray-700/60 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="mt-8 p-5 sm:p-6 rounded-xl bg-amber-100 dark:bg-gray-800 border-2 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] flex flex-col sm:flex-row items-center justify-between gap-4">
               <div class="text-center sm:text-left">
-                <p class="text-sm font-bold text-slate-900 dark:text-white">Penasaran siapa saja yang membangun platform ini?</p>
-                <p class="text-xs text-slate-500 dark:text-gray-400 mt-0.5">Lihat profil dan peran dari masing-masing tim pengembang kami.</p>
+                <p class="text-sm font-black text-black dark:text-white">Penasaran siapa saja yang membangun platform ini?</p>
+                <p class="text-xs text-gray-700 dark:text-gray-300 font-semibold mt-0.5">Lihat profil dan peran dari masing-masing tim pengembang kami.</p>
               </div>
               <a
                 href="#tim-kami"
-                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-all shadow-sm hover:shadow-md shrink-0 active:scale-95"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-pink-400 dark:bg-pink-600 text-black dark:text-white font-black text-sm transition-all neop-btn-box shrink-0"
               >
                 Sapa Tim Pengembang
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                 </svg>
               </a>
             </div>
 
             <!-- Ringkasan Statistik -->
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-slate-200 dark:border-gray-800 text-center sm:text-left">
-              <div>
-                <p class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 dark:text-gray-400 font-semibold">Mulai Pengerjaan</p>
-                <p class="text-sm sm:text-lg font-bold text-slate-900 dark:text-white mt-1">28 Juni 2026</p>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 mt-8 sm:mt-10 pt-6 sm:pt-8 border-t-2 border-black dark:border-white text-center sm:text-left">
+              <div class="p-3 bg-gray-50 dark:bg-gray-800 border-2 border-black dark:border-white rounded-lg shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]">
+                <p class="text-[10px] sm:text-xs uppercase tracking-wider text-gray-600 dark:text-gray-400 font-black">Mulai Pengerjaan</p>
+                <p class="text-sm sm:text-base font-black text-black dark:text-white mt-1">28 Juni 2026</p>
               </div>
-              <div>
-                <p class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 dark:text-gray-400 font-semibold">Bentuk Proyek</p>
-                <p class="text-sm sm:text-lg font-bold text-slate-900 dark:text-white mt-1">Kolaborasi Tim</p>
+              <div class="p-3 bg-gray-50 dark:bg-gray-800 border-2 border-black dark:border-white rounded-lg shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]">
+                <p class="text-[10px] sm:text-xs uppercase tracking-wider text-gray-600 dark:text-gray-400 font-black">Bentuk Proyek</p>
+                <p class="text-sm sm:text-base font-black text-black dark:text-white mt-1">Kolaborasi Tim</p>
               </div>
-              <div class="col-span-2 sm:col-span-1">
-                <p class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 dark:text-gray-400 font-semibold">Versi Sistem</p>
-                <p class="text-sm sm:text-lg font-bold text-blue-600 dark:text-blue-400 mt-1" id="app-version">v1.0.0</p>
+              <div class="col-span-2 sm:col-span-1 p-3 bg-gray-50 dark:bg-gray-800 border-2 border-black dark:border-white rounded-lg shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]">
+                <p class="text-[10px] sm:text-xs uppercase tracking-wider text-gray-600 dark:text-gray-400 font-black">Versi Sistem</p>
+                <p class="text-sm sm:text-base font-black text-blue-600 dark:text-blue-400 mt-1" id="app-version">v1.0.0</p>
               </div>
             </div>
           </div>
         </section>
 
         <!-- ===== TIM KAMI ===== -->
-        <section id="tim-kami" class="scroll-mt-20 sm:scroll-mt-24 pt-14 sm:pt-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div class="mb-8 sm:mb-10 text-center max-w-2xl mx-auto">
-            <span class="inline-block px-3 py-1 mb-2.5 sm:mb-3 text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-blue-700 dark:text-blue-300 bg-blue-100/70 dark:bg-blue-950/60 rounded-full"> Developer Profile </span>
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-2 tracking-tight">Tim Pengembang</h2>
-            <p class="text-slate-600 dark:text-gray-400 text-xs sm:text-base">Siswa di balik perancangan dan pembangunan platform Museum Karya.</p>
+        <section id="tim-kami" class="scroll-mt-24 pt-16 sm:pt-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="mb-10 text-center max-w-2xl mx-auto">
+            <span class="inline-block px-4 py-1.5 mb-3 text-xs font-black uppercase tracking-wider text-black bg-cyan-300 rounded-full neop-badge"> Developer Profile </span>
+            <h2 class="text-2xl sm:text-4xl font-black text-slate-900 dark:text-white mb-3 tracking-tight uppercase">Tim Pengembang</h2>
+            <p class="text-slate-700 dark:text-gray-300 text-xs sm:text-base font-medium">Siswa di balik perancangan dan pembangunan platform Museum Karya.</p>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 justify-center max-w-3xl mx-auto">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 justify-center max-w-3xl mx-auto">
             <!-- Card 1 -->
-            <div
-              class="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-sm border border-slate-200/80 dark:border-gray-800 p-5 sm:p-6 flex flex-col items-center text-center transition-all duration-300 hover:shadow-md hover:-translate-y-1"
-            >
-              <img src="https://ui-avatars.com/api/?name=Rida+Masrifa&background=2563EB&color=FFFFFF&size=200" alt="Foto Rida Masrifa" class="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover ring-4 ring-slate-100 dark:ring-gray-800" />
-              <h3 class="font-bold text-base sm:text-lg text-slate-900 dark:text-white mt-3 sm:mt-4">Rida Masrifa</h3>
-              <p class="text-xs sm:text-sm font-medium text-slate-500 dark:text-gray-400 mt-0.5">XII PPLG 1</p>
+            <div class="neop-card bg-white dark:bg-gray-900 p-6 flex flex-col items-center text-center">
+              <img src="https://ui-avatars.com/api/?name=Rida+Masrifa&background=2563EB&color=FFFFFF&size=200" alt="Foto Rida Masrifa" class="w-24 h-24 rounded-full object-cover border-3 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)]" />
+              <h3 class="font-black text-lg sm:text-xl text-slate-900 dark:text-white mt-4">Rida Masrifa</h3>
+              <p class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-400 mt-0.5">XII PPLG 1</p>
 
-              <div class="flex flex-wrap justify-center gap-1.5 sm:gap-2 mt-3">
-                <span class="inline-block bg-slate-100 dark:bg-gray-800 text-slate-700 dark:text-gray-300 border border-slate-200 dark:border-gray-700 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-[11px] sm:text-xs font-semibold"
-                  >Backend Developer</span
-                >
+              <div class="flex flex-wrap justify-center gap-2 mt-3">
+                <span class="inline-block bg-yellow-300 text-black border-2 border-black px-3 py-1 rounded-full text-xs font-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">Backend Developer</span>
               </div>
 
-              <div class="grid grid-cols-2 gap-2 mt-5 sm:mt-6 w-full">
+              <div class="grid grid-cols-2 gap-3 mt-6 w-full">
                 <a
                   href="https://github.com/Ridamasrifaa"
                   target="_blank"
-                  class="flex items-center justify-center gap-1.5 sm:gap-2 py-2 sm:py-2.5 rounded-xl text-xs font-semibold bg-slate-900 text-white hover:bg-slate-800 dark:bg-gray-800 dark:hover:bg-gray-700 transition"
+                  class="flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-black bg-black text-white dark:bg-gray-800 dark:text-white neop-btn-box"
                 >
-                  <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                     <path
                       d="M12 .5C5.73.5.98 5.24.98 11.5c0 4.84 3.14 8.94 7.5 10.39.55.1.75-.24.75-.53 0-.26-.01-1.13-.02-2.05-3.05.66-3.69-1.3-3.69-1.3-.5-1.26-1.22-1.6-1.22-1.6-.99-.68.08-.67.08-.67 1.1.08 1.68 1.13 1.68 1.13.98 1.68 2.57 1.2 3.2.92.1-.71.38-1.2.7-1.48-2.43-.28-4.99-1.22-4.99-5.4 0-1.19.42-2.17 1.12-2.93-.11-.28-.49-1.4.11-2.92 0 0 .92-.29 3 1.12a10.4 10.4 0 0 1 5.46 0c2.08-1.41 3-1.12 3-1.12.6 1.52.22 2.64.11 2.92.7.76 1.12 1.74 1.12 2.93 0 4.19-2.57 5.11-5.01 5.38.39.34.74 1.01.74 2.04 0 1.47-.01 2.66-.01 3.02 0 .29.2.64.76.53 4.35-1.45 7.49-5.55 7.49-10.39C23.02 5.24 18.27.5 12 .5Z"
                     />
                   </svg>
                   GitHub
                 </a>
-                <a href="#" target="_blank" class="flex items-center justify-center gap-1.5 sm:gap-2 py-2 sm:py-2.5 rounded-xl text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white transition">
-                  <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 6H18a2 2 0 012 2v9a2 2 0 01-2 2H6a2 2 0 01-2-2v-4.5M14 10l7-7m0 0h-5m5 0v5" />
+                <a href="#" target="_blank" class="flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-black bg-cyan-300 text-black neop-btn-box">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13.5 6H18a2 2 0 012 2v9a2 2 0 01-2 2H6a2 2 0 01-2-2v-4.5M14 10l7-7m0 0h-5m5 0v5" />
                   </svg>
                   Portofolio
                 </a>
@@ -158,42 +228,36 @@
             </div>
 
             <!-- Card 2 -->
-            <div
-              class="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-sm border border-slate-200/80 dark:border-gray-800 p-5 sm:p-6 flex flex-col items-center text-center transition-all duration-300 hover:shadow-md hover:-translate-y-1"
-            >
+            <div class="neop-card bg-white dark:bg-gray-900 p-6 flex flex-col items-center text-center">
               <img
                 src="https://ui-avatars.com/api/?name=Zaki+NurFaizi&background=0EA5E9&color=FFFFFF&size=200"
                 alt="Foto Zaki Nur Faizi"
-                class="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover ring-4 ring-slate-100 dark:ring-gray-800"
+                class="w-24 h-24 rounded-full object-cover border-3 border-black dark:border-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)]"
               />
-              <h3 class="font-bold text-base sm:text-lg text-slate-900 dark:text-white mt-3 sm:mt-4">Zaki Nur Faizi</h3>
-              <p class="text-xs sm:text-sm font-medium text-slate-500 dark:text-gray-400 mt-0.5">XII PPLG 2</p>
+              <h3 class="font-black text-lg sm:text-xl text-slate-900 dark:text-white mt-4">Zaki Nur Faizi</h3>
+              <p class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-400 mt-0.5">XII PPLG 2</p>
 
-              <div class="flex flex-wrap justify-center gap-1.5 sm:gap-2 mt-3">
-                <span class="inline-block bg-slate-100 dark:bg-gray-800 text-slate-700 dark:text-gray-300 border border-slate-200 dark:border-gray-700 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-[11px] sm:text-xs font-semibold"
-                  >Frontend</span
-                >
-                <span class="inline-block bg-slate-100 dark:bg-gray-800 text-slate-700 dark:text-gray-300 border border-slate-200 dark:border-gray-700 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-[11px] sm:text-xs font-semibold"
-                  >Backend</span
-                >
+              <div class="flex flex-wrap justify-center gap-2 mt-3">
+                <span class="inline-block bg-pink-300 text-black border-2 border-black px-3 py-1 rounded-full text-xs font-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">Frontend</span>
+                <span class="inline-block bg-green-300 text-black border-2 border-black px-3 py-1 rounded-full text-xs font-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">Backend</span>
               </div>
 
-              <div class="grid grid-cols-2 gap-2 mt-5 sm:mt-6 w-full">
+              <div class="grid grid-cols-2 gap-3 mt-6 w-full">
                 <a
                   href="https://github.com/faizinurzaki12"
                   target="_blank"
-                  class="flex items-center justify-center gap-1.5 sm:gap-2 py-2 sm:py-2.5 rounded-xl text-xs font-semibold bg-slate-900 text-white hover:bg-slate-800 dark:bg-gray-800 dark:hover:bg-gray-700 transition"
+                  class="flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-black bg-black text-white dark:bg-gray-800 dark:text-white neop-btn-box"
                 >
-                  <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                     <path
                       d="M12 .5C5.73.5.98 5.24.98 11.5c0 4.84 3.14 8.94 7.5 10.39.55.1.75-.24.75-.53 0-.26-.01-1.13-.02-2.05-3.05.66-3.69-1.3-3.69-1.3-.5-1.26-1.22-1.6-1.22-1.6-.99-.68.08-.67.08-.67 1.1.08 1.68 1.13 1.68 1.13.98 1.68 2.57 1.2 3.2.92.1-.71.38-1.2.7-1.48-2.43-.28-4.99-1.22-4.99-5.4 0-1.19.42-2.17 1.12-2.93-.11-.28-.49-1.4.11-2.92 0 0 .92-.29 3 1.12a10.4 10.4 0 0 1 5.46 0c2.08-1.41 3-1.12 3-1.12.6 1.52.22 2.64.11 2.92.7.76 1.12 1.74 1.12 2.93 0 4.19-2.57 5.11-5.01 5.38.39.34.74 1.01.74 2.04 0 1.47-.01 2.66-.01 3.02 0 .29.2.64.76.53 4.35-1.45 7.49-5.55 7.49-10.39C23.02 5.24 18.27.5 12 .5Z"
                     />
                   </svg>
                   GitHub
                 </a>
-                <a href="https://zackynurfazz.netlify.app" target="_blank" class="flex items-center justify-center gap-1.5 sm:gap-2 py-2 sm:py-2.5 rounded-xl text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white transition">
-                  <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 6H18a2 2 0 012 2v9a2 2 0 01-2 2H6a2 2 0 01-2-2v-4.5M14 10l7-7m0 0h-5m5 0v5" />
+                <a href="https://zackynurfazz.netlify.app" target="_blank" class="flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-black bg-cyan-300 text-black neop-btn-box">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13.5 6H18a2 2 0 012 2v9a2 2 0 01-2 2H6a2 2 0 01-2-2v-4.5M14 10l7-7m0 0h-5m5 0v5" />
                   </svg>
                   Portofolio
                 </a>
@@ -204,15 +268,32 @@
       </main>
     </div>
 
-    <!-- ===== FOOTER (Disesuaikan dengan Footer Index) ===== -->
-    <footer class="bg-gray-900 dark:bg-black text-white text-center py-12 mt-16">
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-gray-900 dark:bg-black text-white text-center py-12 mt-16 border-t-4 border-black dark:border-white">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <div class="border-t border-gray-800 pt-8">
-          <p class="text-gray-400 text-sm">&copy; 2026 Museum Karya SMKN 4 Tasikmalaya</p>
-          <p class="text-gray-400 text-sm">Design &amp; Development By PPLG</p>
+        <div class="pt-4">
+          <p class="text-gray-300 font-bold text-sm">&copy; 2026 Museum Karya SMKN 4 Tasikmalaya</p>
+          <p class="text-gray-400 text-xs mt-1">Design &amp; Development By PPLG</p>
         </div>
       </div>
     </footer>
     <script src="assets/js/tentang.js"></script>
+    <script>
+        function applyTheme(theme) {
+            document.documentElement.classList.toggle("dark", theme === "dark");
+        }
+
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.contains("dark");
+            const next = isDark ? "light" : "dark";
+            localStorage.setItem("theme", next);
+            applyTheme(next);
+        }
+        (function initTheme() {
+            const saved = localStorage.getItem("theme");
+            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            applyTheme(saved || (prefersDark ? "dark" : "light"));
+        })();
+    </script>
   </body>
 </html>

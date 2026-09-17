@@ -10,208 +10,194 @@
     <style type="text/tailwindcss">
         @custom-variant dark (&:where(.dark, .dark *));
 
-        /* Pola Titik-titik (Dot-Grid Background yang lebih jelas + Gradasi Putih di Tengah) */
-        .bg-dots-gradient {
+        /* Pola Kotak-kotak (Grid Pattern untuk Background) */
+        .bg-grid-pattern {
             background-image: 
-                radial-gradient(circle at center, rgba(255, 255, 255, 0.45) 0%, transparent 65%),
-                radial-gradient(rgba(255, 255, 255, 0.45) 2px, transparent 2px);
-            background-size: 100% 100%, 22px 22px;
+                linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
         }
-        .dark .bg-dots-gradient {
+        .dark .bg-grid-pattern {
             background-image: 
-                radial-gradient(circle at center, rgba(255, 255, 255, 0.15) 0%, transparent 70%),
-                radial-gradient(rgba(255, 255, 255, 0.2) 2px, transparent 2px);
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
         }
 
-        /* Animasi Objek Melayang */
-        @keyframes floatSlow {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-12px) rotate(3deg); }
+        .card-hover:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 8px 8px 0px 0px #18181b;
         }
-        @keyframes floatFast {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-16px) rotate(-4deg); }
+        .dark .card-hover:hover {
+            box-shadow: 8px 8px 0px 0px #f4f4f5;
         }
-        .animate-float-slow {
-            animation: floatSlow 4s ease-in-out infinite;
+
+        .badge-custom {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            background-color: #fde047;
+            color: #18181b;
+            font-size: 0.7rem;
+            font-weight: 900;
+            border-radius: 0.4rem;
+            border: 2px solid #18181b;
+            box-shadow: 2px 2px 0px 0px #18181b;
         }
-        .animate-float-fast {
-            animation: floatFast 3s ease-in-out infinite;
+
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            background: #f4f4f5;
         }
     </style>
     <link rel="stylesheet" href="assets/css/karya.css">
 </head>
 <body class="bg-[#fffdf9] dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-colors duration-300 antialiased flex flex-col min-h-screen">
 
-    <!-- ===== WRAPPER ATAS (Navbar & Hero Section dengan Gradasi & Dots Jelas) ===== -->
-    <div class="bg-sky-500 dark:bg-sky-950 bg-dots-gradient border-b-3 border-zinc-900 dark:border-zinc-100 pb-24 lg:pb-32 transition-colors duration-300">
-
-        <!-- ===== HEADER (Floating Pill Style) ===== -->
-        <header class="sticky top-4 z-50 px-4 lg:px-8 pt-4">
-            <div class="mx-auto max-w-7xl bg-white dark:bg-zinc-900 border-3 border-zinc-900 dark:border-zinc-100 rounded-full px-6 py-3 shadow-[4px_4px_0px_0px_#18181b] dark:shadow-[4px_4px_0px_0px_#f4f4f5] flex items-center justify-between transition-colors duration-300">
-                
-                <!-- Sisi Kiri: Logo Kotak + Teks MUSEUM.KARYA -->
-                <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 flex items-center justify-center bg-zinc-100 dark:bg-zinc-800 rounded-xl border-2 border-zinc-900 dark:border-zinc-100 shadow-[2px_2px_0px_0px_#18181b]">
-                        <img src="assets/img/smk4.png" alt="Logo" class="w-5 h-5 object-cover rounded-md">
-                    </div>
-                    <span class="text-xs sm:text-sm font-black uppercase tracking-wider text-zinc-900 dark:text-white">MUSEUM.KARYA</span>
-                </div>
-
-                <!-- Menu Navigasi di Tengah -->
-                <nav class="hidden md:flex items-center gap-x-8">
-                    <a href="index.html" class="text-xs font-black tracking-wider text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition">BERANDA</a>
-                    <a href="karya.html" class="text-xs font-black tracking-wider text-zinc-900 dark:text-white underline decoration-2 underline-offset-4">KARYA</a>
-                    <a href="artikel.html" class="text-xs font-black tracking-wider text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition">ARTIKEL</a>
-                    <a href="tentang.html" class="text-xs font-black tracking-wider text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition">TENTANG</a>
-                </nav>
-
-                <!-- Sisi Kanan: Tombol Tema & Login Admin -->
-                <div class="flex items-center gap-3">
-                    <button id="themeToggle" onclick="toggleTheme()" aria-label="Ganti mode"
-                        class="w-9 h-9 flex items-center justify-center bg-yellow-300 dark:bg-yellow-500 rounded-full border-2 border-zinc-900 shadow-[2px_2px_0px_0px_#18181b] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all">
-                        🌙
-                    </button>
-                    <a href="auth/login.html" class="text-xs font-black bg-cyan-300 dark:bg-cyan-600 text-zinc-900 dark:text-white border-2 border-zinc-900 dark:border-zinc-100 px-4 py-2 rounded-full shadow-[2px_2px_0px_0px_#18181b] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition">
-                        LOGIN ADMIN
-                    </a>
-                </div>
-            </div>
-        </header>
-
-        <!-- ===== HERO / TITLE SECTION (Dengan Objek Tambahan) ===== -->
-        <section class="relative pt-20 lg:pt-28 pb-12 text-center overflow-hidden text-white">
+    <!-- ===== HEADER / NAVBAR ===== -->
+    <header class="sticky top-4 z-50 px-4 lg:px-8 pt-4">
+        <div class="mx-auto max-w-7xl bg-white dark:bg-zinc-900 border-3 border-zinc-900 dark:border-zinc-100 rounded-full px-6 py-3 shadow-[4px_4px_0px_0px_#18181b] dark:shadow-[4px_4px_0px_0px_#f4f4f5] flex items-center justify-between transition-colors duration-300">
             
-            <!-- Objek 1: Miniatur Kartu Grafik Kiri Atas -->
-            <div class="absolute top-8 left-6 md:left-20 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white border-3 border-zinc-900 dark:border-zinc-100 p-3 rounded-2xl shadow-[4px_4px_0px_0px_#18181b] animate-float-slow hidden sm:block rotate-[-6deg]">
-                <div class="flex items-center gap-1.5 mb-2">
-                    <div class="w-2 h-2 rounded-full bg-red-400"></div>
-                    <div class="w-2 h-2 rounded-full bg-yellow-400"></div>
-                    <div class="w-2 h-2 rounded-full bg-green-400"></div>
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 flex items-center justify-center bg-zinc-100 dark:bg-zinc-800 rounded-xl border-2 border-zinc-900 dark:border-zinc-100 shadow-[2px_2px_0px_0px_#18181b]">
+                    <img src="assets/img/smk4.png" alt="Logo" class="w-5 h-5 object-cover rounded-md">
                 </div>
-                <div class="w-12 h-1.5 bg-zinc-200 dark:bg-zinc-700 rounded-full mb-1"></div>
-                <div class="w-8 h-1.5 bg-cyan-400 rounded-full"></div>
+                <span class="text-xs sm:text-sm font-black uppercase tracking-wider text-zinc-900 dark:text-white">MUSEUM.KARYA</span>
             </div>
 
-            <!-- Objek Tambahan: Ikon Lampu/Ide Kiri Tengah -->
-            <div class="absolute top-44 left-4 md:left-12 bg-yellow-300 text-zinc-900 border-3 border-zinc-900 p-3 rounded-2xl shadow-[4px_4px_0px_0px_#18181b] animate-float-fast hidden lg:block rotate-[12deg]">
-                <span class="text-xl">💡</span>
+            <nav class="hidden md:flex items-center gap-x-8">
+                <a href="index.html" class="text-xs font-black tracking-wider text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition">BERANDA</a>
+                <a href="karya.html" class="text-xs font-black tracking-wider text-zinc-900 dark:text-white underline decoration-2 underline-offset-4">KARYA</a>
+                <a href="artikel.html" class="text-xs font-black tracking-wider text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition">ARTIKEL</a>
+                <a href="tentang.html" class="text-xs font-black tracking-wider text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition">TENTANG</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <button id="themeToggle" onclick="toggleTheme()" aria-label="Ganti mode"
+                    class="w-9 h-9 flex items-center justify-center bg-yellow-300 dark:bg-yellow-500 rounded-full border-2 border-zinc-900 shadow-[2px_2px_0px_0px_#18181b] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all cursor-pointer">
+                    🌙
+                </button>
+                <a href="auth/login.html" class="text-xs font-black bg-cyan-300 dark:bg-cyan-600 text-zinc-900 dark:text-white border-2 border-zinc-900 dark:border-zinc-100 px-4 py-2 rounded-full shadow-[2px_2px_0px_0px_#18181b] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition">
+                    LOGIN
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== HERO BANNER FULL WIDTH (BIRU MUDA MENYESUAIKAN LAYAR) ===== -->
+    <section class="w-full mt-4">
+        <div class="w-full border-y-3 lg:border-x-3 border-zinc-900 dark:border-zinc-100 lg:rounded-3xl lg:max-w-7xl lg:mx-auto bg-sky-400 dark:bg-sky-900 relative overflow-hidden shadow-none lg:shadow-[6px_6px_0px_0px_#18181b] dark:lg:shadow-[6px_6px_0px_0px_#f4f4f5]">
+            
+            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1600&q=80" 
+                 alt="Exhibition Banner" 
+                 class="w-full h-44 sm:h-56 lg:h-64 object-cover opacity-20 absolute inset-0">
+
+            <div class="relative z-10 px-6 py-8 sm:p-10 lg:p-12 flex flex-col md:flex-row items-center justify-between gap-6 text-zinc-900 dark:text-white">
+                <div class="space-y-2 text-center md:text-left">
+                    <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight"> TECH EDITION SHOWCASE</h1>
+                    <p class="text-xs sm:text-sm font-bold text-sky-950 dark:text-sky-100 max-w-xl">
+                        Jelajahi kumpulan project digital, aplikasi, web, dan sistem IoT terbaik hasil karya siswa-siswi SMKN 4 Tasikmalaya.
+                    </p>
+                </div>
+
+                <div class="flex items-center gap-3 shrink-0">
+                    <div class="bg-white dark:bg-zinc-900 border-2 border-zinc-900 dark:border-zinc-100 px-4 py-3 rounded-2xl shadow-[3px_3px_0px_0px_#18181b] text-center">
+                        <span class="block text-xl font-black text-yellow-500 dark:text-yellow-300">50+</span>
+                        <span class="text-[10px] uppercase font-bold tracking-wider">Total Karya</span>
+                    </div>
+                    <div class="bg-white dark:bg-zinc-900 border-2 border-zinc-900 dark:border-zinc-100 px-4 py-3 rounded-2xl shadow-[3px_3px_0px_0px_#18181b] text-center">
+                        <span class="block text-xl font-black text-cyan-600 dark:text-cyan-400">3</span>
+                        <span class="text-[10px] uppercase font-bold tracking-wider">Jurusan</span>
+                    </div>
+                </div>
             </div>
 
-            <!-- Objek 2: Miniatur Kartu Window Kiri Bawah -->
-            <div class="absolute bottom-6 left-10 md:left-28 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white border-3 border-zinc-900 dark:border-zinc-100 p-3 rounded-2xl shadow-[4px_4px_0px_0px_#18181b] animate-float-fast hidden sm:block rotate-[8deg]">
-                <div class="w-10 h-2 bg-yellow-300 border border-zinc-900 rounded-md mb-2"></div>
-                <div class="space-y-1">
-                    <div class="w-12 h-1 bg-zinc-300 dark:bg-zinc-700 rounded"></div>
-                    <div class="w-8 h-1 bg-zinc-300 dark:bg-zinc-700 rounded"></div>
+        </div>
+    </section>
+
+    <!-- ===== KARYA SECTION ===== -->
+    <section id="karya" class="py-12 flex-grow bg-grid-pattern">
+        <div class="mx-auto max-w-7xl px-4 lg:px-8">
+
+            <!-- Judul & Deskripsi Section -->
+            <div class="mb-8">
+                <h2 class="text-xl sm:text-2xl font-black uppercase tracking-tight text-zinc-900 dark:text-white">Pilih Template &amp; Karya Siswa</h2>
+                <p class="text-xs sm:text-sm font-bold text-zinc-600 dark:text-zinc-400">Jelajahi karya inovatif para kreator — pilih, lihat detail, dan berikan apresiasi.</p>
+            </div>
+
+            <!-- Bar Filter & Pencarian Lengkap -->
+            <div class="bg-white dark:bg-zinc-900 border-3 border-zinc-900 dark:border-zinc-100 rounded-2xl p-4 mb-8 shadow-[6px_6px_0px_0px_#18181b] dark:shadow-[6px_6px_0px_0px_#f4f4f5]">
+                <div class="flex flex-col lg:flex-row items-center gap-4">
+                    
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 w-full lg:w-auto">
+                        <select id="jurusanFilter" class="bg-yellow-300 text-zinc-900 font-black text-xs px-3 py-2.5 rounded-xl border-2 border-zinc-900 shadow-[2px_2px_0px_0px_#18181b] focus:outline-none cursor-pointer">
+                            <option value="all">Semua Jurusan</option>
+                            <option value="PPLG">PPLG (Software)</option>
+                            <option value="DKV">DKV (Desain)</option>
+                            <option value="TOI">TOI (IoT)</option>
+                        </select>
+
+                        <select id="angkatanFilter" class="bg-yellow-300 text-zinc-900 font-black text-xs px-3 py-2.5 rounded-xl border-2 border-zinc-900 shadow-[2px_2px_0px_0px_#18181b] focus:outline-none cursor-pointer">
+                            <option value="all">Semua Angkatan</option>
+                            <option value="2026">Angkatan 2026</option>
+                            <option value="2025">Angkatan 2025</option>
+                        </select>
+
+                        <select id="sortFilter" class="bg-yellow-300 text-zinc-900 font-black text-xs px-3 py-2.5 rounded-xl border-2 border-zinc-900 shadow-[2px_2px_0px_0px_#18181b] focus:outline-none cursor-pointer col-span-2 sm:col-span-1">
+                            <option value="populer">Paling Populer</option>
+                            <option value="terbaru">Terbaru</option>
+                        </select>
+                    </div>
+
+                    <div class="relative flex-grow w-full">
+                        <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <input id="searchInput" type="text" placeholder="Cari judul karya atau nama siswa..."
+                            class="w-full pl-10 pr-4 py-2.5 rounded-xl border-2 border-zinc-900 dark:border-zinc-100 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-white placeholder-zinc-500 font-bold text-xs focus:outline-none shadow-[2px_2px_0px_0px_#18181b]" />
+                    </div>
+
                 </div>
             </div>
 
-            <!-- Objek 3: Miniatur Kartu Grid Kanan Atas -->
-            <div class="absolute top-10 right-8 md:right-24 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white border-3 border-zinc-900 dark:border-zinc-100 p-3 rounded-2xl shadow-[4px_4px_0px_0px_#18181b] animate-float-fast hidden sm:block rotate-[6deg]">
-                <div class="grid grid-cols-3 gap-1 mb-1">
-                    <div class="w-3 h-3 bg-emerald-300 border border-zinc-900 rounded-xs"></div>
-                    <div class="w-3 h-3 bg-cyan-300 border border-zinc-900 rounded-xs"></div>
-                    <div class="w-3 h-3 bg-pink-300 border border-zinc-900 rounded-xs"></div>
+            <!-- Kotak Info / Banner Pengumuman di Bawah Filter -->
+            <div class="bg-white dark:bg-zinc-900 border-3 border-zinc-900 dark:border-zinc-100 rounded-2xl p-4 mb-10 shadow-[4px_4px_0px_0px_#18181b] dark:shadow-[4px_4px_0px_0px_#f4f4f5] flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 flex items-center justify-center bg-yellow-300 rounded-xl border-2 border-zinc-900 shadow-[2px_2px_0px_0px_#18181b] text-lg shrink-0">
+                        💡
+                    </div>
+                    <div>
+                        <span class="text-[10px] font-black uppercase text-sky-600 dark:text-sky-400 block">PENGUMUMAN SISWA</span>
+                        <h4 class="text-xs sm:text-sm font-black text-zinc-900 dark:text-white">Punya project kreatif atau aplikasi siap pamer? Yuk upload karyamu!</h4>
+                    </div>
                 </div>
-                <div class="w-10 h-1 bg-zinc-300 dark:bg-zinc-700 rounded mt-1"></div>
+                <a href="auth/login.html" class="w-full sm:w-auto text-center px-5 py-2.5 bg-yellow-300 hover:bg-yellow-400 text-zinc-900 font-black text-xs rounded-xl border-2 border-zinc-900 shadow-[3px_3px_0px_0px_#18181b] transition whitespace-nowrap">
+                    Kirim Karya Kamu &rarr;
+                </a>
             </div>
 
-            <!-- Objek Tambahan: Ikon Roket/Prestasi Kanan Tengah -->
-            <div class="absolute top-44 right-4 md:right-12 bg-pink-300 text-zinc-900 border-3 border-zinc-900 p-3 rounded-2xl shadow-[4px_4px_0px_0px_#18181b] animate-float-slow hidden lg:block rotate-[-12deg]">
-                <span class="text-xl">🚀</span>
-            </div>
-
-            <!-- Objek 4: Miniatur Kode/Terminal Kanan Bawah -->
-            <div class="absolute bottom-6 right-12 md:right-32 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white border-3 border-zinc-900 dark:border-zinc-100 p-3 rounded-2xl shadow-[4px_4px_0px_0px_#18181b] animate-float-slow hidden sm:block rotate-[-5deg]">
-                <div class="flex items-center gap-1 mb-1.5">
-                    <span class="text-[10px] font-black text-purple-500">&lt;/&gt;</span>
-                    <div class="w-8 h-1 bg-zinc-300 dark:bg-zinc-700 rounded"></div>
-                </div>
-                <div class="w-12 h-1 bg-yellow-400 rounded"></div>
-            </div>
-
-            <!-- Konten Utama Hero -->
-            <div class="relative z-10 mx-auto max-w-4xl px-6 lg:px-8 flex flex-col items-center">
-                
-                <!-- Badge Kecil di Atas Judul -->
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 mb-6 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white font-black text-xs uppercase tracking-widest rounded-full border-2 border-zinc-900 dark:border-zinc-100 shadow-[3px_3px_0px_0px_#18181b] dark:shadow-[3px_3px_0px_0px_#f4f4f5]">
-                    <span>✨ Galeri Inovasi Siswa</span>
-                </div>
-
-                <!-- Judul Utama dengan Kotak Kuning Khas Neo-Brutalism -->
-                <div class="bg-yellow-300 text-zinc-900 border-3 border-zinc-900 px-8 py-4 rounded-3xl shadow-[6px_6px_0px_0px_#18181b] mb-6 transform -rotate-1">
-                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight">Pameran Karya Terlengkap</h1>
-                </div>
-
-                <!-- Deskripsi Keterangan Panjang -->
-                <p class="max-w-2xl text-sm sm:text-base font-bold text-sky-950 dark:text-sky-100 mb-8 leading-relaxed">
-                    Jelajahi kumpulan project digital, desain kreatif, hingga sistem IoT hasil karya terbaik dari seluruh siswa SMKN 4 Tasikmalaya. Pantau kreativitas tanpa batas dari satu wadah pameran digital interaktif.
-                </p>
-
-                <!-- Tombol Aksi di Hero -->
-                <div class="flex flex-wrap items-center justify-center gap-4">
-                    <a href="#karya" class="bg-cyan-300 hover:bg-cyan-400 text-zinc-900 font-black text-sm px-6 py-3 rounded-2xl border-3 border-zinc-900 shadow-[4px_4px_0px_0px_#18181b] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition">
-                        Mulai Jelajahi &darr;
-                    </a>
-                    <a href="index.html" class="bg-white hover:bg-zinc-100 text-zinc-900 font-black text-sm px-6 py-3 rounded-2xl border-3 border-zinc-900 shadow-[4px_4px_0px_0px_#18181b] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition">
-                        &larr; Kembali ke Beranda
-                    </a>
-                </div>
-
-            </div>
-        </section>
-    </div>
-
-    <!-- ===== KARYA GRID SECTION (Background Putih Asli) ===== -->
-    <section id="karya" class="py-16 flex-grow">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8">
-
-            <!-- Search & Filter Bar -->
-            <div class="mb-12">
-                <div class="relative max-w-xl mx-auto mb-6">
-                    <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-900 dark:text-zinc-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                    <input id="searchInput" type="text" placeholder="Cari judul karya atau nama siswa..."
-                        class="w-full pl-12 pr-4 py-3.5 rounded-2xl border-3 border-zinc-900 dark:border-zinc-100 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white placeholder-zinc-500 font-bold focus:outline-none shadow-[4px_4px_0px_0px_#18181b] dark:shadow-[4px_4px_0px_0px_#f4f4f5] transition" />
-                </div>
-
-                <div class="flex flex-wrap items-center justify-center gap-3 mb-4">
-                    <button data-filter="all" class="filter-pill active flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-black border-2 border-zinc-900 shadow-[3px_3px_0px_0px_#18181b] transition">Semua</button>
-                    <button data-filter="PPLG" class="filter-pill flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-black border-2 border-zinc-900 shadow-[3px_3px_0px_0px_#18181b] transition">PPLG</button>
-                    <button data-filter="DKV" class="filter-pill flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-black border-2 border-zinc-900 shadow-[3px_3px_0px_0px_#18181b] transition">DKV</button>
-                    <button data-filter="TOI" class="filter-pill flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-black border-2 border-zinc-900 shadow-[3px_3px_0px_0px_#18181b] transition">TOI</button>
-                </div>
-                <p id="resultCounter" class="text-center text-xs font-bold text-zinc-600 dark:text-zinc-400"></p>
-            </div>
+            <p id="resultCounter" class="text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-6"></p>
 
             <!-- Grid Kartu Karya -->
-            <div id="allKaryaGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div id="allKaryaGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 
                 <!-- Card 1 -->
                 <div class="karya-card bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden border-3 border-zinc-900 dark:border-zinc-100 shadow-[6px_6px_0px_0px_#18181b] dark:shadow-[6px_6px_0px_0px_#f4f4f5] card-hover transition-all flex flex-col"
                     data-title="Aplikasi E-Museum"
                     data-desc="Platform galeri pameran digital berbasis web untuk menampilkan aset sekolah."
                     data-category="PPLG"
-                    data-event="Museum Karya"
-                    data-siswa="Ahmad Fauzi"
-                    data-avatar-letter="A"
-                    data-kelas="XII PPLG 1"
-                    data-jurusan-siswa="PPLG"
-                    data-angkatan="2024"
-                    data-tahun="2026"
-                    data-tech="Laravel, Tailwind CSS"
-                    data-live="#">
+                    data-siswa="Ahmad Fauzi">
                     <div class="iframe-container border-b-3 border-zinc-900 dark:border-zinc-100 cursor-pointer" onclick="openModal(this.closest('.karya-card'))">
                         <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80" alt="Karya" class="w-full h-full object-cover" />
                     </div>
-                    <div class="p-5 flex flex-col flex-grow">
-                        <span class="badge-custom w-fit mb-3">PPLG</span>
-                        <p class="text-xs text-zinc-500 font-bold mb-1">Oleh Ahmad Fauzi</p>
-                        <h3 class="font-black text-zinc-900 dark:text-white mb-4 text-base">Aplikasi E-Museum</h3>
+                    <div class="p-4 flex flex-col flex-grow">
+                        <span class="badge-custom w-fit mb-2">PPLG</span>
+                        <p class="text-[11px] text-zinc-500 font-bold mb-1">Oleh Ahmad Fauzi</p>
+                        <h3 class="font-black text-zinc-900 dark:text-white mb-4 text-sm">Aplikasi E-Museum</h3>
                         <div class="mt-auto">
-                            <button onclick="openModal(this.closest('.karya-card'))" class="w-full py-2.5 bg-yellow-300 hover:bg-yellow-400 text-zinc-900 font-black rounded-xl border-2 border-zinc-900 shadow-[3px_3px_0px_0px_#18181b] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all">Lihat Detail</button>
+                            <button onclick="openModal(this.closest('.karya-card'))" class="w-full py-2 bg-yellow-300 hover:bg-yellow-400 text-zinc-900 font-black text-xs rounded-xl border-2 border-zinc-900 shadow-[2px_2px_0px_0px_#18181b] transition-all cursor-pointer">Lihat Detail</button>
                         </div>
                     </div>
                 </div>
@@ -221,24 +207,16 @@
                     data-title="Desain Mascot SMKN 4"
                     data-desc="Konsep maskot animasi 3D karakter robotik dengan nuansa lokal."
                     data-category="DKV"
-                    data-event="Museum Karya"
-                    data-siswa="Siti Rahma"
-                    data-avatar-letter="S"
-                    data-kelas="XII DKV 2"
-                    data-jurusan-siswa="DKV"
-                    data-angkatan="2024"
-                    data-tahun="2026"
-                    data-tech="Blender, Photoshop"
-                    data-live="#">
+                    data-siswa="Siti Rahma">
                     <div class="iframe-container border-b-3 border-zinc-900 dark:border-zinc-100 cursor-pointer" onclick="openModal(this.closest('.karya-card'))">
                         <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" alt="Karya" class="w-full h-full object-cover" />
                     </div>
-                    <div class="p-5 flex flex-col flex-grow">
-                        <span class="badge-custom w-fit mb-3">DKV</span>
-                        <p class="text-xs text-zinc-500 font-bold mb-1">Oleh Siti Rahma</p>
-                        <h3 class="font-black text-zinc-900 dark:text-white mb-4 text-base">Desain Mascot SMKN 4</h3>
+                    <div class="p-4 flex flex-col flex-grow">
+                        <span class="badge-custom w-fit mb-2">DKV</span>
+                        <p class="text-[11px] text-zinc-500 font-bold mb-1">Oleh Siti Rahma</p>
+                        <h3 class="font-black text-zinc-900 dark:text-white mb-4 text-sm">Desain Mascot SMKN 4</h3>
                         <div class="mt-auto">
-                            <button onclick="openModal(this.closest('.karya-card'))" class="w-full py-2.5 bg-yellow-300 hover:bg-yellow-400 text-zinc-900 font-black rounded-xl border-2 border-zinc-900 shadow-[3px_3px_0px_0px_#18181b] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all">Lihat Detail</button>
+                            <button onclick="openModal(this.closest('.karya-card'))" class="w-full py-2 bg-yellow-300 hover:bg-yellow-400 text-zinc-900 font-black text-xs rounded-xl border-2 border-zinc-900 shadow-[2px_2px_0px_0px_#18181b] transition-all cursor-pointer">Lihat Detail</button>
                         </div>
                     </div>
                 </div>
@@ -248,24 +226,16 @@
                     data-title="Smart Garden IoT"
                     data-desc="Sistem penyiraman tanaman otomatis terhubung sensor kelembapan tanah."
                     data-category="TOI"
-                    data-event="Museum Karya"
-                    data-siswa="Budi Santoso"
-                    data-avatar-letter="B"
-                    data-kelas="XII TOI 1"
-                    data-jurusan-siswa="TOI"
-                    data-angkatan="2024"
-                    data-tahun="2026"
-                    data-tech="ESP32, C++, Blynk"
-                    data-live="#">
+                    data-siswa="Budi Santoso">
                     <div class="iframe-container border-b-3 border-zinc-900 dark:border-zinc-100 cursor-pointer" onclick="openModal(this.closest('.karya-card'))">
                         <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80" alt="Karya" class="w-full h-full object-cover" />
                     </div>
-                    <div class="p-5 flex flex-col flex-grow">
-                        <span class="badge-custom w-fit mb-3">TOI</span>
-                        <p class="text-xs text-zinc-500 font-bold mb-1">Oleh Budi Santoso</p>
-                        <h3 class="font-black text-zinc-900 dark:text-white mb-4 text-base">Smart Garden IoT</h3>
+                    <div class="p-4 flex flex-col flex-grow">
+                        <span class="badge-custom w-fit mb-2">TOI</span>
+                        <p class="text-[11px] text-zinc-500 font-bold mb-1">Oleh Budi Santoso</p>
+                        <h3 class="font-black text-zinc-900 dark:text-white mb-4 text-sm">Smart Garden IoT</h3>
                         <div class="mt-auto">
-                            <button onclick="openModal(this.closest('.karya-card'))" class="w-full py-2.5 bg-yellow-300 hover:bg-yellow-400 text-zinc-900 font-black rounded-xl border-2 border-zinc-900 shadow-[3px_3px_0px_0px_#18181b] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all">Lihat Detail</button>
+                            <button onclick="openModal(this.closest('.karya-card'))" class="w-full py-2 bg-yellow-300 hover:bg-yellow-400 text-zinc-900 font-black text-xs rounded-xl border-2 border-zinc-900 shadow-[2px_2px_0px_0px_#18181b] transition-all cursor-pointer">Lihat Detail</button>
                         </div>
                     </div>
                 </div>
@@ -275,24 +245,16 @@
                     data-title="Sistem Kasir Kantin"
                     data-desc="Aplikasi Point of Sales (POS) khusus untuk mempermudah transaksi kantin."
                     data-category="PPLG"
-                    data-event="Museum Karya"
-                    data-siswa="Dina Maria"
-                    data-avatar-letter="D"
-                    data-kelas="XII PPLG 2"
-                    data-jurusan-siswa="PPLG"
-                    data-angkatan="2024"
-                    data-tahun="2026"
-                    data-tech="Flutter, Firebase"
-                    data-live="#">
+                    data-siswa="Dina Maria">
                     <div class="iframe-container border-b-3 border-zinc-900 dark:border-zinc-100 cursor-pointer" onclick="openModal(this.closest('.karya-card'))">
                         <img src="https://images.unsplash.com/photo-1556742049-0a670f4a4591?auto=format&fit=crop&w=800&q=80" alt="Karya" class="w-full h-full object-cover" />
                     </div>
-                    <div class="p-5 flex flex-col flex-grow">
-                        <span class="badge-custom w-fit mb-3">PPLG</span>
-                        <p class="text-xs text-zinc-500 font-bold mb-1">Oleh Dina Maria</p>
-                        <h3 class="font-black text-zinc-900 dark:text-white mb-4 text-base">Sistem Kasir Kantin</h3>
+                    <div class="p-4 flex flex-col flex-grow">
+                        <span class="badge-custom w-fit mb-2">PPLG</span>
+                        <p class="text-[11px] text-zinc-500 font-bold mb-1">Oleh Dina Maria</p>
+                        <h3 class="font-black text-zinc-900 dark:text-white mb-4 text-sm">Sistem Kasir Kantin</h3>
                         <div class="mt-auto">
-                            <button onclick="openModal(this.closest('.karya-card'))" class="w-full py-2.5 bg-yellow-300 hover:bg-yellow-400 text-zinc-900 font-black rounded-xl border-2 border-zinc-900 shadow-[3px_3px_0px_0px_#18181b] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all">Lihat Detail</button>
+                            <button onclick="openModal(this.closest('.karya-card'))" class="w-full py-2 bg-yellow-300 hover:bg-yellow-400 text-zinc-900 font-black text-xs rounded-xl border-2 border-zinc-900 shadow-[2px_2px_0px_0px_#18181b] transition-all cursor-pointer">Lihat Detail</button>
                         </div>
                     </div>
                 </div>
@@ -305,7 +267,6 @@
             </div>
         </div>
     </section>
-    
 
     <!-- ===== FOOTER ===== -->
     <footer class="bg-zinc-900 text-white text-center py-8 border-t-3 border-zinc-900">
@@ -317,7 +278,7 @@
         <div class="bg-white dark:bg-zinc-900 rounded-3xl shadow-[8px_8px_0px_0px_#18181b] max-w-xl w-full p-6 border-3 border-zinc-900">
             <div class="flex justify-between items-center pb-4 border-b-2 border-zinc-200 dark:border-zinc-700">
                 <h3 id="modalTitle" class="text-lg font-black"></h3>
-                <button onclick="closeModal()" class="px-3 py-1 bg-yellow-300 rounded-xl border-2 border-zinc-900 font-black">✕</button>
+                <button onclick="closeModal()" class="px-3 py-1 bg-yellow-300 rounded-xl border-2 border-zinc-900 font-black cursor-pointer">✕</button>
             </div>
             <div class="py-4 space-y-4">
                 <p id="modalDescription" class="text-sm font-medium"></p>
