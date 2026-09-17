@@ -3,31 +3,47 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Diubah dari {{ asset('favicon.png') }} -->
     <link rel="icon" type="image/png" href="assets/img/favicon.png" />
     <title>Kode Unik - Karya PPLG</title>
-    <style type="text/tailwindcss">
-      @custom-variant dark (&:where(.dark, .dark *));
-    </style>
+
+    <!-- Script Tailwind CSS CDN v4 -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- Diubah dari {{ asset('assets/css/login.css') }} -->
-    <link rel="stylesheet" href="assets/css/login.css" />
+    
+    <style>
+      /* Konfigurasi manual varian dark mode untuk browser CDN */
+      .dark .dark\:bg-gray-900 { background-color: #111827; }
+      .dark .dark\:bg-gray-800 { background-color: #1f2937; }
+      .dark .dark\:text-white { color: #ffffff; }
+      .dark .dark\:text-gray-300 { color: #d1d5db; }
+      .dark .dark\:text-blue-500 { color: #3b82f6; }
+      .dark .dark\:text-yellow-300 { color: #fde047; }
+      .dark .dark\:border-gray-700 { border-color: #374151; }
+
+      /* Animasi Ikon Dark Mode */
+      .icon-sun { display: block; }
+      .icon-moon { display: none; }
+      .dark .icon-sun { display: none; }
+      .dark .icon-moon { display: block; }
+    </style>
   </head>
-  <body>
-    <header class="navbar shadow-sm sticky top-0 z-50 bg-white dark:bg-gray-900 transition-colors duration-300">
-      <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
-        <div class="flex lg:flex-1 items-center gap-2">
-          <img src="../assets/img/smk4.png" alt="SMK4 Logo" class="w-10 h-10 rounded-full object-cover" />
+  <body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col transition-colors duration-300">
+    
+    <!-- NAVBAR HEADER -->
+    <header class="navbar shadow-sm sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
+      <nav class="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8">
+        <div class="flex lg:flex-1 items-center gap-3">
+          <img src="assets/img/smk4.png" onerror="this.src='https://via.placeholder.com/40'" alt="SMK4 Logo" class="w-10 h-10 rounded-full object-cover shadow-xs" />
           <span class="text-2xl font-bold text-blue-700 dark:text-blue-500">Museum Karya</span>
         </div>
-        <div class="flex flex-wrap items-center justify-center gap-3 lg:gap-x-8 lg:justify-end lg:items-center">
-          <!-- Diubah dari {{ url('/') }} dll -->
+        <div class="flex flex-wrap items-center justify-center gap-4 lg:gap-x-8 lg:justify-end lg:items-center">
           <a href="index.html" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition">Beranda</a>
           <a href="karya.html" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition">Karya</a>
           <a href="artikel.html" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition">Artikel</a>
           <a href="tentang.html" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition">Tentang</a>
-          <a href="login.html" class="text-sm font-semibold text-blue-600 border-b-2 border-blue-600 pb-1">Login</a>
-          <button id="themeToggle" onclick="toggleTheme()" aria-label="Ganti mode terang/gelap" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-yellow-300">
+          <a href="login.html" class="text-sm font-semibold text-blue-600 dark:text-blue-500 border-b-2 border-blue-600 dark:border-blue-500 pb-0.5">Login</a>
+          
+          <!-- TOMBOL THEME TOGGLE -->
+          <button id="themeToggle" onclick="toggleTheme()" aria-label="Ganti mode terang/gelap" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-yellow-300 hover:ring-2 hover:ring-gray-300 dark:hover:ring-gray-700 transition cursor-pointer">
             <svg class="icon-sun w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
             </svg>
@@ -39,71 +55,133 @@
       </nav>
     </header>
 
-    <div class="main-wrapper">
-      <div class="login-container">
+    <!-- CONTENT WRAPPER -->
+    <main class="flex-1 flex items-center justify-center p-4 lg:p-8">
+      <div class="max-w-4xl w-full bg-white dark:bg-gray-800 rounded-3xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700 grid grid-cols-1 md:grid-cols-2 transition-all">
+        
         <!-- Kiri: Form -->
-        <div class="login-left">
-          <div class="login-logo">
-            <div class="login-logo-circle">K</div>
-            <div class="login-logo-text">Karya PPLG</div>
-          </div>
-
-          <h1 class="login-title">Kode Undangan</h1>
-          <p class="login-subtitle">Masukkan kode undangan untuk menyelesaikan pendaftaran dengan Google</p>
-
-          <!-- Dummy Alert Global (Hilangkan komentar untuk uji coba tampilan alert error) -->
-          <!-- <div class="login-alert">Kode undangan tidak ditemukan atau sudah kadaluwarsa.</div> -->
-
-          <!-- Form disesuaikan ke aksi dummy/lokal -->
-          <form class="login-form" action="dashboard.html" method="POST">
-            <div class="login-form-group">
-              <label class="login-label" for="kode_unik">Kode Unik / Kode Undangan</label>
-              <!-- Nilai dummy diisikan pada attribute value -->
-              <input type="text" id="kode_unik" name="kode_unik" placeholder="Contoh: XII-PPLG-2-2026" value="XII-PPLG-2-2026" class="login-input" required autofocus />
-
-              <!-- Dummy Pesan Error Validasi (Hilangkan komentar untuk mencoba tampilan error) -->
-              <!-- <p class="login-error-message">Kode undangan wajib diisi dengan benar.</p> -->
+        <div class="p-8 lg:p-12 flex flex-col justify-between">
+          <div>
+            <!-- Logo Header Form -->
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 bg-blue-600 text-white font-bold rounded-xl flex items-center justify-center text-lg shadow-md">
+                K
+              </div>
+              <div class="font-bold text-lg text-gray-800 dark:text-white">Karya PPLG</div>
             </div>
 
-            <button type="submit" class="login-button">Lanjutkan Pendaftaran</button>
-          </form>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Kode Undangan</h1>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">
+              Masukkan kode undangan untuk menyelesaikan pendaftaran dengan Google
+            </p>
 
-          <p class="login-register-text mt-6">
+            <!-- Alert Error Dummy (Opsional) -->
+            <!-- 
+            <div class="mb-4 p-3 bg-red-50 text-red-700 border border-red-200 rounded-xl text-xs font-medium">
+              Kode undangan tidak ditemukan atau sudah kadaluwarsa.
+            </div> 
+            -->
+
+            <!-- Form Kode Unik -->
+            <form action="dashboard.html" method="POST" class="space-y-4">
+              <div>
+                <label for="kode_unik" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                  Kode Unik / Kode Undangan
+                </label>
+                <input 
+                  type="text" 
+                  id="kode_unik" 
+                  name="kode_unik" 
+                  placeholder="Masukan Kode Undangan" 
+                  class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition text-sm font-medium" 
+                  required 
+                  autofocus 
+                />
+              </div>
+
+              <button 
+                type="submit" 
+                class="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-md transition-all duration-200 cursor-pointer text-sm">
+                Lanjutkan Pendaftaran
+              </button>
+            </form>
+          </div>
+
+          <p class="text-xs text-center text-gray-500 dark:text-gray-400 mt-8">
             Sudah punya akun?
-            <a href="login.html" class="login-register-link">Kembali ke Login</a>
+            <a href="login.html" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline">Kembali ke Login</a>
           </p>
         </div>
 
         <!-- Kanan: Info -->
-        <div class="login-right">
+        <div class="bg-gradient-to-br from-blue-600 to-indigo-800 p-8 lg:p-12 text-white flex flex-col justify-center">
           <div>
-            <h2 class="right-title">Satu Langkah Lagi!</h2>
-            <p class="right-subtitle">Karena kamu login dengan Google, kami butuh kode undangan untuk menentukan kelas & jurusan kamu.</p>
-            <div class="right-features">
-              <div class="right-feature-item">
+            <h2 class="text-2xl font-bold mb-3">Satu Langkah Lagi!</h2>
+            <p class="text-blue-100 text-sm mb-8 leading-relaxed">
+              Karena kamu login dengan Google, kami butuh kode undangan untuk menentukan kelas & jurusan kamu.
+            </p>
+
+            <div class="space-y-6">
+              <div class="flex items-start gap-4">
+                <div class="p-2 bg-white/10 rounded-xl shrink-0">
+                  <svg class="w-5 h-5 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 0121 9z"/>
+                  </svg>
+                </div>
                 <div>
-                  <div class="right-feature-title">Kode dari Guru / Admin</div>
-                  <p>Mintalah kode undangan kepada guru atau admin kelas kamu</p>
+                  <div class="font-semibold text-sm text-white">Kode dari Guru / Admin</div>
+                  <p class="text-xs text-blue-100 mt-0.5">Mintalah kode undangan kepada guru atau Ketua Murid (km) kelas kamu</p>
                 </div>
               </div>
-              <div class="right-feature-item">
+
+              <div class="flex items-start gap-4">
+                <div class="p-2 bg-white/10 rounded-xl shrink-0">
+                  <svg class="w-5 h-5 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                </div>
                 <div>
-                  <div class="right-feature-title">Otomatis Masuk Kelas</div>
-                  <p>Setelah valid, akun Google kamu langsung terdaftar sebagai siswa</p>
+                  <div class="font-semibold text-sm text-white">Otomatis Masuk Kelas</div>
+                  <p class="text-xs text-blue-100 mt-0.5">Setelah valid, akun Google kamu langsung terdaftar sebagai siswa</p>
                 </div>
               </div>
-              <div class="right-feature-item">
+
+              <div class="flex items-start gap-4">
+                <div class="p-2 bg-white/10 rounded-xl shrink-0">
+                  <svg class="w-5 h-5 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                  </svg>
+                </div>
                 <div>
-                  <div class="right-feature-title">Aman & Cepat</div>
-                  <p>Tidak perlu isi data lagi, langsung masuk dashboard</p>
+                  <div class="font-semibold text-sm text-white">Aman & Cepat</div>
+                  <p class="text-xs text-blue-100 mt-0.5">Tidak perlu isi data lagi, langsung masuk dashboard</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <script src="../assets/js/auth/kode-undangan.js"></script>
+      </div>
+    </main>
+
+    <!-- SCRIPT TEMA GELAP/TERANG -->
+    <script>
+      function toggleTheme() {
+        if (document.documentElement.classList.contains('dark')) {
+          document.documentElement.classList.remove('dark');
+          localStorage.setItem('theme', 'light');
+        } else {
+          document.documentElement.classList.add('dark');
+          localStorage.setItem('theme', 'dark');
+        }
+      }
+
+      // Pertahankan tema sesuai dengan LocalStorage saat halaman dimuat
+      if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    </script>
   </body>
 </html>
