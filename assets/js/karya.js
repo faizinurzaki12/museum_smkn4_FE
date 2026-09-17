@@ -1,3 +1,16 @@
+const menuToggle = document.getElementById('menuToggle');
+const navLinks = document.getElementById('navLinks');
+
+  if (menuToggle && navLinks) {
+       menuToggle.addEventListener('click', () => {
+          const isHidden = navLinks.classList.toggle('hidden');
+          navLinks.classList.toggle('flex');
+          menuToggle.setAttribute('aria-expanded', String(!isHidden));
+      });
+  }
+       
+
+
 function applyTheme(theme) {
   document.documentElement.classList.toggle("dark", theme === "dark");
 }

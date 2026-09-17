@@ -1,7 +1,29 @@
 // ============================================================
 // Museum Karya - SMKN 4 Tasikmalaya
-// app.js — gabungan seluruh script (theme, modal, counter)
+// app.js — gabungan seluruh script (theme, mobile menu, modal, counter)
 // ============================================================
+
+// ===== Mobile Menu Toggle =====
+document.addEventListener("DOMContentLoaded", () => {
+  const menuToggle = document.getElementById("menuToggle");
+  const navLinks = document.getElementById("navLinks");
+  const hamburgerIcon = document.getElementById("hamburgerIcon");
+  const closeIcon = document.getElementById("closeIcon");
+
+  if (menuToggle && navLinks) {
+    menuToggle.addEventListener("click", () => {
+      const isHidden = navLinks.classList.toggle("hidden");
+      navLinks.classList.toggle("flex");
+      menuToggle.setAttribute("aria-expanded", String(!isHidden));
+
+      // Toggle ikon garis Tiga / Silang (jika ada SVG ID di HTML)
+      if (hamburgerIcon && closeIcon) {
+        hamburgerIcon.classList.toggle("hidden");
+        closeIcon.classList.toggle("hidden");
+      }
+    });
+  }
+});
 
 // ===== Dark / Light Mode =====
 function applyTheme(theme) {
@@ -147,7 +169,7 @@ document.getElementById("detailModal")?.addEventListener("click", (e) => {
   if (e.target.id === "detailModal") closeModal();
 });
 
-// ===== Counter Angka Statistik =====
+// ===== Counter Angka Statistik & Animasi Card =====
 document.addEventListener("DOMContentLoaded", () => {
   const counters = document.querySelectorAll(".counter");
 

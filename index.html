@@ -31,46 +31,93 @@
 </head>
 <body class="scroll-smooth bg-[#FFFDF5] text-slate-900 antialiased">
 
-    <!-- ===== HEADER (Floating Capsule Navbar Tanpa Icon) ===== -->
-    <header class="sticky top-4 z-50 px-4">
-        <nav class="mx-auto flex max-w-7xl items-center justify-between bg-white px-6 py-3 rounded-full border-4 border-black shadow-[6px_6px_0px_#000]">
+   <!-- ===== HEADER (Floating Capsule Navbar Responsif Fix Melayang) ===== -->
+<header class="sticky top-4 z-50 px-4">
+    <nav class="relative mx-auto max-w-7xl bg-white dark:bg-zinc-900 rounded-full border-4 border-black dark:border-white shadow-[6px_6px_0px_#000] dark:shadow-[6px_6px_0px_#fff] px-4 sm:px-6 py-3 transition-all duration-300">
+        <div class="flex items-center justify-between">
             
-            <!-- Logo & Title -->
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-white border-3 border-black flex items-center justify-center font-black shadow-[2px_2px_0px_#000]">
-                    <img src="assets/img/smk4.jpeg" alt="Logo" class="w-7 h-7 object-cover rounded-md" />
+            <!-- 1. Logo & Title -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white dark:bg-zinc-800 border-3 border-black dark:border-white flex items-center justify-center font-black shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff] shrink-0">
+                    <img src="assets/img/smk4.png" alt="Logo" class="w-6 h-6 sm:w-7 sm:h-7 object-cover rounded-md" />
                 </div>
-                <span class="text-base sm:text-lg font-black tracking-wider text-black">MUSEUM.KARYA</span>
+                <span class="text-sm sm:text-lg font-black tracking-wider text-black dark:text-white whitespace-nowrap">MUSEUM.KARYA</span>
             </div>
 
-            <!-- Menu Links (Tanpa Icon) -->
-            <div class="hidden md:flex items-center gap-8">
-                <a href="index.html" class="text-xs font-black text-black hover:text-[#74B9FF] transition">
+            <!-- 2. Menu Links (Tampilan Desktop & Dropdown Melayang di Mobile) -->
+            <div id="navLinks"
+                class="hidden md:flex flex-col md:flex-row gap-3 md:gap-8 md:items-center
+                    absolute md:static left-0 right-0 top-[calc(100%+16px)] md:top-auto
+                    bg-white dark:bg-zinc-900 md:bg-transparent md:dark:bg-transparent 
+                    rounded-3xl md:rounded-none border-4 md:border-0 border-black dark:border-white md:border-none
+                    shadow-[6px_6px_0px_#000] dark:shadow-[6px_6px_0px_#fff] md:shadow-none 
+                    p-5 md:p-0 z-50 text-center md:text-left">
+                
+                <a href="index.html"
+                    class="text-sm md:text-xs font-black text-black dark:text-white bg-[#74B9FF]/20 md:bg-transparent
+                        hover:bg-[#74B9FF]/40 md:hover:bg-transparent hover:text-[#74B9FF] transition
+                        rounded-2xl md:rounded-none px-4 md:px-0 py-3 md:py-0">
                     BERANDA
                 </a>
-                <a href="karya.html" class="text-xs font-black text-slate-600 hover:text-black transition">
+                <a href="karya.html"
+                    class="text-sm md:text-xs font-black text-slate-700 dark:text-slate-300 md:text-slate-600 bg-transparent
+                        hover:bg-black/5 dark:hover:bg-white/10 md:hover:bg-transparent hover:text-black dark:hover:text-white transition
+                        rounded-2xl md:rounded-none px-4 md:px-0 py-3 md:py-0">
                     KARYA
                 </a>
-                <a href="artikel.html" class="text-xs font-black text-slate-600 hover:text-black transition">
+                <a href="artikel.html"
+                    class="text-sm md:text-xs font-black text-slate-700 dark:text-slate-300 md:text-slate-600 bg-transparent
+                        hover:bg-black/5 dark:hover:bg-white/10 md:hover:bg-transparent hover:text-black dark:hover:text-white transition
+                        rounded-2xl md:rounded-none px-4 md:px-0 py-3 md:py-0">
                     ARTIKEL
                 </a>
-                <a href="tentang.html" class="text-xs font-black text-slate-600 hover:text-black transition">
+                <a href="tentang.html"
+                    class="text-sm md:text-xs font-black text-slate-700 dark:text-slate-300 md:text-slate-600 bg-transparent
+                        hover:bg-black/5 dark:hover:bg-white/10 md:hover:bg-transparent hover:text-black dark:hover:text-white transition
+                        rounded-2xl md:rounded-none px-4 md:px-0 py-3 md:py-0">
                     TENTANG
                 </a>
-            </div>
 
-            <!-- Right Actions (Theme toggle & Login) -->
-            <div class="flex items-center gap-3">
-                <button class="w-10 h-10 rounded-full bg-[#FFD23F] border-3 border-black flex items-center justify-center shadow-[3px_3px_0px_#000] cursor-pointer hover:translate-y-[-2px] transition">
-                    🌙
-                </button>
-                <a href="auth/login.html" class="text-xs font-black px-5 py-2.5 bg-[#74B9FF] text-black border-3 border-black rounded-full shadow-[3px_3px_0px_#000] hover:bg-[#54a0ff] transition flex items-center">
-                    LOGIN ADMIN
+                <!-- Tombol LOGIN di Menu Mobile -->
+                <a href="auth/login.html" 
+                    class="md:hidden mt-2 text-xs font-black px-5 py-3 bg-[#74B9FF] text-black border-3 border-black rounded-2xl shadow-[3px_3px_0px_#000] active:translate-y-[1px] transition block text-center">
+                    LOGIN
                 </a>
             </div>
-        </nav>
-    </header>
 
+            <!-- 3. Right Actions (Theme Toggle, Login Desktop, & Hamburger) -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <button
+                    id="themeToggle"
+                    onclick="toggleTheme()"
+                    aria-label="Ganti mode"
+                    class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-[#FFD23F] border-3 border-black dark:border-white shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff] text-gray-900 cursor-pointer hover:translate-y-[-2px] transition">
+                    🌙
+                </button>
+                
+                <!-- Login Admin (Desktop) -->
+                <a href="auth/login.html" 
+                    class="hidden md:inline-block text-[10px] sm:text-xs font-black px-3 sm:px-5 py-2 sm:py-2.5 bg-[#74B9FF] text-black border-3 border-black dark:border-white rounded-full shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff] hover:bg-[#54a0ff] transition whitespace-nowrap">
+                    LOGIN
+                </a>
+
+                <!-- Hamburger Button (Mobile) -->
+                <button 
+                    id="menuToggle" 
+                    aria-label="Open Menu" 
+                    class="md:hidden w-9 h-9 rounded-xl bg-white dark:bg-zinc-800 border-3 border-black dark:border-white flex items-center justify-center font-black shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff] text-black dark:text-white cursor-pointer active:translate-y-[1px]">
+                    <svg id="hamburgerIcon" class="w-5 h-5 block" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    <svg id="closeIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+        </div>
+    </nav>
+</header>
     <!-- ===== HERO (Video Section) ===== -->
     <section id="beranda"
         class="relative text-white flex items-center justify-center overflow-hidden h-[60vh] min-h-[400px] border-b-4 border-black bg-black mt-4">
