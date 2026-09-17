@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manajemen Akun Admin - Museum Karya PPLG</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        .custom-nav-bg {
+            background-color: #0f172a; /* Slate 900 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans text-gray-800">
+
+    <!-- Wrapper Utama: Sidebar Fixed + Content Scrollable -->
+    <div class="flex h-screen bg-gray-100 overflow-hidden">
+
+        <!-- ================= SIDEBAR SUPER ADMIN ================= -->
+        <div class="w-64 shrink-0 h-screen custom-nav-bg text-white shadow-lg flex flex-col justify-between">
+            <div class="flex flex-col overflow-hidden">
+                <!-- Header Sidebar -->
+                <div class="p-6 border-b border-slate-800 shrink-0">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center font-bold text-md text-white">SA</div>
+                        <div>
+                            <p class="font-bold text-sm leading-tight">Museum Karya Smkn 4</p>
+                            <p class="text-xs text-slate-400">Super Admin</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Menu Navigasi -->
+                <nav class="mt-6 space-y-2 px-4 overflow-y-auto">
+                    <!-- Dashboard -->
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-200 text-slate-300 hover:bg-slate-800 text-sm">
+                        <span>Dashboard</span>
+                    </a>
+
+                    <!-- Manajemen Admin (Active) -->
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-200 bg-purple-600 text-white font-semibold shadow-sm text-sm">
+                        <span>Manajemen Admin</span>
+                    </a>
+
+                    <!-- Karya -->
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-200 text-slate-300 hover:bg-slate-800 text-sm">
+                        <span>Karya</span>
+                    </a>
+
+                    <!-- Siswa -->
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-200 text-slate-300 hover:bg-slate-800 text-sm">
+                        <span>Siswa</span>
+                    </a>
+
+                    <!-- Kategori -->
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-200 text-slate-300 hover:bg-slate-800 text-sm">
+                        <span>Kategori</span>
+                    </a>
+
+                    <!-- Artikel -->
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-200 text-slate-300 hover:bg-slate-800 text-sm">
+                        <span>Artikel</span>
+                    </a>
+
+                    <!-- Kode Unik -->
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-200 text-slate-300 hover:bg-slate-800 text-sm">
+                        <span>Kode Unik</span>
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Tombol Logout -->
+            <div class="p-6 border-t border-slate-800 shrink-0">
+                <button type="button" onclick="openLogoutModal()" class="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-semibold text-sm cursor-pointer">
+                    Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- ================= KONTEN UTAMA ================= -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            
+            <!-- Top Header -->
+            <header class="bg-white shadow-sm z-10 shrink-0">
+                <div class="px-8 py-4 flex justify-between items-center">
+                    <h1 class="text-2xl font-bold text-gray-900">Manajemen Akun Admin</h1>
+                    <div class="flex items-center gap-4">
+                        <div class="text-right">
+                            <p class="font-semibold text-gray-900">Super Administrator</p>
+                            <p class="text-sm text-purple-600 font-medium">Super Admin</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Scrollable Area -->
+            <div class="flex-1 overflow-y-auto p-8 relative">
+
+                <!-- Loading Overlay -->
+                <div id="loading-content" class="absolute inset-0 bg-gray-100/80 z-50 flex flex-col items-center justify-center transition-opacity duration-300 ease-out">
+                    <div class="flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-md border border-gray-200">
+                        <div class="w-5 h-5 border-3 border-purple-600 border-t-transparent rounded-full animate-spin"></div>
+                        <p class="text-gray-700 font-medium text-sm tracking-wide">Memuat data...</p>
+                    </div>
+                </div>
+
+                <!-- Header Actions -->
+                <div class="mb-6 flex justify-between items-center">
+                    <h2 class="text-xl font-semibold text-gray-900">Daftar Akun Admin</h2>
+                    <button type="button" onclick="openCreateModal()" class="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition font-semibold flex items-center gap-2 cursor-pointer text-sm">
+                        <span>+</span> Tambah Admin
+                    </button>
+                </div>
+
+                <!-- Form Cari Admin -->
+                <div class="bg-white rounded-lg shadow mb-6 p-4">
+                    <h2 class="text-lg font-bold text-gray-900 mb-3">Cari Admin</h2>
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <form action="#" method="GET" class="flex flex-1 gap-3">
+                            <input id="searchInput" name="search" placeholder="Cari username atau email..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 text-sm">
+                            <button type="submit" class="bg-purple-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-purple-700 transition cursor-pointer text-sm">Cari</button>
+                        </form>
+                        <a href="#" class="px-6 py-2 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition text-sm whitespace-nowrap text-center cursor-pointer flex items-center justify-center">Reset</a>
+                    </div>
+                </div>
+
+                <!-- Tabel Data Admin -->
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <div class="px-6 py-3 bg-purple-50 border-b border-purple-100 flex justify-between items-center text-xs text-purple-800">
+                        <span class="font-bold">Catatan Role:</span>
+                        <div>
+                            Role 0 = <span class="font-semibold">Super Admin</span> | Role 1 = <span class="font-semibold">Admin Biasa</span>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50 border-b border-gray-200">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider w-16">No</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Username</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Email</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Role</th>
+                                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider w-32">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <!-- Row Statis 1 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm text-gray-900">1</td>
+                                    <td class="px-6 py-4 text-sm font-medium text-gray-900">SuperAdmin Utama</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">superadmin@smkn4.sch.id</td>
+                                    <td class="px-6 py-4 text-sm">
+                                        <span class="px-2 py-1 text-xs rounded-full font-semibold bg-purple-100 text-purple-700">0 (Super Admin)</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-center">
+                                        <div class="flex justify-center gap-2">
+                                            <button type="button" 
+                                                    onclick="openEditModal(1, 'SuperAdmin Utama', 'superadmin@smkn4.sch.id', '0')"
+                                                    class="px-3 py-1 bg-purple-100 text-purple-600 rounded hover:bg-purple-200 transition font-medium text-xs cursor-pointer">
+                                                Edit
+                                            </button>
+                                            <button type="button" 
+                                                    onclick="confirmDelete(1, 'SuperAdmin Utama')"
+                                                    class="px-3 py-1 bg-red-100 text-red-600 rounded hover:bg-red-200 transition font-medium text-xs cursor-pointer">
+                                                Hapus
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- Row Statis 2 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm text-gray-900">2</td>
+                                    <td class="px-6 py-4 text-sm font-medium text-gray-900">Budi Santoso</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">budi@smkn4.sch.id</td>
+                                    <td class="px-6 py-4 text-sm">
+                                        <span class="px-2 py-1 text-xs rounded-full font-semibold bg-gray-100 text-gray-700">1 (Admin)</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-center">
+                                        <div class="flex justify-center gap-2">
+                                            <button type="button" 
+                                                    onclick="openEditModal(2, 'Budi Santoso', 'budi@smkn4.sch.id', '1')"
+                                                    class="px-3 py-1 bg-purple-100 text-purple-600 rounded hover:bg-purple-200 transition font-medium text-xs cursor-pointer">
+                                                Edit
+                                            </button>
+                                            <button type="button" 
+                                                    onclick="confirmDelete(2, 'Budi Santoso')"
+                                                    class="px-3 py-1 bg-red-100 text-red-600 rounded hover:bg-red-200 transition font-medium text-xs cursor-pointer">
+                                                Hapus
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- Row Statis 3 -->
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm text-gray-900">3</td>
+                                    <td class="px-6 py-4 text-sm font-medium text-gray-900">Siti Aminah</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">siti@smkn4.sch.id</td>
+                                    <td class="px-6 py-4 text-sm">
+                                        <span class="px-2 py-1 text-xs rounded-full font-semibold bg-gray-100 text-gray-700">1 (Admin)</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-center">
+                                        <div class="flex justify-center gap-2">
+                                            <button type="button" 
+                                                    onclick="openEditModal(3, 'Siti Aminah', 'siti@smkn4.sch.id', '1')"
+                                                    class="px-3 py-1 bg-purple-100 text-purple-600 rounded hover:bg-purple-200 transition font-medium text-xs cursor-pointer">
+                                                Edit
+                                            </button>
+                                            <button type="button" 
+                                                    onclick="confirmDelete(3, 'Siti Aminah')"
+                                                    class="px-3 py-1 bg-red-100 text-red-600 rounded hover:bg-red-200 transition font-medium text-xs cursor-pointer">
+                                                Hapus
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination Footer -->
+                    <div class="px-6 py-4 bg-gray-50 border-t border-gray-200 flex justify-between items-center text-sm text-gray-600">
+                        <span>Total: <span class="font-bold">3</span> Admin</span>
+                        <div class="flex gap-1">
+                            <button class="px-3 py-1 border rounded bg-white text-gray-400 cursor-not-allowed text-xs" disabled>Sebelumnya</button>
+                            <button class="px-3 py-1 border rounded bg-purple-600 text-white text-xs font-bold">1</button>
+                            <button class="px-3 py-1 border rounded bg-white text-gray-400 cursor-not-allowed text-xs" disabled>Selanjutnya</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL TAMBAH/EDIT ADMIN ================= -->
+    <div id="adminModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
+            <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                <h3 id="modalTitle" class="text-lg font-semibold text-gray-900">Tambah Admin Baru</h3>
+                <button type="button" onclick="closeModal()" class="text-gray-400 hover:text-gray-600 cursor-pointer">✕</button>
+            </div>
+
+            <form id="adminForm" class="p-6 space-y-4" onsubmit="handleFormSubmit(event)">
+                <input type="hidden" id="adminId">
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+                    <input type="text" id="username" placeholder="Masukkan username" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 text-sm" required>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <input type="email" id="email" placeholder="Masukkan email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 text-sm" required>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Role</label>
+                    <select id="role" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 text-sm" required>
+                        <option value="1">1 - Admin Biasa</option>
+                        <option value="0">0 - Super Admin</option>
+                    </select>
+                </div>
+
+                <div id="passwordGroup">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <input type="password" id="password" placeholder="Masukkan password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 text-sm">
+                    <p id="passwordHelp" class="text-xs text-gray-400 mt-1 hidden">*Kosongkan password jika tidak ingin mengubahnya.</p>
+                </div>
+
+                <div class="flex gap-3 pt-4">
+                    <button type="button" onclick="closeModal()" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium text-sm cursor-pointer">Batal</button>
+                    <button type="submit" class="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition font-medium text-sm cursor-pointer">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ================= MODAL LOGOUT ================= -->
+    <div id="logoutModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-gray-100">
+            <div class="bg-gradient-to-r from-purple-600 to-indigo-600 p-5 text-white flex items-center gap-3">
+                <div class="p-2 bg-white/20 rounded-lg">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold">Konfirmasi Keluar</h3>
+            </div>
+
+            <div class="p-6 text-center">
+                <p class="text-gray-700 font-medium leading-relaxed text-base">
+                    Yakin mau logout?
+                </p>
+            </div>
+
+            <div class="bg-gray-50 px-6 py-4 flex gap-3 justify-end border-t border-gray-100">
+                <button type="button" onclick="closeLogoutModal()" class="px-5 py-2.5 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition text-sm cursor-pointer">
+                    Batal
+                </button>
+                <button type="button" onclick="confirmLogout()" class="px-5 py-2.5 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition text-sm shadow-md cursor-pointer">
+                    Ya, Logout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Interaktif -->
+    <script>
+        // Loading Handler
+        window.addEventListener("load", function () {
+            const loadingContent = document.getElementById("loading-content");
+            if (loadingContent) {
+                setTimeout(() => {
+                    loadingContent.classList.add("opacity-0");
+                    setTimeout(() => {
+                        loadingContent.classList.add("hidden");
+                    }, 300);
+                }, 800);
+            }
+        });
+
+        // Logout Modal
+        function openLogoutModal() {
+            document.getElementById('logoutModal').classList.remove('hidden');
+        }
+        function closeLogoutModal() {
+            document.getElementById('logoutModal').classList.add('hidden');
+        }
+        function confirmLogout() {
+            alert("Berhasil Logout!");
+            closeLogoutModal();
+        }
+
+        // Admin Modal Controls
+        function openCreateModal() {
+            document.getElementById('modalTitle').innerText = 'Tambah Admin Baru';
+            document.getElementById('adminId').value = '';
+            document.getElementById('username').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('role').value = '1';
+            document.getElementById('password').value = '';
+            document.getElementById('password').required = true;
+            document.getElementById('passwordHelp').classList.add('hidden');
+            document.getElementById('adminModal').classList.remove('hidden');
+        }
+
+        function openEditModal(id, username, email, role) {
+            document.getElementById('modalTitle').innerText = 'Edit Data Admin';
+            document.getElementById('adminId').value = id;
+            document.getElementById('username').value = username;
+            document.getElementById('email').value = email;
+            document.getElementById('role').value = role;
+            document.getElementById('password').value = '';
+            document.getElementById('password').required = false;
+            document.getElementById('passwordHelp').classList.remove('hidden');
+            document.getElementById('adminModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('adminModal').classList.add('hidden');
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            alert("Data berhasil disimpan!");
+            closeModal();
+        }
+
+        function confirmDelete(id, username) {
+            if (confirm(`Apakah Anda yakin ingin menghapus admin "${username}"?`)) {
+                alert(`Admin ${username} berhasil dihapus.`);
+            }
+        }
+    </script>
+</body>
+</html>

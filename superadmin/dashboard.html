@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Super Admin - Museum Karya PPLG</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        .custom-nav-bg {
+            background-color: #0f172a; /* Slate 900 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans text-gray-800">
+
+    <!-- Wrapper Utam: Sidebar Fixed + Content Scrollable -->
+    <div class="flex h-screen bg-gray-100 overflow-hidden">
+
+        <!-- ================= SIDEBAR SUPER ADMIN ================= -->
+        <div class="w-64 shrink-0 h-screen custom-nav-bg text-white shadow-lg flex flex-col justify-between">
+            <div class="flex flex-col overflow-hidden">
+                <!-- Header Sidebar -->
+                <div class="p-6 border-b border-slate-800 shrink-0">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center font-bold text-md text-white">SA</div>
+                        <div>
+                            <p class="font-bold text-sm leading-tight">Museum Karya Smkn 4</p>
+                            <p class="text-xs text-slate-400">Super Admin</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Menu Navigasi -->
+                <nav class="mt-6 space-y-2 px-4 overflow-y-auto">
+                    <!-- Dashboard (Active) -->
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-200 bg-purple-600 text-white font-semibold shadow-sm text-sm">
+                        <span>Dashboard</span>
+                    </a>
+
+                    <!-- Manajemen Admin -->
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-200 text-slate-300 hover:bg-slate-800 text-sm">
+                        <span>Manajemen Admin</span>
+                    </a>
+
+                    <!-- Karya -->
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-200 text-slate-300 hover:bg-slate-800 text-sm">
+                        <span>Karya</span>
+                    </a>
+
+                    <!-- Siswa -->
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-200 text-slate-300 hover:bg-slate-800 text-sm">
+                        <span>Siswa</span>
+                    </a>
+
+                    <!-- Kategori -->
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-200 text-slate-300 hover:bg-slate-800 text-sm">
+                        <span>Kategori</span>
+                    </a>
+
+                    <!-- Artikel -->
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-200 text-slate-300 hover:bg-slate-800 text-sm">
+                        <span>Artikel</span>
+                    </a>
+
+                    <!-- Kode Unik -->
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors duration-200 text-slate-300 hover:bg-slate-800 text-sm">
+                        <span>Kode Unik</span>
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Tombol Logout -->
+            <div class="p-6 border-t border-slate-800 shrink-0">
+                <button type="button" onclick="openLogoutModal()" class="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-semibold text-sm cursor-pointer">
+                    Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- ================= KONTEN UTAMA ================= -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            
+            <!-- Top Header -->
+            <header class="bg-white shadow-sm z-10 shrink-0">
+                <div class="px-8 py-4 flex justify-between items-center">
+                    <h1 class="text-2xl font-bold text-gray-900">Dashboard Super Admin</h1>
+                    <div class="flex items-center gap-4">
+                        <div class="text-right">
+                            <p class="font-semibold text-gray-900">Super Administrator</p>
+                            <p class="text-sm text-purple-600 font-medium">Super Admin</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Scrollable Area -->
+            <div class="flex-1 overflow-y-auto p-8 relative space-y-6">
+
+                <!-- Welcome Banner -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h2 class="text-xl font-bold text-gray-900">Selamat datang, Super Admin!</h2>
+                    <p class="text-gray-600 mt-1 text-sm">Ini adalah dashboard khusus Super Admin.</p>
+                </div>
+
+                <!-- Stat Cards (3 Kolom) -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+
+                    <!-- Stat 1: Total Karya -->
+                    <div class="bg-white rounded-lg shadow p-5 flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">Total Karya</p>
+                            <p class="text-2xl font-bold text-gray-900">124</p>
+                        </div>
+                        <div class="w-11 h-11 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold">K</div>
+                    </div>
+
+                    <!-- Stat 2: Total Siswa -->
+                    <div class="bg-white rounded-lg shadow p-5 flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">Total Siswa</p>
+                            <p class="text-2xl font-bold text-gray-900">350</p>
+                        </div>
+                        <div class="w-11 h-11 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">S</div>
+                    </div>
+
+                    <!-- Stat 3: Kode Unik -->
+                    <div class="bg-white rounded-lg shadow p-5 flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">Kode Unik</p>
+                            <p class="text-2xl font-bold text-gray-900">45</p>
+                        </div>
+                        <div class="w-11 h-11 rounded-full bg-red-100 flex items-center justify-center text-red-600 font-bold">U</div>
+                    </div>
+
+                </div>
+
+                <!-- 2 Tabel Berdampingan -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                    <!-- KIRI: Karya Terbaru dari Siswa -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-bold text-gray-900">Karya Terbaru Siswa</h3>
+                            <a href="#" class="text-sm text-purple-600 font-medium hover:underline">Lihat semua</a>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm text-left">
+                                <thead>
+                                    <tr class="text-gray-500 border-b">
+                                        <th class="py-2 pr-3 font-medium">Judul Karya</th>
+                                        <th class="py-2 pr-3 font-medium">Siswa</th>
+                                        <th class="py-2 pr-3 font-medium">Jurusan</th>
+                                        <th class="py-2 pr-3 font-medium">Status</th>
+                                        <th class="py-2 pr-3 font-medium">Direview Oleh</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Row Statis 1 -->
+                                    <tr class="border-b hover:bg-gray-50">
+                                        <td class="py-3 pr-3 font-medium text-gray-800">Aplikasi Kasir Digital</td>
+                                        <td class="py-3 pr-3 text-gray-600">Ahmad Rizky</td>
+                                        <td class="py-3 pr-3 text-gray-600">PPLG</td>
+                                        <td class="py-3 pr-3">
+                                            <span class="px-2 py-1 text-xs rounded-full font-medium bg-green-50 text-green-600">
+                                                Disetujui
+                                            </span>
+                                        </td>
+                                        <td class="py-3 pr-3 text-gray-600">Budi Santoso</td>
+                                    </tr>
+
+                                    <!-- Row Statis 2 -->
+                                    <tr class="border-b hover:bg-gray-50">
+                                        <td class="py-3 pr-3 font-medium text-gray-800">Website Portfolio SMK</td>
+                                        <td class="py-3 pr-3 text-gray-600">Siti Nurhaliza</td>
+                                        <td class="py-3 pr-3 text-gray-600">PPLG</td>
+                                        <td class="py-3 pr-3">
+                                            <span class="px-2 py-1 text-xs rounded-full font-medium bg-yellow-50 text-yellow-600">
+                                                Pending
+                                            </span>
+                                        </td>
+                                        <td class="py-3 pr-3 text-gray-600">Belum direview</td>
+                                    </tr>
+
+                                    <!-- Row Statis 3 -->
+                                    <tr class="border-b last:border-0 hover:bg-gray-50">
+                                        <td class="py-3 pr-3 font-medium text-gray-800">Game Educative 2D</td>
+                                        <td class="py-3 pr-3 text-gray-600">Bagas Pratama</td>
+                                        <td class="py-3 pr-3 text-gray-600">PPLG</td>
+                                        <td class="py-3 pr-3">
+                                            <span class="px-2 py-1 text-xs rounded-full font-medium bg-red-50 text-red-600">
+                                                Ditolak
+                                            </span>
+                                        </td>
+                                        <td class="py-3 pr-3 text-gray-600">Siti Aminah</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- KANAN: Daftar Admin & Aktivitasnya -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-bold text-gray-900">Admin & Aktivitasnya</h3>
+                            <a href="#" class="text-sm text-purple-600 font-medium hover:underline">Kelola admin</a>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm text-left">
+                                <thead>
+                                    <tr class="text-gray-500 border-b">
+                                        <th class="py-2 pr-3 font-medium">Nama Admin</th>
+                                        <th class="py-2 pr-3 font-medium">Email</th>
+                                        <th class="py-2 pr-3 font-medium">Karya Direview</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Row Statis 1 -->
+                                    <tr class="border-b hover:bg-gray-50">
+                                        <td class="py-3 pr-3 font-medium text-gray-800">Budi Santoso</td>
+                                        <td class="py-3 pr-3 text-gray-600">budi@smkn4.sch.id</td>
+                                        <td class="py-3 pr-3">
+                                            <span class="px-2 py-1 text-xs rounded-full bg-purple-50 text-purple-600 font-medium">
+                                                28
+                                            </span>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Row Statis 2 -->
+                                    <tr class="border-b hover:bg-gray-50">
+                                        <td class="py-3 pr-3 font-medium text-gray-800">Siti Aminah</td>
+                                        <td class="py-3 pr-3 text-gray-600">siti@smkn4.sch.id</td>
+                                        <td class="py-3 pr-3">
+                                            <span class="px-2 py-1 text-xs rounded-full bg-purple-50 text-purple-600 font-medium">
+                                                15
+                                            </span>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Row Statis 3 -->
+                                    <tr class="border-b last:border-0 hover:bg-gray-50">
+                                        <td class="py-3 pr-3 font-medium text-gray-800">Dewi Lestari</td>
+                                        <td class="py-3 pr-3 text-gray-600">dewi@smkn4.sch.id</td>
+                                        <td class="py-3 pr-3">
+                                            <span class="px-2 py-1 text-xs rounded-full bg-purple-50 text-purple-600 font-medium">
+                                                42
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL LOGOUT ================= -->
+    <div id="logoutModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-gray-100">
+            <div class="bg-gradient-to-r from-purple-600 to-indigo-600 p-5 text-white flex items-center gap-3">
+                <div class="p-2 bg-white/20 rounded-lg">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold">Konfirmasi Keluar</h3>
+            </div>
+
+            <div class="p-6 text-center">
+                <p class="text-gray-700 font-medium leading-relaxed text-base">
+                    Yakin mau logout?
+                </p>
+            </div>
+
+            <div class="bg-gray-50 px-6 py-4 flex gap-3 justify-end border-t border-gray-100">
+                <button type="button" onclick="closeLogoutModal()" class="px-5 py-2.5 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition text-sm cursor-pointer">
+                    Batal
+                </button>
+                <button type="button" onclick="confirmLogout()" class="px-5 py-2.5 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition text-sm shadow-md cursor-pointer">
+                    Ya, Logout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Modal Trigger -->
+    <script>
+        function openLogoutModal() {
+            document.getElementById('logoutModal').classList.remove('hidden');
+        }
+        function closeLogoutModal() {
+            document.getElementById('logoutModal').classList.add('hidden');
+        }
+        function confirmLogout() {
+            alert("Berhasil Logout!");
+            closeLogoutModal();
+        }
+    </script>
+</body>
+</html>
