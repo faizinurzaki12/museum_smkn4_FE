@@ -9,7 +9,7 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     
-    <!-- CSS Internal Khusus Admin (Sidebar Cerah & Neubrutalism) -->
+    <!-- CSS Internal Khusus Admin -->
     <style>
         body {
             background-color: #fcfcfc;
@@ -62,12 +62,6 @@
             transform: translateY(0);
         }
 
-        .counter-card:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 6px 6px 0px #000000;
-            transition: .2s;
-        }
-
         .stats-section-card {
             opacity: 0;
             transform: translateY(40px);
@@ -110,23 +104,40 @@
             transform: translate(2px, 2px);
             box-shadow: 1px 1px 0px #000000;
         }
+
+        /* --- CSS ANIMASI DROPDOWN MOBILE (SLOWMO) --- */
+        #mobileDropdown {
+            max-height: 0;
+            opacity: 0;
+            transform: translateY(-15px) scaleY(0.95);
+            transform-origin: top;
+            overflow: hidden;
+            pointer-events: none;
+            transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+                        opacity 0.35s ease-in-out,
+                        transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        #mobileDropdown.dropdown-open {
+            max-height: 500px;
+            opacity: 1;
+            transform: translateY(0) scaleY(1);
+            pointer-events: auto;
+        }
     </style>
 </head>
-<body>
-    <div class="flex h-screen overflow-hidden">
+<body class="overflow-x-hidden">
 
-        <!-- SIDEBAR UTAMA -->
-        <div class="w-64 custom-nav-bg text-gray-800 flex flex-col justify-between">
+    <div class="flex h-screen overflow-hidden relative">
+
+        <!-- SIDEBAR DESKTOP -->
+        <aside class="hidden lg:flex w-64 custom-nav-bg text-gray-800 flex-col justify-between shrink-0">
             <div>
-                <div class="p-6 sidebar-brand">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-[#ffcc00] border-2 border-black rounded-full flex items-center justify-center font-black text-black shadow-[2px_2px_0px_#000]">M</div>
-                        <div>
-                            <p class="font-extrabold text-gray-900 text-sm">Museum Karya SMKN 4</p>
-                        </div>
-                    </div>
+                <div class="p-6 sidebar-brand flex items-center gap-3">
+                    <div class="w-10 h-10 bg-[#ffcc00] border-2 border-black rounded-full flex items-center justify-center font-black text-black shadow-[2px_2px_0px_#000]">M</div>
+                    <p class="font-extrabold text-gray-900 text-sm">Museum Karya SMKN 4</p>
                 </div>
-                <nav class="mt-6 space-y-2 px-4">
+                <nav class="mt-6 space-y-2 px-4 overflow-y-auto max-h-[calc(100vh-200px)]">
                     <a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-active">
                         <span>Dashboard</span>
                     </a>
@@ -156,23 +167,64 @@
                     Logout
                 </button>
             </div>
-        </div>
+        </aside>
 
         <!-- AREA KONTEN UTAMA -->
-        <div class="flex-1 flex flex-col overflow-hidden">
-            <header class="admin-header z-10">
-                <div class="px-8 py-4 flex justify-between items-center">
-                    <h1 class="text-2xl font-black text-gray-900 tracking-tight">Dashboard Admin</h1>
+        <div class="flex-1 flex flex-col overflow-hidden w-full relative">
+            
+            <!-- HEADER UTAMA -->
+            <header class="admin-header z-20 relative">
+                <div class="px-4 sm:px-8 py-4 flex justify-between items-center gap-4">
+                    <div class="flex items-center gap-3">
+                        <!-- Tombol Hamburger -->
+                        <button onclick="toggleMobileDropdown()" class="lg:hidden p-2 bg-[#ffcc00] border-2 border-black rounded-xl shadow-[2px_2px_0px_#000] font-bold cursor-pointer hover:bg-yellow-400 active:translate-y-0.5 transition">
+                            🍔
+                        </button>
+                        <h1 class="text-xl sm:text-2xl font-black text-gray-900 tracking-tight">Dashboard Admin</h1>
+                    </div>
                     <div class="flex items-center gap-4">
                         <div class="text-right">
-                            <p class="font-extrabold text-gray-900">Administrator</p>
-                            <p class="text-xs text-gray-500 font-bold">Museum PPLG / TIK</p>
+                            <p class="font-extrabold text-gray-900 text-sm sm:text-base">Administrator</p>
+                            <p class="text-[10px] sm:text-xs text-gray-500 font-bold">Museum PPLG / TIK</p>
                         </div>
+                    </div>
+                </div>
+
+                <!-- DROPDOWN NAVIGASI MOBILE SLOWMOTION -->
+                <div id="mobileDropdown" class="lg:hidden bg-[#fffdf9] border-b-3 border-black shadow-[0_6px_0px_#000] px-4 py-3 absolute top-full left-0 right-0 z-30">
+                    <nav class="space-y-2">
+                        <a href="dashboard.html" class="flex items-center gap-3 px-4 py-2.5 rounded-xl nav-link-active">
+                            <span>Dashboard</span>
+                        </a>
+                        <a href="karya.html" class="flex items-center gap-3 px-4 py-2.5 rounded-xl nav-link-idle">
+                            <span>Karya</span>
+                        </a>
+                        <a href="siswa.html" class="flex items-center gap-3 px-4 py-2.5 rounded-xl nav-link-idle">
+                            <span>Siswa</span>
+                        </a>
+                        <a href="kategori.html" class="flex items-center gap-3 px-4 py-2.5 rounded-xl nav-link-idle">
+                            <span>Kategori</span>
+                        </a>
+                        <a href="users.html" class="flex items-center gap-3 px-4 py-2.5 rounded-xl nav-link-idle">
+                            <span>Users</span>
+                        </a>
+                        <a href="artikel.html" class="flex items-center gap-3 px-4 py-2.5 rounded-xl nav-link-idle">
+                            <span>Artikel</span>
+                        </a>
+                        <a href="kode-unik.html" class="flex items-center gap-3 px-4 py-2.5 rounded-xl nav-link-idle">
+                            <span>Kode Unik</span>
+                        </a>
+                    </nav>
+
+                    <div class="pt-3 mt-3 border-t-2 border-black">
+                        <button type="button" onclick="openLogoutModal()" class="w-full px-4 py-2 bg-red-500 text-white rounded-xl btn-neubrutal cursor-pointer text-sm">
+                            Logout
+                        </button>
                     </div>
                 </div>
             </header>
 
-            <div class="flex-1 overflow-auto p-8 relative">
+            <div class="flex-1 overflow-auto p-4 sm:p-8 relative">
                 <!-- Loading Screen -->
                 <div id="loading-content" class="absolute inset-0 bg-[#fcfcfc]/90 z-50 flex flex-col items-center justify-center transition-opacity duration-300 ease-out">
                     <div class="flex items-center gap-3 bg-white px-6 py-3 rounded-xl border-3 border-black shadow-[4px_4px_0px_#000]">
@@ -182,7 +234,7 @@
                 </div>
 
                 <!-- Stats Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                     <div class="p-6 counter-card">
                         <div class="flex items-center justify-between">
                             <div>
@@ -222,7 +274,7 @@
                 </div>
 
                 <!-- BAGIAN GRAFIK DISTRIBUSI KATEGORI KARYA -->
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6 sm:mt-8">
                     <!-- Grafik Berdasarkan Kategori Utama -->
                     <div class="p-6 stats-section-card lg:col-span-2 flex flex-col justify-between">
                         <div>
@@ -233,9 +285,7 @@
                                 </div>
                             </div>
 
-                            <!-- List Progress Bar Kategori -->
                             <div class="space-y-5 my-4">
-                                <!-- Web Development -->
                                 <div>
                                     <div class="flex justify-between text-xs font-black text-gray-900 mb-1.5">
                                         <span>🌐 Web Development</span>
@@ -246,7 +296,6 @@
                                     </div>
                                 </div>
 
-                                <!-- Mobile App -->
                                 <div>
                                     <div class="flex justify-between text-xs font-black text-gray-900 mb-1.5">
                                         <span>📱 Mobile App Development</span>
@@ -257,7 +306,6 @@
                                     </div>
                                 </div>
 
-                                <!-- Game Development -->
                                 <div>
                                     <div class="flex justify-between text-xs font-black text-gray-900 mb-1.5">
                                         <span>🎮 Game Development</span>
@@ -268,7 +316,6 @@
                                     </div>
                                 </div>
 
-                                <!-- UI/UX Design -->
                                 <div>
                                     <div class="flex justify-between text-xs font-black text-gray-900 mb-1.5">
                                         <span>🎨 UI/UX Design</span>
@@ -346,6 +393,12 @@
 
     <!-- Script JavaScript Internal -->
     <script>
+        // Toggle Dropdown Mobile dengan Class Animation
+        function toggleMobileDropdown() {
+            const dropdown = document.getElementById('mobileDropdown');
+            dropdown.classList.toggle('dropdown-open');
+        }
+
         function openLogoutModal() { document.getElementById('logoutModal').classList.remove('hidden'); }
         function closeLogoutModal() { document.getElementById('logoutModal').classList.add('hidden'); }
         function confirmLogout() { window.location.href = 'login.html'; }

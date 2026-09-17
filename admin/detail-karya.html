@@ -9,100 +9,119 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     
-    <!-- CSS Internal Khusus Admin -->
     <style>
-        :root {
-          --nav-bg: #0b0f17;          /* Warna background utama navbar */
-          --nav-link-idle: #9ca3af;    /* Warna teks saat tidak aktif */
-          --nav-link-hover: #161f30;   /* Warna background saat di-hover */
-          --nav-link-active: #1e293b;  /* Warna background saat aktif */
-          --nav-accent: #38bdf8;       /* Warna aksen border & teks aktif */
+        /* Neubrutalism Style Helpers */
+        .nb-border {
+            border: 2px solid #000000;
         }
-
-        .custom-nav-bg {
-          background-color: var(--nav-bg);
+        .nb-border-b {
+            border-bottom: 2px solid #000000;
         }
-
-        .nav-link-active {
-          background-color: var(--nav-link-active) !important;
-          color: var(--nav-accent) !important;
-          border-left: 4px solid var(--nav-accent) !important;
+        .nb-border-r {
+            border-right: 2px solid #000000;
         }
-
-        .nav-link-idle {
-          color: var(--nav-link-idle);
-          transition: all 0.2s ease-in-out;
+        .nb-shadow-sm {
+            box-shadow: 2px 2px 0px #000000;
         }
-
-        .nav-link-idle:hover {
-          background-color: var(--nav-link-hover);
-          color: #ffffff;
+        .nb-shadow {
+            box-shadow: 3px 3px 0px #000000;
+        }
+        .nb-shadow-lg {
+            box-shadow: 6px 6px 0px #000000;
+        }
+        .nb-button {
+            transition: all 0.15s ease;
+        }
+        .nb-button:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 4px 4px 0px #000000;
+        }
+        .nb-button:active {
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0px #000000;
         }
     </style>
 </head>
-<body class="bg-gray-100 font-sans antialiased">
-    <div class="flex h-screen overflow-hidden bg-gray-100">
+<body class="bg-amber-100 font-sans antialiased text-black">
+    <div class="flex h-screen overflow-hidden">
 
-        <!-- SIDEBAR UTAMA -->
-        <div class="w-64 custom-nav-bg text-white shadow-lg flex flex-col justify-between shrink-0 hidden md:flex">
+        <!-- OVERLAY SIDEBAR FOR ALL SCREEN SIZES -->
+        <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-40 hidden" onclick="toggleSidebar()"></div>
+
+        <!-- SIDEBAR UTAMA (TERSEMBUNYI SECARA DEFAULT DI SEMUA LAYAR) -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white nb-border-r flex flex-col justify-between shrink-0 transform -translate-x-full transition-transform duration-200 ease-in-out">
             <div>
-                <div class="p-6 border-b border-gray-800">
+                <!-- SIDEBAR HEADER -->
+                <div class="p-4 border-b-2 border-black bg-white flex justify-between items-center">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-md">A</div>
+                        <div class="w-10 h-10 bg-amber-400 rounded-full nb-border flex items-center justify-center font-black text-lg">M</div>
                         <div>
-                            <p class="font-bold text-white">Museum Karya Smkn 4</p>
+                            <p class="font-black text-black text-sm leading-tight">Museum Karya</p>
+                            <p class="text-xs font-bold text-black">SMKN 4</p>
                         </div>
                     </div>
+                    <!-- Close button -->
+                    <button type="button" onclick="toggleSidebar()" class="p-1 bg-white rounded-lg nb-border font-bold hover:bg-gray-100 cursor-pointer">
+                        <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
                 </div>
-                <nav class="mt-6 space-y-2 px-4">
-                    <a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
-                        <span>Dashboard</span>
+                
+                <!-- NAVIGATION LINKS -->
+                <nav class="mt-4 space-y-2 px-3">
+                    <a href="dashboard.html" class="flex items-center px-4 py-2.5 rounded-xl font-bold text-gray-800 hover:bg-amber-300 transition">
+                        Dashboard
                     </a>
-
-                    <!-- Nav Link Aktif -->
-                    <a href="karya.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-semibold shadow-sm nav-link-active">
-                        <span>Karya</span>
+                    <a href="karya.html" class="flex items-center px-4 py-2.5 rounded-xl font-black bg-amber-400 nb-border nb-shadow">
+                        Karya
                     </a>
-
-                    <a href="siswa.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
-                        <span>Siswa</span>
+                    <a href="siswa.html" class="flex items-center px-4 py-2.5 rounded-xl font-bold text-gray-800 hover:bg-amber-300 transition">
+                        Siswa
                     </a>
-
-                    <a href="kategori.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
-                        <span>Kategori</span>
+                    <a href="kategori.html" class="flex items-center px-4 py-2.5 rounded-xl font-bold text-gray-800 hover:bg-amber-300 transition">
+                        Kategori
                     </a>
-
-                    <a href="users.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
-                        <span>Users</span>
+                    <a href="users.html" class="flex items-center px-4 py-2.5 rounded-xl font-bold text-gray-800 hover:bg-amber-300 transition">
+                        Users
                     </a>
-
-                    <a href="artikel.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
-                        <span>Artikel</span>
+                    <a href="artikel.html" class="flex items-center px-4 py-2.5 rounded-xl font-bold text-gray-800 hover:bg-amber-300 transition">
+                        Artikel
                     </a>
-
-                    <a href="kode-unik.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
-                        <span>Kode Unik</span>
+                    <a href="kode-unik.html" class="flex items-center px-4 py-2.5 rounded-xl font-bold text-gray-800 hover:bg-amber-300 transition">
+                        Kode Unik
                     </a>
                 </nav>
             </div>
             
             <!-- TOMBOL LOGOUT -->
-            <div class="p-6 border-t border-gray-800">
-                <button type="button" onclick="openLogoutModal()" class="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-semibold cursor-pointer">
+            <div class="p-4 border-t-2 border-black bg-white">
+                <button type="button" onclick="openLogoutModal()" class="w-full py-2.5 bg-red-500 text-white font-black rounded-xl nb-border nb-shadow-sm nb-button cursor-pointer">
                     Logout
                 </button>
             </div>
-        </div>
+        </aside>
 
         <!-- AREA KONTEN UTAMA -->
         <div class="flex-1 flex flex-col h-screen overflow-y-auto">
-            <header class="bg-white shadow-sm z-10 shrink-0 sticky top-0">
-                <div class="px-6 sm:px-8 py-4 flex justify-between items-center">
-                    <h1 class="text-lg sm:text-xl font-bold text-gray-900">Detail Karya</h1>
+            
+            <!-- HEADER UTAMA -->
+            <header class="bg-white nb-border-b z-10 shrink-0 sticky top-0">
+                <div class="px-4 sm:px-8 py-3 flex justify-between items-center">
+                    <div class="flex items-center gap-3">
+                        <!-- HAMBURGER BUTTON (AKTIF UNTUK DESKTOP & MOBILE) -->
+                        <button type="button" onclick="toggleSidebar()" class="p-2.5 bg-amber-400 rounded-2xl nb-border nb-shadow-sm focus:outline-none cursor-pointer hover:bg-amber-500 transition">
+                            <svg class="w-6 h-6 stroke-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M4 6h16M4 12h16M4 18h16"/>
+                            </svg>
+                        </button>
+                        <h1 class="text-base sm:text-xl font-black text-black">Detail Karya</h1>
+                    </div>
+
                     <div class="flex items-center gap-4">
                         <div class="text-right">
-                            <p class="font-semibold text-gray-900 text-xs sm:text-sm">Administrator</p>
-                            <p class="text-[10px] sm:text-xs text-gray-500">Login sebagai admin</p>
+                            <p class="font-black text-xs sm:text-sm text-black">Administrator</p>
+                            <p class="text-[10px] sm:text-xs font-bold text-gray-600">Museum PPLG / TIK</p>
                         </div>
                     </div>
                 </div>
@@ -113,102 +132,102 @@
                 <div class="w-full max-w-2xl md:max-w-3xl my-auto">
                     
                     <!-- TOMBOL KEMBALI -->
-                    <div class="mb-3 sm:mb-4">
-                        <a href="karya.html" class="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-blue-600 hover:text-blue-800 transition"> 
+                    <div class="mb-4">
+                        <a href="karya.html" class="inline-flex items-center gap-2 text-xs sm:text-sm font-black bg-white px-3 py-1.5 rounded-lg nb-border nb-shadow-sm hover:bg-amber-300 transition"> 
                             ← Kembali ke Data Karya 
                         </a>
                     </div>
 
                     <!-- CARD DETAIL -->
-                    <div class="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden relative">
+                    <div class="bg-white rounded-xl nb-border nb-shadow-lg relative overflow-hidden">
                         
                         <!-- LOADING CONTENT -->
-                        <div id="loading-content" class="absolute inset-0 bg-white z-40 flex flex-col items-center justify-center transition-opacity duration-300 ease-out">
-                            <div class="flex items-center gap-3 bg-gray-50 px-5 py-2.5 rounded-full border border-gray-200 shadow-xs">
-                                <div class="w-4 h-4 sm:w-5 sm:h-5 border-3 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-                                <p class="text-gray-700 font-medium text-xs sm:text-sm tracking-wide">Memuat detail karya...</p>
+                        <div id="loading-content" class="absolute inset-0 bg-amber-200 z-40 flex flex-col items-center justify-center transition-opacity duration-300 ease-out">
+                            <div class="flex items-center gap-3 bg-white px-6 py-3 rounded-xl nb-border nb-shadow">
+                                <div class="w-5 h-5 border-4 border-black border-t-transparent animate-spin rounded-full"></div>
+                                <p class="font-black text-xs sm:text-sm uppercase tracking-wider">Memuat detail karya...</p>
                             </div>
                         </div>
 
                         <!-- HEADER CARD -->
-                        <div class="bg-blue-600 text-white px-5 py-4 sm:px-8 sm:py-5">
-                            <h2 class="text-xl sm:text-2xl font-bold">Detail Karya Siswa</h2>
-                            <p class="text-blue-100 text-xs sm:text-sm mt-0.5">Informasi lengkap project yang diupload siswa.</p>
+                        <div class="bg-cyan-400 text-black p-4 sm:p-6 border-b-2 border-black">
+                            <h2 class="text-xl sm:text-2xl font-black uppercase">Detail Karya Siswa</h2>
+                            <p class="text-xs sm:text-sm font-bold mt-1">Informasi lengkap project yang diupload siswa.</p>
                         </div>
 
                         <!-- BODY CARD -->
-                        <div class="p-4 sm:p-6 space-y-5 sm:space-y-6">
-                            <div class="overflow-hidden border border-gray-200 rounded-lg">
-                                <table class="w-full text-xs sm:text-sm text-left text-gray-600">
-                                    <tbody class="divide-y divide-gray-200">
+                        <div class="p-4 sm:p-6 space-y-6">
+                            <div class="nb-border rounded-lg overflow-x-auto">
+                                <table class="w-full text-xs sm:text-sm text-left font-bold">
+                                    <tbody class="divide-y-2 divide-black">
                                         
-                                        <tr class="bg-gray-50/50">
-                                            <td class="px-3.5 py-3 sm:px-6 sm:py-4 font-semibold text-gray-900 w-1/3 sm:w-1/4">Nama Siswa</td>
-                                            <td class="px-3.5 py-3 sm:px-6 sm:py-4 text-gray-800">Ahmad Rizky</td>
+                                        <tr class="bg-gray-50">
+                                            <td class="p-3 sm:p-4 border-r-2 border-black bg-amber-200 w-1/3 sm:w-1/4">Nama Siswa</td>
+                                            <td class="p-3 sm:p-4">Ahmad Rizky</td>
                                         </tr>
 
                                         <tr>
-                                            <td class="px-3.5 py-3 sm:px-6 sm:py-4 font-semibold text-gray-900">Judul Project</td>
-                                            <td class="px-3.5 py-3 sm:px-6 sm:py-4 text-gray-800 font-medium">Aplikasi Kasir Berbasis Web (POS)</td>
+                                            <td class="p-3 sm:p-4 border-r-2 border-black bg-amber-200">Judul Project</td>
+                                            <td class="p-3 sm:p-4 font-black">Aplikasi Kasir Berbasis Web (POS)</td>
                                         </tr>
 
-                                        <tr class="bg-gray-50/50">
-                                            <td class="px-3.5 py-3 sm:px-6 sm:py-4 font-semibold text-gray-900">Jurusan</td>
-                                            <td class="px-3.5 py-3 sm:px-6 sm:py-4">
-                                                <span class="px-2.5 py-1 bg-blue-100 text-blue-700 rounded-full text-[11px] sm:text-xs font-semibold">
+                                        <tr class="bg-gray-50">
+                                            <td class="p-3 sm:p-4 border-r-2 border-black bg-amber-200">Jurusan</td>
+                                            <td class="p-3 sm:p-4">
+                                                <span class="px-3 py-1 bg-pink-400 text-black nb-border rounded-md text-[11px] sm:text-xs font-black">
                                                     PPLG
                                                 </span>
                                             </td>
                                         </tr>
 
                                         <tr>
-                                            <td class="px-3.5 py-3 sm:px-6 sm:py-4 font-semibold text-gray-900">Deskripsi</td>
-                                            <td class="px-3.5 py-3 sm:px-6 sm:py-4 leading-relaxed text-gray-700">Aplikasi point of sale (POS) ini dirancang untuk memudahkan manajemen transaksi toko ritel, mencakup pencatatan barang, cetak struk, dan laporan penjualan harian secara real-time.</td>
+                                            <td class="p-3 sm:p-4 border-r-2 border-black bg-amber-200">Deskripsi</td>
+                                            <td class="p-3 sm:p-4 leading-relaxed">Aplikasi point of sale (POS) ini dirancang untuk memudahkan manajemen transaksi toko ritel, mencakup pencatatan barang, cetak struk, dan laporan penjualan harian secara real-time.</td>
                                         </tr>
 
-                                        <tr class="bg-gray-50/50">
-                                            <td class="px-3.5 py-3 sm:px-6 sm:py-4 font-semibold text-gray-900">Link Project</td>
-                                            <td class="px-3.5 py-3 sm:px-6 sm:py-4">
-                                                <a href="https://github.com/ahmadrizky/pos-app" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium underline inline-flex items-center gap-1 break-all"> 
+                                        <tr class="bg-gray-50">
+                                            <td class="p-3 sm:p-4 border-r-2 border-black bg-amber-200">Link Project</td>
+                                            <td class="p-3 sm:p-4">
+                                                <a href="https://github.com/ahmadrizky/pos-app" target="_blank" class="bg-blue-300 px-2 py-1 rounded nb-border hover:bg-blue-400 font-bold underline inline-flex items-center gap-1 break-all"> 
                                                     https://github.com/ahmadrizky/pos-app ↗
                                                 </a>
                                             </td>
                                         </tr>
 
                                         <tr>
-                                            <td class="px-3.5 py-3 sm:px-6 sm:py-4 font-semibold text-gray-900">Dokumentasi project</td>
-                                            <td class="px-3.5 py-3 sm:px-6 sm:py-4">
+                                            <td class="p-3 sm:p-4 border-r-2 border-black bg-amber-200">Dokumentasi</td>
+                                            <td class="p-3 sm:p-4">
                                                 <div class="relative inline-block">
                                                     <img src="https://picsum.photos/600/400" 
                                                          alt="Dokumentasi" 
-                                                         class="w-20 h-20 sm:w-28 sm:h-28 rounded-lg object-cover border border-gray-200 shadow-xs cursor-pointer hover:opacity-80 transition duration-200"
+                                                         class="w-20 h-20 sm:w-28 sm:h-28 object-cover rounded-lg nb-border nb-shadow-sm cursor-pointer hover:translate-x-1 hover:translate-y-1 transition"
                                                          onclick="openModal(this.src)">
                                                 </div>
 
                                                 <!-- MODAL PREVIEW GAMBAR -->
-                                                <div id="imageModal" class="fixed inset-0 z-50 hidden bg-black/70 backdrop-blur-xs flex items-center justify-center p-4" onclick="closeModal()">
-                                                    <div class="relative max-w-2xl max-h-[85vh] bg-white rounded-xl p-2 shadow-2xl" onclick="event.stopPropagation()">
-                                                        <button type="button" onclick="closeModal()" class="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-xs font-bold shadow-lg cursor-pointer">
+                                                <div id="imageModal" class="fixed inset-0 z-50 hidden bg-black/80 flex items-center justify-center p-4" onclick="closeModal()">
+                                                    <div class="relative max-w-2xl max-h-[85vh] bg-amber-300 rounded-xl nb-border p-3 nb-shadow-lg" onclick="event.stopPropagation()">
+                                                        <button type="button" onclick="closeModal()" class="absolute -top-4 -right-4 bg-red-500 text-white rounded-full nb-border w-8 h-8 flex items-center justify-center text-sm font-black cursor-pointer nb-shadow-sm">
                                                             ✕
                                                         </button>
-                                                        <img id="modalImage" src="" alt="Preview" class="max-w-full max-h-[75vh] rounded-lg object-contain">
+                                                        <img id="modalImage" src="" alt="Preview" class="max-w-full max-h-[75vh] rounded-lg nb-border bg-white object-contain">
                                                     </div>
                                                 </div>
                                             </td>
                                         </tr>
 
-                                        <tr class="bg-gray-50/50">
-                                            <td class="px-3.5 py-3 sm:px-6 sm:py-4 font-semibold text-gray-900">Status</td>
-                                            <td class="px-3.5 py-3 sm:px-6 sm:py-4">
-                                                <span class="px-2.5 py-1 rounded-full bg-yellow-100 text-yellow-700 text-[11px] sm:text-xs font-semibold">
+                                        <tr class="bg-gray-50">
+                                            <td class="p-3 sm:p-4 border-r-2 border-black bg-amber-200">Status</td>
+                                            <td class="p-3 sm:p-4">
+                                                <span class="px-3 py-1 bg-orange-300 text-black nb-border rounded-md text-[11px] sm:text-xs font-black">
                                                     Menunggu Review
                                                 </span>
                                             </td>
                                         </tr>
 
                                         <tr>
-                                            <td class="px-3.5 py-3 sm:px-6 sm:py-4 font-semibold text-gray-900">Upload</td>
-                                            <td class="px-3.5 py-3 sm:px-6 sm:py-4 text-gray-700">
+                                            <td class="p-3 sm:p-4 border-r-2 border-black bg-amber-200">Upload</td>
+                                            <td class="p-3 sm:p-4">
                                                 11 September 2026 10:30
                                             </td>
                                         </tr>
@@ -217,39 +236,26 @@
                                 </table>
                             </div>
 
-                            <!-- FORM REVIEW (SITUASI STATUS PENDING) -->
-                            <div class="border-t border-gray-200 pt-5">
-                                <h2 class="text-base sm:text-lg font-bold text-gray-900 mb-3">Review Project</h2>
+                            <!-- FORM REVIEW -->
+                            <div class="border-t-2 border-black pt-5">
+                                <h2 class="text-base sm:text-lg font-black uppercase mb-3">Review Project</h2>
                                 
                                 <form action="karya.html" method="GET" class="space-y-4" onsubmit="event.preventDefault(); alert('Status karya telah diperbarui!'); window.location.href='karya.html';">
                                     <div>
-                                        <label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-2">Catatan Admin</label>
-                                        <textarea name="catatan" rows="3" class="w-full border border-gray-300 rounded-lg p-3 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700" placeholder="Tulis catatan atau alasan persetujuan/penolakan untuk siswa..."></textarea>
+                                        <label class="block text-xs sm:text-sm font-black mb-2 uppercase">Catatan Admin</label>
+                                        <textarea name="catatan" rows="3" class="w-full rounded-lg nb-border p-3 text-xs sm:text-sm font-bold bg-gray-50 focus:bg-white focus:outline-none" placeholder="Tulis catatan persetujuan atau penolakan..."></textarea>
                                     </div>
 
-                                    <div class="flex flex-wrap gap-2.5 sm:gap-3">
-                                        <button type="submit" name="status" value="approved" class="flex-1 sm:flex-none justify-center flex items-center gap-1.5 bg-green-600 hover:bg-green-700 text-white px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition shadow-xs cursor-pointer">
-                                            ✔ Approve
+                                    <div class="flex flex-wrap gap-3">
+                                        <button type="submit" name="status" value="approved" class="flex-1 sm:flex-none bg-lime-400 hover:bg-lime-500 text-black px-5 py-2.5 rounded-xl font-black text-xs sm:text-sm nb-border nb-button cursor-pointer">
+                                            ✔ APPROVE
                                         </button>
                                         
-                                        <button type="submit" name="status" value="rejected" class="flex-1 sm:flex-none justify-center flex items-center gap-1.5 bg-red-600 hover:bg-red-700 text-white px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition shadow-xs cursor-pointer">
-                                            ✖ Reject
+                                        <button type="submit" name="status" value="rejected" class="flex-1 sm:flex-none bg-red-400 hover:bg-red-500 text-black px-5 py-2.5 rounded-xl font-black text-xs sm:text-sm nb-border nb-button cursor-pointer">
+                                            ✖ REJECT
                                         </button>
                                     </div>
                                 </form>
-                            </div>
-
-                            <!-- HASIL REVIEW DUMMY (SITUASI STATUS SUDAH DI-REVIEW) -->
-                            <div class="bg-amber-50/40 border border-amber-200 rounded-lg p-4 sm:p-5 mt-4">
-                                <h2 class="font-bold text-gray-900 text-sm sm:text-base mb-1.5">Hasil Review Sebelumnya</h2>
-                                <p class="text-green-800 text-xs sm:text-sm italic font-medium leading-relaxed">
-                                    <strong>Catatan :</strong> "Karya sudah sangat bagus, fitur lengkap dan UI responsif."
-                                </p>
-                                <div class="mt-3 pt-2 border-t border-amber-200/60">
-                                    <span class="inline-block text-[10px] sm:text-[11px] bg-white text-gray-700 px-2.5 py-0.5 rounded border border-gray-200 font-medium"> 
-                                        Direview oleh: <strong class="text-gray-900">Administrator Utama</strong>
-                                    </span>
-                                </div>
                             </div>
 
                         </div>
@@ -259,38 +265,47 @@
         </div>
     </div>
 
-    <!-- MODAL POP-UP LOGOUT KUSTOM -->
-    <div id="logoutModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-gray-100 transform transition-all scale-100">
-            <div class="bg-gradient-to-r from-amber-500 to-orange-500 p-5 text-white flex items-center gap-3">
-                <div class="p-2 bg-white/20 rounded-lg">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+    <!-- MODAL POP-UP LOGOUT -->
+    <div id="logoutModal" class="hidden fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl nb-border nb-shadow-lg max-w-md w-full overflow-hidden">
+            <div class="bg-red-400 p-4 border-b-2 border-black flex items-center gap-3">
+                <div class="p-1 bg-white rounded-lg nb-border">
+                    <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
                     </svg>
                 </div>
-                <h3 class="text-lg font-bold">Konfirmasi Keluar</h3>
+                <h3 class="text-lg font-black uppercase">Konfirmasi Keluar</h3>
             </div>
 
             <div class="p-6 text-center">
-                <p class="text-gray-700 font-medium leading-relaxed text-base">
+                <p class="font-black text-base">
                     Apakah kamu yakin ingin keluar?
                 </p>
             </div>
 
-            <div class="bg-gray-50 px-6 py-4 flex gap-3 justify-end border-t border-gray-100">
-                <button type="button" onclick="closeLogoutModal()" class="px-5 py-2.5 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition text-sm cursor-pointer">
-                    Tidak
+            <div class="bg-amber-200 px-6 py-4 flex gap-3 justify-end border-t-2 border-black">
+                <button type="button" onclick="closeLogoutModal()" class="px-5 py-2 bg-white font-black rounded-lg nb-border nb-button text-sm cursor-pointer">
+                    Batal
                 </button>
-                <button type="button" onclick="confirmLogout()" class="px-5 py-2.5 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition text-sm shadow-md cursor-pointer">
-                    Ya
+                <button type="button" onclick="confirmLogout()" class="px-5 py-2 bg-red-500 text-white font-black rounded-lg nb-border nb-button text-sm cursor-pointer">
+                    Ya, Keluar
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- SCRIPT JAVASCRIPT INTERNAL -->
+    <!-- SCRIPT JAVASCRIPT -->
     <script>
-        // Modal Preview Gambar Functions
+        // Hamburger & Sidebar Toggle (Mobile & Desktop)
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            const overlay = document.getElementById("sidebarOverlay");
+            
+            sidebar.classList.toggle("-translate-x-full");
+            overlay.classList.toggle("hidden");
+        }
+
+        // Modal Preview Gambar
         function openModal(imageSrc) {
             const modal = document.getElementById("imageModal");
             const modalImg = document.getElementById("modalImage");
@@ -306,20 +321,19 @@
             document.body.style.overflow = "auto";
         }
 
-        // Loading Screen Animation
+        // Loading Screen
         window.addEventListener("load", function () {
             const loadingContent = document.getElementById("loading-content");
 
             setTimeout(() => {
                 loadingContent.classList.add("opacity-0");
-
                 setTimeout(() => {
                     loadingContent.classList.add("hidden");
                 }, 300);
-            }, 1000);
+            }, 800);
         });
 
-        // Logout Modal Functions
+        // Logout Modal
         function openLogoutModal() {
             document.getElementById('logoutModal').classList.remove('hidden');
         }

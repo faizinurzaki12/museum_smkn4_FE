@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="id">
+<html lang="id" class="overflow-x-hidden">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -98,70 +98,84 @@
         }
     </style>
 </head>
-<body class="font-sans antialiased">
-    <div class="flex h-screen overflow-hidden">
+<body class="font-sans antialiased text-black overflow-x-hidden">
+    <div class="flex h-screen overflow-hidden w-full">
+
+        <!-- OVERLAY SIDEBAR MOBILE -->
+        <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-40 hidden" onclick="toggleSidebar()"></div>
 
         <!-- SIDEBAR UTAMA -->
-        <div class="w-64 custom-nav-bg text-gray-800 flex flex-col justify-between shrink-0 hidden md:flex">
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 custom-nav-bg flex flex-col justify-between shrink-0 transform -translate-x-full md:translate-x-0 md:static transition-transform duration-200 ease-in-out">
             <div>
-                <div class="p-6 sidebar-brand">
+                <div class="p-4 sm:p-6 sidebar-brand flex items-center justify-between">
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 bg-[#ffcc00] border-2 border-black rounded-full flex items-center justify-center font-black text-black shadow-[2px_2px_0px_#000]">A</div>
                         <div>
-                            <p class="font-extrabold text-gray-900 text-sm">Museum Karya Smkn 4</p>
+                            <p class="font-extrabold text-gray-900 text-sm leading-tight">Museum Karya</p>
+                            <p class="text-xs font-bold text-gray-600">SMKN 4</p>
                         </div>
                     </div>
+                    <button type="button" onclick="toggleSidebar()" class="md:hidden p-1 bg-white rounded-lg border-2 border-black font-bold hover:bg-gray-100 cursor-pointer">
+                        <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
                 </div>
-                <nav class="mt-6 space-y-2 px-4">
-                    <a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                
+                <nav class="mt-4 sm:mt-6 space-y-2 px-3 sm:px-4">
+                    <a href="dashboard.html" class="flex items-center gap-3 px-4 py-2.5 sm:py-3 rounded-xl nav-link-idle">
                         <span>Dashboard</span>
                     </a>
-
-                    <a href="karya.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                    <a href="karya.html" class="flex items-center gap-3 px-4 py-2.5 sm:py-3 rounded-xl nav-link-idle">
                         <span>Karya</span>
                     </a>
-
-                    <a href="siswa.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                    <a href="siswa.html" class="flex items-center gap-3 px-4 py-2.5 sm:py-3 rounded-xl nav-link-idle">
                         <span>Siswa</span>
                     </a>
-
-                    <a href="kategori.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                    <a href="kategori.html" class="flex items-center gap-3 px-4 py-2.5 sm:py-3 rounded-xl nav-link-idle">
                         <span>Kategori</span>
                     </a>
-
-                    <a href="users.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                    <a href="users.html" class="flex items-center gap-3 px-4 py-2.5 sm:py-3 rounded-xl nav-link-idle">
                         <span>Users</span>
                     </a>
-
-                    <!-- Nav Link Aktif -->
-                    <a href="artikel.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-active">
+                    <a href="artikel.html" class="flex items-center gap-3 px-4 py-2.5 sm:py-3 rounded-xl nav-link-active">
                         <span>Artikel</span>
                     </a>
-
-                    <a href="kode-unik.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
+                    <a href="kode-unik.html" class="flex items-center gap-3 px-4 py-2.5 sm:py-3 rounded-xl nav-link-idle">
                         <span>Kode Unik</span>
                     </a>
                 </nav>
             </div>
             
-            <!-- TOMBOL LOGOUT -->
-            <div class="p-6 sidebar-logout bg-[#fffdf9]">
+            <div class="p-4 sm:p-6 sidebar-logout bg-[#fffdf9]">
                 <button type="button" onclick="openLogoutModal()" class="w-full px-4 py-2.5 bg-red-500 text-white rounded-xl btn-neubrutal cursor-pointer">
                     Logout
                 </button>
             </div>
-        </div>
+        </aside>
 
         <!-- AREA KONTEN UTAMA -->
-        <div class="flex-1 flex flex-col h-screen overflow-y-auto">
-            <header class="admin-header z-10 shrink-0 sticky top-0">
-                <div class="px-6 sm:px-8 py-4 flex justify-between items-center">
-                    <h1 class="text-lg sm:text-2xl font-black text-gray-900 tracking-tight">Kelola Artikel</h1>
-                    <div class="flex items-center gap-4">
-                        <a href="tambah-artikel.html" class="px-4 py-2 bg-[#ffcc00] text-black rounded-xl btn-neubrutal flex items-center gap-2 text-xs sm:text-sm">
-                            <span>+</span> Tambah Artikel
+        <div class="flex-1 flex flex-col h-screen overflow-y-auto overflow-x-hidden min-w-0">
+            
+            <!-- HEADER UTAMA WITH HAMBURGER -->
+            <header class="admin-header z-10 shrink-0 sticky top-0 w-full">
+                <div class="px-4 sm:px-8 py-3.5 flex justify-between items-center gap-3">
+                    <div class="flex items-center gap-3">
+                        <button type="button" onclick="toggleSidebar()" class="md:hidden p-2 bg-[#ffcc00] rounded-xl border-2 border-black shadow-[2px_2px_0px_#000] focus:outline-none cursor-pointer hover:bg-yellow-400 transition">
+                            <svg class="w-6 h-6 stroke-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M4 6h16M4 12h16M4 18h16"/>
+                            </svg>
+                        </button>
+                        <h1 class="text-base sm:text-2xl font-black text-gray-900 tracking-tight truncate">Kelola Artikel</h1>
+                    </div>
+
+                    <div class="flex items-center gap-3 sm:gap-4 shrink-0">
+                        <a href="upload-artikel.html" class="px-3 py-2 sm:px-4 sm:py-2 bg-[#ffcc00] text-black rounded-xl btn-neubrutal flex items-center gap-1.5 text-xs sm:text-sm">
+                            <span class="font-black text-base leading-none">+</span>
+                            <span class="hidden sm:inline">Tambah Artikel</span>
+                            <span class="sm:hidden">Tambah</span>
                         </a>
-                        <div class="text-right hidden sm:block">
+                        <div class="text-right hidden md:block">
                             <p class="font-extrabold text-gray-900 text-xs sm:text-sm">Administrator</p>
                             <p class="text-[10px] sm:text-xs text-gray-500 font-bold">Login sebagai admin</p>
                         </div>
@@ -170,7 +184,7 @@
             </header>
 
             <!-- MAIN KONTEN -->
-            <main class="flex-1 p-4 sm:p-6 md:p-8 relative">
+            <main class="flex-1 p-3 sm:p-6 md:p-8 relative w-full overflow-x-hidden">
                 <!-- SPINNER OVERLAY LOADING -->
                 <div id="loading-content" class="absolute inset-0 bg-[#fcfcfc]/90 z-40 flex flex-col items-center justify-center transition-opacity duration-300 ease-out m-0">
                     <div class="flex items-center gap-3 bg-white px-6 py-3 rounded-xl border-3 border-black shadow-[4px_4px_0px_#000]">
@@ -180,61 +194,65 @@
                 </div>
 
                 <!-- KARTU STATISTIK RINGKAS -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-                    <div class="neubrutal-card p-5">
-                        <p class="text-sm text-gray-600 font-bold mb-1">Total Artikel</p>
-                        <p class="text-2xl font-black text-gray-900">4</p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6">
+                    <div class="neubrutal-card p-4 sm:p-5">
+                        <p class="text-xs sm:text-sm text-gray-600 font-bold mb-1">Total Artikel</p>
+                        <p class="text-xl sm:text-2xl font-black text-gray-900">4</p>
                     </div>
-                    <div class="neubrutal-card p-5">
-                        <p class="text-sm text-gray-600 font-bold mb-1">Sudah Terbit</p>
-                        <p class="text-2xl font-black text-green-600">3</p>
+                    <div class="neubrutal-card p-4 sm:p-5">
+                        <p class="text-xs sm:text-sm text-gray-600 font-bold mb-1">Sudah Terbit</p>
+                        <p class="text-xl sm:text-2xl font-black text-green-600">3</p>
                     </div>
-                    <div class="neubrutal-card p-5">
-                        <p class="text-sm text-gray-600 font-bold mb-1">Draft</p>
-                        <p class="text-2xl font-black text-amber-600">1</p>
+                    <div class="neubrutal-card p-4 sm:p-5">
+                        <p class="text-xs sm:text-sm text-gray-600 font-bold mb-1">Draft</p>
+                        <p class="text-xl sm:text-2xl font-black text-amber-600">1</p>
                     </div>
                 </div>
 
                 <!-- FILTER & SEARCH -->
-                <div class="neubrutal-card p-5 mb-6">
-                    <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
+                <div class="neubrutal-card p-4 sm:p-5 mb-6">
+                    <div class="flex flex-col md:flex-row gap-3 md:items-center">
                         <input id="searchInput" type="text" placeholder="Cari judul artikel..." class="flex-1 px-4 py-2.5 rounded-xl input-neubrutal text-sm text-gray-800" />
 
-                        <select id="statusFilter" class="px-4 py-2.5 rounded-xl input-neubrutal text-sm text-gray-800 bg-white">
-                            <option value="">Semua Status</option>
-                            <option value="published">Terbit</option>
-                            <option value="draft">Draft</option>
-                        </select>
+                        <div class="grid grid-cols-2 md:flex gap-3">
+                            <select id="statusFilter" class="w-full md:w-auto px-3 sm:px-4 py-2.5 rounded-xl input-neubrutal text-xs sm:text-sm text-gray-800 bg-white">
+                                <option value="">Semua Status</option>
+                                <option value="published">Terbit</option>
+                                <option value="draft">Draft</option>
+                            </select>
 
-                        <select id="categoryFilter" class="px-4 py-2.5 rounded-xl input-neubrutal text-sm text-gray-800 bg-white">
-                            <option value="">Semua Kategori</option>
-                            <option value="Web Development">Web Development</option>
-                            <option value="Mobile App">Mobile App</option>
-                            <option value="UI/UX Design">UI/UX Design</option>
-                            <option value="Game Development">Game Development</option>
-                        </select>
+                            <select id="categoryFilter" class="w-full md:w-auto px-3 sm:px-4 py-2.5 rounded-xl input-neubrutal text-xs sm:text-sm text-gray-800 bg-white">
+                                <option value="">Semua Kategori</option>
+                                <option value="Web Development">Web Development</option>
+                                <option value="Mobile App">Mobile App</option>
+                                <option value="UI/UX Design">UI/UX Design</option>
+                                <option value="Game Development">Game Development</option>
+                            </select>
+                        </div>
 
-                        <button type="button" onclick="runFilter()" class="px-5 py-2.5 bg-[#ffcc00] text-black rounded-xl btn-neubrutal text-sm cursor-pointer">Terapkan</button>
+                        <button type="button" onclick="runFilter()" class="w-full md:w-auto px-5 py-2.5 bg-[#ffcc00] text-black rounded-xl btn-neubrutal text-sm cursor-pointer">Terapkan</button>
                     </div>
                 </div>
 
-                <!-- TABEL ARTIKEL -->
+                <!-- RESPONSIVE LIST / TABLE CONTAINER -->
                 <div class="neubrutal-card overflow-hidden">
-                    <div class="overflow-x-auto overflow-y-auto max-h-[500px]">
+                    
+                    <!-- 1. TAMPILAN DESKTOP (TABEL) -->
+                    <div class="hidden md:block overflow-x-auto">
                         <table class="w-full border-collapse">
-                            <thead class="bg-gray-100 border-b-3 border-black sticky top-0 z-10">
+                            <thead class="bg-gray-100 border-b-3 border-black">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-black text-gray-900 uppercase">Judul</th>
-                                    <th class="px-6 py-3 text-left text-xs font-black text-gray-900 uppercase">Kategori</th>
-                                    <th class="px-6 py-3 text-left text-xs font-black text-gray-900 uppercase">Penulis</th>
-                                    <th class="px-6 py-3 text-left text-xs font-black text-gray-900 uppercase">Status</th>
-                                    <th class="px-6 py-3 text-left text-xs font-black text-gray-900 uppercase">Sorotan</th>
-                                    <th class="px-6 py-3 text-left text-xs font-black text-gray-900 uppercase">Tanggal</th>
-                                    <th class="px-6 py-3 text-left text-xs font-black text-gray-900 uppercase">Aksi</th>
+                                    <th class="px-6 py-3.5 text-left text-xs font-black text-gray-900 uppercase">Judul</th>
+                                    <th class="px-6 py-3.5 text-left text-xs font-black text-gray-900 uppercase">Kategori</th>
+                                    <th class="px-6 py-3.5 text-left text-xs font-black text-gray-900 uppercase">Penulis</th>
+                                    <th class="px-6 py-3.5 text-left text-xs font-black text-gray-900 uppercase">Status</th>
+                                    <th class="px-6 py-3.5 text-center text-xs font-black text-gray-900 uppercase">Sorotan</th>
+                                    <th class="px-6 py-3.5 text-left text-xs font-black text-gray-900 uppercase">Tanggal</th>
+                                    <th class="px-6 py-3.5 text-center text-xs font-black text-gray-900 uppercase">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody id="articleTableBody" class="divide-y-2 divide-gray-200">
-                                <!-- Data Dummy 1 -->
+                                <!-- Row 1 -->
                                 <tr class="article-row hover:bg-yellow-50/50" data-title="tips membangun portofolio web modern untuk pemula" data-category="Web Development" data-status="published">
                                     <td class="px-6 py-4 text-sm font-bold text-gray-900 max-w-xs truncate">Tips Membangun Portofolio Web Modern untuk Pemula</td>
                                     <td class="px-6 py-4 text-sm text-gray-700 font-medium">Web Development</td>
@@ -242,15 +260,15 @@
                                     <td class="px-6 py-4 text-sm">
                                         <span class="inline-block px-3 py-1 rounded-lg text-xs font-black bg-green-200 text-green-900 border-2 border-black shadow-[2px_2px_0px_#000]">Terbit</span>
                                     </td>
-                                    <td class="px-6 py-4 text-sm">⭐</td>
-                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium">10 Sep 2026</td>
-                                    <td class="px-6 py-4 text-sm whitespace-nowrap">
-                                        <a href="edit-artikel.html" class="px-3 py-1.5 bg-blue-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] inline-block mr-2 hover:translate-y-[-1px]">Edit</a>
+                                    <td class="px-6 py-4 text-sm text-center">⭐</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium whitespace-nowrap">10 Sep 2026</td>
+                                    <td class="px-6 py-4 text-sm text-center whitespace-nowrap">
+                                        <a href="edit-artikel.html" class="px-3 py-1.5 bg-sky-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] inline-block mr-2 hover:translate-y-[-1px]">Edit</a>
                                         <button type="button" onclick="if(confirm('Hapus artikel ini?')) alert('Artikel berhasil dihapus!');" class="px-3 py-1.5 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer hover:translate-y-[-1px]">Hapus</button>
                                     </td>
                                 </tr>
 
-                                <!-- Data Dummy 2 -->
+                                <!-- Row 2 -->
                                 <tr class="article-row hover:bg-yellow-50/50" data-title="panduan belajar flutter dari dasar hingga mahir" data-category="Mobile App" data-status="published">
                                     <td class="px-6 py-4 text-sm font-bold text-gray-900 max-w-xs truncate">Panduan Belajar Flutter dari Dasar hingga Mahir</td>
                                     <td class="px-6 py-4 text-sm text-gray-700 font-medium">Mobile App</td>
@@ -258,31 +276,31 @@
                                     <td class="px-6 py-4 text-sm">
                                         <span class="inline-block px-3 py-1 rounded-lg text-xs font-black bg-green-200 text-green-900 border-2 border-black shadow-[2px_2px_0px_#000]">Terbit</span>
                                     </td>
-                                    <td class="px-6 py-4 text-sm">—</td>
-                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium">08 Sep 2026</td>
-                                    <td class="px-6 py-4 text-sm whitespace-nowrap">
-                                        <a href="edit-artikel.html" class="px-3 py-1.5 bg-blue-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] inline-block mr-2 hover:translate-y-[-1px]">Edit</a>
+                                    <td class="px-6 py-4 text-sm text-center">—</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium whitespace-nowrap">08 Sep 2026</td>
+                                    <td class="px-6 py-4 text-sm text-center whitespace-nowrap">
+                                        <a href="edit-artikel.html" class="px-3 py-1.5 bg-sky-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] inline-block mr-2 hover:translate-y-[-1px]">Edit</a>
                                         <button type="button" onclick="if(confirm('Hapus artikel ini?')) alert('Artikel berhasil dihapus!');" class="px-3 py-1.5 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer hover:translate-y-[-1px]">Hapus</button>
                                     </td>
                                 </tr>
 
-                                <!-- Data Dummy 3 -->
+                                <!-- Row 3 -->
                                 <tr class="article-row hover:bg-yellow-50/50" data-title="tren ui/ux design terbaik di tahun 2026" data-category="UI/UX Design" data-status="draft">
                                     <td class="px-6 py-4 text-sm font-bold text-gray-900 max-w-xs truncate">Tren UI/UX Design Terbaik di Tahun 2026</td>
                                     <td class="px-6 py-4 text-sm text-gray-700 font-medium">UI/UX Design</td>
                                     <td class="px-6 py-4 text-sm text-gray-700 font-medium">Operator PPLG</td>
                                     <td class="px-6 py-4 text-sm">
-                                        <span class="inline-block px-3 py-1 rounded-lg text-xs font-black bg-yellow-200 text-yellow-900 border-2 border-black shadow-[2px_2px_0px_#000]">Draft</span>
+                                        <span class="inline-block px-3 py-1 rounded-lg text-xs font-black bg-amber-200 text-amber-900 border-2 border-black shadow-[2px_2px_0px_#000]">Draft</span>
                                     </td>
-                                    <td class="px-6 py-4 text-sm">—</td>
-                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium">05 Sep 2026</td>
-                                    <td class="px-6 py-4 text-sm whitespace-nowrap">
-                                        <a href="edit-artikel.html" class="px-3 py-1.5 bg-blue-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] inline-block mr-2 hover:translate-y-[-1px]">Edit</a>
+                                    <td class="px-6 py-4 text-sm text-center">—</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium whitespace-nowrap">05 Sep 2026</td>
+                                    <td class="px-6 py-4 text-sm text-center whitespace-nowrap">
+                                        <a href="edit-artikel.html" class="px-3 py-1.5 bg-sky-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] inline-block mr-2 hover:translate-y-[-1px]">Edit</a>
                                         <button type="button" onclick="if(confirm('Hapus artikel ini?')) alert('Artikel berhasil dihapus!');" class="px-3 py-1.5 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer hover:translate-y-[-1px]">Hapus</button>
                                     </td>
                                 </tr>
 
-                                <!-- Data Dummy 4 -->
+                                <!-- Row 4 -->
                                 <tr class="article-row hover:bg-yellow-50/50" data-title="mengenal unity engine untuk membuat game 2d" data-category="Game Development" data-status="published">
                                     <td class="px-6 py-4 text-sm font-bold text-gray-900 max-w-xs truncate">Mengenal Unity Engine untuk Membuat Game 2D</td>
                                     <td class="px-6 py-4 text-sm text-gray-700 font-medium">Game Development</td>
@@ -290,15 +308,112 @@
                                     <td class="px-6 py-4 text-sm">
                                         <span class="inline-block px-3 py-1 rounded-lg text-xs font-black bg-green-200 text-green-900 border-2 border-black shadow-[2px_2px_0px_#000]">Terbit</span>
                                     </td>
-                                    <td class="px-6 py-4 text-sm">⭐</td>
-                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium">01 Sep 2026</td>
-                                    <td class="px-6 py-4 text-sm whitespace-nowrap">
-                                        <a href="edit-artikel.html" class="px-3 py-1.5 bg-blue-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] inline-block mr-2 hover:translate-y-[-1px]">Edit</a>
+                                    <td class="px-6 py-4 text-sm text-center">⭐</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium whitespace-nowrap">01 Sep 2026</td>
+                                    <td class="px-6 py-4 text-sm text-center whitespace-nowrap">
+                                        <a href="edit-artikel.html" class="px-3 py-1.5 bg-sky-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] inline-block mr-2 hover:translate-y-[-1px]">Edit</a>
                                         <button type="button" onclick="if(confirm('Hapus artikel ini?')) alert('Artikel berhasil dihapus!');" class="px-3 py-1.5 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer hover:translate-y-[-1px]">Hapus</button>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+
+                    <!-- 2. TAMPILAN MOBILE (CARD LIST LIST) -->
+                    <div id="articleMobileBody" class="block md:hidden divide-y-2 divide-gray-200">
+                        
+                        <!-- Card Item 1 -->
+                        <div class="article-card p-4 space-y-3 hover:bg-yellow-50/40 transition" data-title="tips membangun portofolio web modern untuk pemula" data-category="Web Development" data-status="published">
+                            <div class="flex items-start justify-between gap-2">
+                                <h3 class="font-extrabold text-sm text-gray-900 leading-snug">Tips Membangun Portofolio Web Modern untuk Pemula</h3>
+                                <span class="px-2.5 py-0.5 rounded-lg text-[10px] font-black bg-green-200 text-green-900 border-2 border-black shadow-[2px_2px_0px_#000] shrink-0">Terbit</span>
+                            </div>
+
+                            <div class="flex flex-wrap items-center gap-2 text-xs font-bold text-gray-600">
+                                <span class="px-2 py-0.5 bg-blue-100 text-blue-800 border border-black rounded-md">Web Development</span>
+                                <span>•</span>
+                                <span>Admin Utama</span>
+                                <span>•</span>
+                                <span>⭐ Sorotan</span>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-2 border-t border-gray-100">
+                                <span class="text-xs font-semibold text-gray-500">10 Sep 2026</span>
+                                <div class="flex gap-2">
+                                    <a href="edit-artikel.html" class="px-3 py-1 bg-sky-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000]">Edit</a>
+                                    <button type="button" onclick="if(confirm('Hapus artikel ini?')) alert('Artikel berhasil dihapus!');" class="px-3 py-1 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer">Hapus</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Item 2 -->
+                        <div class="article-card p-4 space-y-3 hover:bg-yellow-50/40 transition" data-title="panduan belajar flutter dari dasar hingga mahir" data-category="Mobile App" data-status="published">
+                            <div class="flex items-start justify-between gap-2">
+                                <h3 class="font-extrabold text-sm text-gray-900 leading-snug">Panduan Belajar Flutter dari Dasar hingga Mahir</h3>
+                                <span class="px-2.5 py-0.5 rounded-lg text-[10px] font-black bg-green-200 text-green-900 border-2 border-black shadow-[2px_2px_0px_#000] shrink-0">Terbit</span>
+                            </div>
+
+                            <div class="flex flex-wrap items-center gap-2 text-xs font-bold text-gray-600">
+                                <span class="px-2 py-0.5 bg-blue-100 text-blue-800 border border-black rounded-md">Mobile App</span>
+                                <span>•</span>
+                                <span>Kaprog PPLG</span>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-2 border-t border-gray-100">
+                                <span class="text-xs font-semibold text-gray-500">08 Sep 2026</span>
+                                <div class="flex gap-2">
+                                    <a href="edit-artikel.html" class="px-3 py-1 bg-sky-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000]">Edit</a>
+                                    <button type="button" onclick="if(confirm('Hapus artikel ini?')) alert('Artikel berhasil dihapus!');" class="px-3 py-1 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer">Hapus</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Item 3 -->
+                        <div class="article-card p-4 space-y-3 hover:bg-yellow-50/40 transition" data-title="tren ui/ux design terbaik di tahun 2026" data-category="UI/UX Design" data-status="draft">
+                            <div class="flex items-start justify-between gap-2">
+                                <h3 class="font-extrabold text-sm text-gray-900 leading-snug">Tren UI/UX Design Terbaik di Tahun 2026</h3>
+                                <span class="px-2.5 py-0.5 rounded-lg text-[10px] font-black bg-amber-200 text-amber-900 border-2 border-black shadow-[2px_2px_0px_#000] shrink-0">Draft</span>
+                            </div>
+
+                            <div class="flex flex-wrap items-center gap-2 text-xs font-bold text-gray-600">
+                                <span class="px-2 py-0.5 bg-blue-100 text-blue-800 border border-black rounded-md">UI/UX Design</span>
+                                <span>•</span>
+                                <span>Operator PPLG</span>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-2 border-t border-gray-100">
+                                <span class="text-xs font-semibold text-gray-500">05 Sep 2026</span>
+                                <div class="flex gap-2">
+                                    <a href="edit-artikel.html" class="px-3 py-1 bg-sky-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000]">Edit</a>
+                                    <button type="button" onclick="if(confirm('Hapus artikel ini?')) alert('Artikel berhasil dihapus!');" class="px-3 py-1 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer">Hapus</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Item 4 -->
+                        <div class="article-card p-4 space-y-3 hover:bg-yellow-50/40 transition" data-title="mengenal unity engine untuk membuat game 2d" data-category="Game Development" data-status="published">
+                            <div class="flex items-start justify-between gap-2">
+                                <h3 class="font-extrabold text-sm text-gray-900 leading-snug">Mengenal Unity Engine untuk Membuat Game 2D</h3>
+                                <span class="px-2.5 py-0.5 rounded-lg text-[10px] font-black bg-green-200 text-green-900 border-2 border-black shadow-[2px_2px_0px_#000] shrink-0">Terbit</span>
+                            </div>
+
+                            <div class="flex flex-wrap items-center gap-2 text-xs font-bold text-gray-600">
+                                <span class="px-2 py-0.5 bg-blue-100 text-blue-800 border border-black rounded-md">Game Development</span>
+                                <span>•</span>
+                                <span>Admin Utama</span>
+                                <span>•</span>
+                                <span>⭐ Sorotan</span>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-2 border-t border-gray-100">
+                                <span class="text-xs font-semibold text-gray-500">01 Sep 2026</span>
+                                <div class="flex gap-2">
+                                    <a href="edit-artikel.html" class="px-3 py-1 bg-sky-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000]">Edit</a>
+                                    <button type="button" onclick="if(confirm('Hapus artikel ini?')) alert('Artikel berhasil dihapus!');" class="px-3 py-1 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer">Hapus</button>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </main>
@@ -336,6 +451,14 @@
 
     <!-- SCRIPT JAVASCRIPT INTERNAL -->
     <script>
+        // Toggle Sidebar Nav Mobile
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            const overlay = document.getElementById("sidebarOverlay");
+            sidebar.classList.toggle("-translate-x-full");
+            overlay.classList.toggle("hidden");
+        }
+
         // Loading Screen Animation
         window.addEventListener("load", function() {
             const loadingContent = document.getElementById("loading-content");
@@ -347,25 +470,26 @@
             }
         });
 
-        // Filter & Search Logic
+        // Filter & Search Logic (Dukung Desktop & Mobile Card)
         const searchInput = document.getElementById("searchInput");
         const statusFilter = document.getElementById("statusFilter");
         const categoryFilter = document.getElementById("categoryFilter");
-        const rows = document.querySelectorAll(".article-row");
 
         function runFilter() {
             const query = (searchInput.value || "").toLowerCase().trim();
             const status = statusFilter.value;
             const category = categoryFilter.value.toLowerCase();
 
-            rows.forEach((row) => {
-                const d = row.dataset;
+            const allItems = document.querySelectorAll(".article-row, .article-card");
+
+            allItems.forEach((item) => {
+                const d = item.dataset;
                 const matchesQuery = query === "" || d.title.includes(query);
                 const matchesStatus = status === "" || d.status === status;
                 const matchesCategory = category === "" || (d.category && d.category.toLowerCase() === category);
                 const isMatch = matchesQuery && matchesStatus && matchesCategory;
                 
-                row.classList.toggle("hidden", !isMatch);
+                item.classList.toggle("hidden", !isMatch);
             });
         }
 

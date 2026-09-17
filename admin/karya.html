@@ -11,7 +11,6 @@
     
     <!-- CSS Internal Khusus Admin (Gaya Neubrutalism) -->
     <style>
-        /* Latar belakang grid kotak-kotak bersih */
         body {
             background-color: #fcfcfc;
             background-image: 
@@ -21,7 +20,6 @@
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
-        /* Sidebar warna cerah */
         .custom-nav-bg {
           background-color: #fffdf9;
           border-right: 3px solid #000000;
@@ -49,7 +47,6 @@
           box-shadow: 2px 2px 0px #000000;
         }
 
-        /* Card Konten ala Neubrutalism */
         .neubrutal-card {
             background: #ffffff;
             border: 3px solid #000000;
@@ -57,7 +54,6 @@
             box-shadow: 4px 4px 0px #000000;
         }
 
-        /* Header & Panel Styles */
         .admin-header {
             background: #ffffff;
             border-bottom: 3px solid #000000;
@@ -71,7 +67,6 @@
             border-top: 3px solid #000000;
         }
 
-        /* Tombol & Input Neubrutalism */
         .btn-neubrutal {
             border: 2px solid #000000;
             box-shadow: 2px 2px 0px #000000;
@@ -96,77 +91,127 @@
         .input-neubrutal:focus {
             background-color: #fffdf9;
         }
+
+        /* --- CSS ANIMASI DROPDOWN MOBILE (SLOWMO) --- */
+        #mobileDropdown {
+            max-height: 0;
+            opacity: 0;
+            transform: translateY(-15px) scaleY(0.95);
+            transform-origin: top;
+            overflow: hidden;
+            pointer-events: none;
+            transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+                        opacity 0.35s ease-in-out,
+                        transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        #mobileDropdown.dropdown-open {
+            max-height: 500px;
+            opacity: 1;
+            transform: translateY(0) scaleY(1);
+            pointer-events: auto;
+        }
     </style>
 </head>
-<body>
-    <div class="flex h-screen overflow-hidden">
+<body class="overflow-x-hidden">
 
-        <!-- SIDEBAR UTAMA (Warna Cerah) -->
-        <div class="w-64 custom-nav-bg text-gray-800 flex flex-col justify-between">
+    <div class="flex h-screen overflow-hidden relative">
+
+        <!-- SIDEBAR DESKTOP -->
+        <aside class="hidden lg:flex w-64 custom-nav-bg text-gray-800 flex-col justify-between shrink-0">
             <div>
-                <div class="p-6 sidebar-brand">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-[#ffcc00] border-2 border-black rounded-full flex items-center justify-center font-black text-black shadow-[2px_2px_0px_#000]">A</div>
-                        <div>
-                            <p class="font-extrabold text-gray-900 text-sm">Museum Karya Smkn 4</p>
-                        </div>
-                    </div>
+                <div class="p-6 sidebar-brand flex items-center gap-3">
+                    <div class="w-10 h-10 bg-[#ffcc00] border-2 border-black rounded-full flex items-center justify-center font-black text-black shadow-[2px_2px_0px_#000]">M</div>
+                    <p class="font-extrabold text-gray-900 text-sm">Museum Karya SMKN 4</p>
                 </div>
-                <nav class="mt-6 space-y-2 px-4">
+                <nav class="mt-6 space-y-2 px-4 overflow-y-auto max-h-[calc(100vh-200px)]">
                     <a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
                         <span>Dashboard</span>
                     </a>
-
-                    <!-- Nav Link Aktif -->
                     <a href="karya.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-active">
                         <span>Karya</span>
                     </a>
-
                     <a href="siswa.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
                         <span>Siswa</span>
                     </a>
-
                     <a href="kategori.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
                         <span>Kategori</span>
                     </a>
-
                     <a href="users.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
                         <span>Users</span>
                     </a>
-
                     <a href="artikel.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
                         <span>Artikel</span>
                     </a>
-
                     <a href="kode-unik.html" class="flex items-center gap-3 px-4 py-3 rounded-xl nav-link-idle">
                         <span>Kode Unik</span>
                     </a>
                 </nav>
             </div>
             
-            <!-- TOMBOL LOGOUT -->
             <div class="p-6 sidebar-logout bg-[#fffdf9]">
                 <button type="button" onclick="openLogoutModal()" class="w-full px-4 py-2.5 bg-red-500 text-white rounded-xl btn-neubrutal cursor-pointer">
                     Logout
                 </button>
             </div>
-        </div>
+        </aside>
 
         <!-- AREA KONTEN UTAMA -->
-        <div class="flex-1 flex flex-col overflow-hidden">
-            <header class="admin-header z-10">
-                <div class="px-8 py-4 flex justify-between items-center">
-                    <h1 class="text-2xl font-black text-gray-900 tracking-tight">Manajemen Data Karya</h1>
+        <div class="flex-1 flex flex-col overflow-hidden w-full relative">
+            
+            <!-- HEADER UTAMA -->
+            <header class="admin-header z-20 relative">
+                <div class="px-4 sm:px-8 py-4 flex justify-between items-center gap-4">
+                    <div class="flex items-center gap-3">
+                        <!-- Tombol Hamburger -->
+                        <button onclick="toggleMobileDropdown()" class="lg:hidden p-2 bg-[#ffcc00] border-2 border-black rounded-xl shadow-[2px_2px_0px_#000] font-bold cursor-pointer hover:bg-yellow-400 active:translate-y-0.5 transition">
+                            🍔
+                        </button>
+                        <h1 class="text-base sm:text-2xl font-black text-gray-900 tracking-tight">Manajemen Data Karya</h1>
+                    </div>
                     <div class="flex items-center gap-4">
                         <div class="text-right">
-                            <p class="font-extrabold text-gray-900">Administrator</p>
-                            <p class="text-xs text-gray-500 font-bold">Login sebagai admin</p>
+                            <p class="font-extrabold text-gray-900 text-xs sm:text-base">Administrator</p>
+                            <p class="text-[10px] sm:text-xs text-gray-500 font-bold hidden sm:block">Login sebagai admin</p>
                         </div>
+                    </div>
+                </div>
+
+                <!-- DROPDOWN NAVIGASI MOBILE SLOWMOTION -->
+                <div id="mobileDropdown" class="lg:hidden bg-[#fffdf9] border-b-3 border-black shadow-[0_6px_0px_#000] px-4 py-3 absolute top-full left-0 right-0 z-30">
+                    <nav class="space-y-2">
+                        <a href="dashboard.html" class="flex items-center gap-3 px-4 py-2.5 rounded-xl nav-link-idle">
+                            <span>Dashboard</span>
+                        </a>
+                        <a href="karya.html" class="flex items-center gap-3 px-4 py-2.5 rounded-xl nav-link-active">
+                            <span>Karya</span>
+                        </a>
+                        <a href="siswa.html" class="flex items-center gap-3 px-4 py-2.5 rounded-xl nav-link-idle">
+                            <span>Siswa</span>
+                        </a>
+                        <a href="kategori.html" class="flex items-center gap-3 px-4 py-2.5 rounded-xl nav-link-idle">
+                            <span>Kategori</span>
+                        </a>
+                        <a href="users.html" class="flex items-center gap-3 px-4 py-2.5 rounded-xl nav-link-idle">
+                            <span>Users</span>
+                        </a>
+                        <a href="artikel.html" class="flex items-center gap-3 px-4 py-2.5 rounded-xl nav-link-idle">
+                            <span>Artikel</span>
+                        </a>
+                        <a href="kode-unik.html" class="flex items-center gap-3 px-4 py-2.5 rounded-xl nav-link-idle">
+                            <span>Kode Unik</span>
+                        </a>
+                    </nav>
+
+                    <div class="pt-3 mt-3 border-t-2 border-black">
+                        <button type="button" onclick="openLogoutModal()" class="w-full px-4 py-2 bg-red-500 text-white rounded-xl btn-neubrutal cursor-pointer text-sm">
+                            Logout
+                        </button>
                     </div>
                 </div>
             </header>
 
-            <div class="flex-1 overflow-auto p-8 relative">
+            <div class="flex-1 overflow-auto p-3 sm:p-8 relative">
                 <!-- SPINNER OVERLAY -->
                 <div id="loading-content" class="absolute inset-0 bg-[#fcfcfc]/90 z-40 flex flex-col items-center justify-center transition-opacity duration-300 ease-out">
                     <div class="flex items-center gap-3 bg-white px-6 py-3 rounded-xl border-3 border-black shadow-[4px_4px_0px_#000]">
@@ -176,136 +221,253 @@
                 </div>
 
                 <!-- Form Pencarian -->
-                <div class="neubrutal-card mb-6 p-6">
-                    <h2 class="text-xl font-black text-gray-900 mb-4">Cari Karya</h2>
+                <div class="neubrutal-card mb-4 sm:mb-6 p-4 sm:p-6">
+                    <h2 class="text-base sm:text-xl font-black text-gray-900 mb-3">Cari Karya</h2>
                     <form action="karya.html" method="GET" class="flex flex-col sm:flex-row gap-3" onsubmit="event.preventDefault();">
                         <input type="text" name="search"
-                            placeholder="Cari judul atau nama siswa..."
-                            class="flex-1 px-4 py-2.5 rounded-xl input-neubrutal text-sm text-gray-800">
-                        <button type="submit" class="px-6 py-2.5 bg-[#ffcc00] text-black rounded-xl btn-neubrutal cursor-pointer">Cari</button>
-                        <a href="karya.html" class="px-6 py-2.5 bg-gray-200 text-black rounded-xl btn-neubrutal text-center">Reset</a>
+                            placeholder="Cari judul, jurusan, atau siswa..."
+                            class="flex-1 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl input-neubrutal text-xs sm:text-sm text-gray-800">
+                        <div class="flex gap-2">
+                            <button type="submit" class="flex-1 sm:flex-none px-4 py-2 sm:px-6 sm:py-2.5 bg-[#ffcc00] text-black rounded-xl btn-neubrutal text-xs sm:text-sm cursor-pointer">Cari</button>
+                            <a href="karya.html" class="flex-1 sm:flex-none px-4 py-2 sm:px-6 sm:py-2.5 bg-gray-200 text-black rounded-xl btn-neubrutal text-xs sm:text-sm text-center">Reset</a>
+                        </div>
                     </form>
                 </div>
 
-                <!-- KARTU KONTEN -->
-                <div class="neubrutal-card overflow-hidden">
-                    <div class="px-6 py-4 border-b-3 border-black bg-gray-50">
-                        <h2 class="text-xl font-black text-gray-900">Daftar Karya</h2>
+                <!-- KARTU KONTEN TABEL & MOBILE CARD VIEW -->
+                <div class="neubrutal-card overflow-hidden mb-6">
+                    <div class="px-4 py-3 sm:px-6 sm:py-4 border-b-3 border-black bg-gray-50">
+                        <h2 class="text-base sm:text-xl font-black text-gray-900">Daftar Karya</h2>
                     </div>
 
-                    <div class="overflow-x-auto overflow-y-auto max-h-[500px]">
+                    <!-- 1. TAMPILAN KHUSUS MOBILE (CARD VIEW DENGAN BADGE JURUSAN) -->
+                    <div class="block sm:hidden divide-y-2 divide-gray-200">
+                        <!-- Item 1 (PPLG) -->
+                        <div class="p-4 space-y-3">
+                            <div class="flex items-start justify-between gap-2">
+                                <div>
+                                    <h3 class="font-bold text-gray-900 text-sm leading-snug">Aplikasi Kasir Web (POS)</h3>
+                                    <p class="text-xs text-gray-500 font-semibold mt-0.5">Siswa: Ahmad Rizky</p>
+                                </div>
+                                <span class="px-2 py-0.5 bg-blue-100 text-blue-800 border-2 border-black rounded-md text-[10px] font-black shadow-[1.5px_1.5px_0px_#000] shrink-0">
+                                    PPLG
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between gap-2 pt-1">
+                                <span class="inline-block px-2.5 py-1 rounded-lg text-xs font-black bg-green-100 text-green-800 border-2 border-black shadow-[2px_2px_0px_#000]">
+                                    Disetujui
+                                </span>
+                                <div class="flex gap-2">
+                                    <a href="detail-karya.html" class="px-3 py-1 bg-blue-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000]">Detail</a>
+                                    <button type="button" onclick="if(confirm('Hapus karya ini?')) alert('Karya berhasil dihapus!');" class="px-3 py-1 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer">Hapus</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 2 (TKJ) -->
+                        <div class="p-4 space-y-3">
+                            <div class="flex items-start justify-between gap-2">
+                                <div>
+                                    <h3 class="font-bold text-gray-900 text-sm leading-snug">Rancangan Jaringan Mikrotik</h3>
+                                    <p class="text-xs text-gray-500 font-semibold mt-0.5">Siswa: Siti Nurhaliza</p>
+                                </div>
+                                <span class="px-2 py-0.5 bg-cyan-100 text-cyan-800 border-2 border-black rounded-md text-[10px] font-black shadow-[1.5px_1.5px_0px_#000] shrink-0">
+                                    TKJ
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between gap-2 pt-1">
+                                <span class="inline-block px-2.5 py-1 rounded-lg text-xs font-black bg-yellow-100 text-yellow-800 border-2 border-black shadow-[2px_2px_0px_#000]">
+                                    Menunggu
+                                </span>
+                                <div class="flex gap-2">
+                                    <a href="detail-karya.html" class="px-3 py-1 bg-blue-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000]">Detail</a>
+                                    <button type="button" onclick="if(confirm('Hapus karya ini?')) alert('Karya berhasil dihapus!');" class="px-3 py-1 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer">Hapus</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 3 (DKV) -->
+                        <div class="p-4 space-y-3">
+                            <div class="flex items-start justify-between gap-2">
+                                <div>
+                                    <h3 class="font-bold text-gray-900 text-sm leading-snug">Desain Branding Maskot SMKN 4</h3>
+                                    <p class="text-xs text-gray-500 font-semibold mt-0.5">Siswa: Budi Santoso</p>
+                                </div>
+                                <span class="px-2 py-0.5 bg-purple-100 text-purple-800 border-2 border-black rounded-md text-[10px] font-black shadow-[1.5px_1.5px_0px_#000] shrink-0">
+                                    DKV
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between gap-2 pt-1">
+                                <span class="inline-block px-2.5 py-1 rounded-lg text-xs font-black bg-green-100 text-green-800 border-2 border-black shadow-[2px_2px_0px_#000]">
+                                    Disetujui
+                                </span>
+                                <div class="flex gap-2">
+                                    <a href="detail-karya.html" class="px-3 py-1 bg-blue-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000]">Detail</a>
+                                    <button type="button" onclick="if(confirm('Hapus karya ini?')) alert('Karya berhasil dihapus!');" class="px-3 py-1 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer">Hapus</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 4 (TSM) -->
+                        <div class="p-4 space-y-3">
+                            <div class="flex items-start justify-between gap-2">
+                                <div>
+                                    <h3 class="font-bold text-gray-900 text-sm leading-snug">Modifikasi Sistem Injeksi Sepeda Motor</h3>
+                                    <p class="text-xs text-gray-500 font-semibold mt-0.5">Siswa: Dewi Lestari</p>
+                                </div>
+                                <span class="px-2 py-0.5 bg-[#ffcc00] text-black border-2 border-black rounded-md text-[10px] font-black shadow-[1.5px_1.5px_0px_#000] shrink-0">
+                                    TSM
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between gap-2 pt-1">
+                                <span class="inline-block px-2.5 py-1 rounded-lg text-xs font-black bg-red-100 text-red-800 border-2 border-black shadow-[2px_2px_0px_#000]">
+                                    Ditolak
+                                </span>
+                                <div class="flex gap-2">
+                                    <a href="detail-karya.html" class="px-3 py-1 bg-blue-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000]">Detail</a>
+                                    <button type="button" onclick="if(confirm('Hapus karya ini?')) alert('Karya berhasil dihapus!');" class="px-3 py-1 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer">Hapus</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 5 (TOI) -->
+                        <div class="p-4 space-y-3">
+                            <div class="flex items-start justify-between gap-2">
+                                <div>
+                                    <h3 class="font-bold text-gray-900 text-sm leading-snug">Prototype Otomasi Lampu Berbasis PLC</h3>
+                                    <p class="text-xs text-gray-500 font-semibold mt-0.5">Siswa: Fajar Ramadhan</p>
+                                </div>
+                                <span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 border-2 border-black rounded-md text-[10px] font-black shadow-[1.5px_1.5px_0px_#000] shrink-0">
+                                    TOI
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between gap-2 pt-1">
+                                <span class="inline-block px-2.5 py-1 rounded-lg text-xs font-black bg-yellow-100 text-yellow-800 border-2 border-black shadow-[2px_2px_0px_#000]">
+                                    Menunggu
+                                </span>
+                                <div class="flex gap-2">
+                                    <a href="detail-karya.html" class="px-3 py-1 bg-blue-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000]">Detail</a>
+                                    <button type="button" onclick="if(confirm('Hapus karya ini?')) alert('Karya berhasil dihapus!');" class="px-3 py-1 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer">Hapus</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. TAMPILAN TABEL DESKTOP (MUNCUL DI TABLET & LAPTOP) -->
+                    <div class="hidden sm:block w-full">
                         <table class="w-full border-collapse">
-                            <thead class="bg-gray-100 border-b-3 border-black sticky top-0">
+                            <thead class="bg-gray-100 border-b-3 border-black">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-black text-gray-900 uppercase tracking-wider">Judul</th>
-                                    <th class="px-6 py-3 text-left text-xs font-black text-gray-900 uppercase tracking-wider">Siswa</th>
+                                    <th class="px-6 py-3 text-left text-xs font-black text-gray-900 uppercase tracking-wider">Judul & Siswa</th>
                                     <th class="px-6 py-3 text-left text-xs font-black text-gray-900 uppercase tracking-wider">Jurusan</th>
-                                    <th class="px-6 py-3 text-left text-xs font-black text-gray-900 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-center text-xs font-black text-gray-900 uppercase tracking-wider">Status</th>
                                     <th class="px-6 py-3 text-center text-xs font-black text-gray-900 uppercase tracking-wider">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y-2 divide-gray-200">
-                                <!-- Data Dummy 1 -->
                                 <tr class="hover:bg-yellow-50/50">
-                                    <td class="px-6 py-4 font-bold text-gray-900 text-sm">Aplikasi Kasir Berbasis Web (POS)</td>
-                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium">Ahmad Rizky</td>
+                                    <td class="px-6 py-4">
+                                        <div class="font-bold text-gray-900 text-sm">Aplikasi Kasir Web (POS)</div>
+                                        <div class="text-xs text-gray-500 font-semibold mt-0.5">Siswa: Ahmad Rizky</div>
+                                    </td>
                                     <td class="px-6 py-4">
                                         <span class="px-3 py-1 bg-blue-100 text-blue-800 border-2 border-black rounded-lg text-xs font-black shadow-[2px_2px_0px_#000]">PPLG</span>
                                     </td>
-                                    <td class="px-6 py-4">
-                                        <span class="px-3 py-1 rounded-lg text-xs font-black bg-green-100 text-green-800 border-2 border-black shadow-[2px_2px_0px_#000]">
-                                            Disetujui
-                                        </span>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="inline-block px-3 py-1 rounded-lg text-xs font-black bg-green-100 text-green-800 border-2 border-black shadow-[2px_2px_0px_#000]">Disetujui</span>
                                     </td>
-                                    <td class="px-6 py-4 text-center space-x-2">
-                                        <a href="detail-karya.html" onclick="alert('Membuka detail karya...'); return false;" class="px-3 py-1.5 bg-blue-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] inline-block hover:translate-y-[-1px]">Detail</a>
-                                        <button type="button" onclick="if(confirm('Hapus karya ini?')) alert('Karya berhasil dihapus!');" class="px-3 py-1.5 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer hover:translate-y-[-1px]">Hapus</button>
+                                    <td class="px-6 py-4 text-center">
+                                        <div class="flex gap-2 justify-center">
+                                            <a href="detail-karya.html" class="px-3 py-1.5 bg-blue-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000]">Detail</a>
+                                            <button type="button" onclick="if(confirm('Hapus karya ini?')) alert('Karya berhasil dihapus!');" class="px-3 py-1.5 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer">Hapus</button>
+                                        </div>
                                     </td>
                                 </tr>
-
-                                <!-- Data Dummy 2 -->
                                 <tr class="hover:bg-yellow-50/50">
-                                    <td class="px-6 py-4 font-bold text-gray-900 text-sm">Sistem Informasi Perpustakaan Sekolah</td>
-                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium">Siti Nurhaliza</td>
                                     <td class="px-6 py-4">
-                                        <span class="px-3 py-1 bg-blue-100 text-blue-800 border-2 border-black rounded-lg text-xs font-black shadow-[2px_2px_0px_#000]">PPLG</span>
+                                        <div class="font-bold text-gray-900 text-sm">Rancangan Jaringan Mikrotik</div>
+                                        <div class="text-xs text-gray-500 font-semibold mt-0.5">Siswa: Siti Nurhaliza</div>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <span class="px-3 py-1 rounded-lg text-xs font-black bg-yellow-100 text-yellow-800 border-2 border-black shadow-[2px_2px_0px_#000]">
-                                            Menunggu
-                                        </span>
+                                        <span class="px-3 py-1 bg-cyan-100 text-cyan-800 border-2 border-black rounded-lg text-xs font-black shadow-[2px_2px_0px_#000]">TKJ</span>
                                     </td>
-                                    <td class="px-6 py-4 text-center space-x-2">
-                                        <a href="detail-karya.html" onclick="alert('Membuka detail karya...'); return false;" class="px-3 py-1.5 bg-blue-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] inline-block hover:translate-y-[-1px]">Detail</a>
-                                        <button type="button" onclick="if(confirm('Hapus karya ini?')) alert('Karya berhasil dihapus!');" class="px-3 py-1.5 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer hover:translate-y-[-1px]">Hapus</button>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="inline-block px-3 py-1 rounded-lg text-xs font-black bg-yellow-100 text-yellow-800 border-2 border-black shadow-[2px_2px_0px_#000]">Menunggu</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        <div class="flex gap-2 justify-center">
+                                            <a href="detail-karya.html" class="px-3 py-1.5 bg-blue-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000]">Detail</a>
+                                            <button type="button" onclick="if(confirm('Hapus karya ini?')) alert('Karya berhasil dihapus!');" class="px-3 py-1.5 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer">Hapus</button>
+                                        </div>
                                     </td>
                                 </tr>
-
-                                <!-- Data Dummy 3 -->
                                 <tr class="hover:bg-yellow-50/50">
-                                    <td class="px-6 py-4 font-bold text-gray-900 text-sm">Game Edukasi Petualangan 2D</td>
-                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium">Budi Santoso</td>
                                     <td class="px-6 py-4">
-                                        <span class="px-3 py-1 bg-blue-100 text-blue-800 border-2 border-black rounded-lg text-xs font-black shadow-[2px_2px_0px_#000]">PPLG</span>
+                                        <div class="font-bold text-gray-900 text-sm">Desain Branding Maskot SMKN 4</div>
+                                        <div class="text-xs text-gray-500 font-semibold mt-0.5">Siswa: Budi Santoso</div>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <span class="px-3 py-1 rounded-lg text-xs font-black bg-green-100 text-green-800 border-2 border-black shadow-[2px_2px_0px_#000]">
-                                            Disetujui
-                                        </span>
+                                        <span class="px-3 py-1 bg-purple-100 text-purple-800 border-2 border-black rounded-lg text-xs font-black shadow-[2px_2px_0px_#000]">DKV</span>
                                     </td>
-                                    <td class="px-6 py-4 text-center space-x-2">
-                                        <a href="detail-karya.html" onclick="alert('Membuka detail karya...'); return false;" class="px-3 py-1.5 bg-blue-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] inline-block hover:translate-y-[-1px]">Detail</a>
-                                        <button type="button" onclick="if(confirm('Hapus karya ini?')) alert('Karya berhasil dihapus!');" class="px-3 py-1.5 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer hover:translate-y-[-1px]">Hapus</button>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="inline-block px-3 py-1 rounded-lg text-xs font-black bg-green-100 text-green-800 border-2 border-black shadow-[2px_2px_0px_#000]">Disetujui</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        <div class="flex gap-2 justify-center">
+                                            <a href="detail-karya.html" class="px-3 py-1.5 bg-blue-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000]">Detail</a>
+                                            <button type="button" onclick="if(confirm('Hapus karya ini?')) alert('Karya berhasil dihapus!');" class="px-3 py-1.5 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer">Hapus</button>
+                                        </div>
                                     </td>
                                 </tr>
-
-                                <!-- Data Dummy 4 -->
                                 <tr class="hover:bg-yellow-50/50">
-                                    <td class="px-6 py-4 font-bold text-gray-900 text-sm">Desain UI/UX E-Commerce Mobile</td>
-                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium">Dewi Lestari</td>
                                     <td class="px-6 py-4">
-                                        <span class="px-3 py-1 bg-blue-100 text-blue-800 border-2 border-black rounded-lg text-xs font-black shadow-[2px_2px_0px_#000]">PPLG</span>
+                                        <div class="font-bold text-gray-900 text-sm">Modifikasi Sistem Injeksi Sepeda Motor</div>
+                                        <div class="text-xs text-gray-500 font-semibold mt-0.5">Siswa: Dewi Lestari</div>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <span class="px-3 py-1 rounded-lg text-xs font-black bg-red-100 text-red-800 border-2 border-black shadow-[2px_2px_0px_#000]">
-                                            Ditolak
-                                        </span>
+                                        <span class="px-3 py-1 bg-[#ffcc00] text-black border-2 border-black rounded-lg text-xs font-black shadow-[2px_2px_0px_#000]">TSM</span>
                                     </td>
-                                    <td class="px-6 py-4 text-center space-x-2">
-                                        <a href="detail-karya.html" onclick="alert('Membuka detail karya...'); return false;" class="px-3 py-1.5 bg-blue-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] inline-block hover:translate-y-[-1px]">Detail</a>
-                                        <button type="button" onclick="if(confirm('Hapus karya ini?')) alert('Karya berhasil dihapus!');" class="px-3 py-1.5 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer hover:translate-y-[-1px]">Hapus</button>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="inline-block px-3 py-1 rounded-lg text-xs font-black bg-red-100 text-red-800 border-2 border-black shadow-[2px_2px_0px_#000]">Ditolak</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        <div class="flex gap-2 justify-center">
+                                            <a href="detail-karya.html" class="px-3 py-1.5 bg-blue-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000]">Detail</a>
+                                            <button type="button" onclick="if(confirm('Hapus karya ini?')) alert('Karya berhasil dihapus!');" class="px-3 py-1.5 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer">Hapus</button>
+                                        </div>
                                     </td>
                                 </tr>
-
-                                <!-- Data Dummy 5 -->
                                 <tr class="hover:bg-yellow-50/50">
-                                    <td class="px-6 py-4 font-bold text-gray-900 text-sm">Website Portfolio Siswa Responsive</td>
-                                    <td class="px-6 py-4 text-sm text-gray-700 font-medium">Fajar Ramadhan</td>
                                     <td class="px-6 py-4">
-                                        <span class="px-3 py-1 bg-blue-100 text-blue-800 border-2 border-black rounded-lg text-xs font-black shadow-[2px_2px_0px_#000]">PPLG</span>
+                                        <div class="font-bold text-gray-900 text-sm">Prototype Otomasi Lampu Berbasis PLC</div>
+                                        <div class="text-xs text-gray-500 font-semibold mt-0.5">Siswa: Fajar Ramadhan</div>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <span class="px-3 py-1 rounded-lg text-xs font-black bg-yellow-100 text-yellow-800 border-2 border-black shadow-[2px_2px_0px_#000]">
-                                            Menunggu
-                                        </span>
+                                        <span class="px-3 py-1 bg-emerald-100 text-emerald-800 border-2 border-black rounded-lg text-xs font-black shadow-[2px_2px_0px_#000]">TOI</span>
                                     </td>
-                                    <td class="px-6 py-4 text-center space-x-2">
-                                        <a href="detail-karya.html" onclick="alert('Membuka detail karya...'); return false;" class="px-3 py-1.5 bg-blue-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] inline-block hover:translate-y-[-1px]">Detail</a>
-                                        <button type="button" onclick="if(confirm('Hapus karya ini?')) alert('Karya berhasil dihapus!');" class="px-3 py-1.5 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer hover:translate-y-[-1px]">Hapus</button>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="inline-block px-3 py-1 rounded-lg text-xs font-black bg-yellow-100 text-yellow-800 border-2 border-black shadow-[2px_2px_0px_#000]">Menunggu</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        <div class="flex gap-2 justify-center">
+                                            <a href="detail-karya.html" class="px-3 py-1.5 bg-blue-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000]">Detail</a>
+                                            <button type="button" onclick="if(confirm('Hapus karya ini?')) alert('Karya berhasil dihapus!');" class="px-3 py-1.5 bg-red-400 text-black border-2 border-black rounded-lg font-black text-xs shadow-[2px_2px_0px_#000] cursor-pointer">Hapus</button>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class="px-6 py-4 border-t-3 border-black bg-gray-50 flex justify-between items-center text-sm text-gray-800 font-bold">
+
+                    <!-- Footer Pagination -->
+                    <div class="px-3 py-3 sm:px-6 sm:py-4 border-t-3 border-black bg-gray-50 flex flex-col sm:flex-row gap-3 justify-between items-center text-xs sm:text-sm text-gray-800 font-bold text-center">
                         <span>Menampilkan <b>5</b> dari <b>128</b> karya</span>
-                        <!-- Navigasi Halaman -->
-                        <div class="flex gap-2">
-                            <button class="px-3 py-1.5 border-2 border-black rounded-lg bg-gray-200 text-gray-400 cursor-not-allowed shadow-[2px_2px_0px_#000]">Sebelumnya</button>
-                            <button class="px-3 py-1.5 border-2 border-black bg-[#ffcc00] text-black rounded-lg font-black shadow-[2px_2px_0px_#000]">1</button>
-                            <button class="px-3 py-1.5 border-2 border-black bg-white text-black rounded-lg hover:bg-gray-100 shadow-[2px_2px_0px_#000]">2</button>
-                            <button class="px-3 py-1.5 border-2 border-black bg-white text-black rounded-lg hover:bg-gray-100 shadow-[2px_2px_0px_#000]">3</button>
-                            <button class="px-3 py-1.5 border-2 border-black bg-white text-black rounded-lg hover:bg-gray-100 shadow-[2px_2px_0px_#000]">Selanjutnya</button>
+                        <div class="flex gap-1.5 sm:gap-2">
+                            <button class="px-2 py-1 sm:px-3 sm:py-1.5 border-2 border-black rounded-lg bg-gray-200 text-gray-400 cursor-not-allowed shadow-[1px_1px_0px_#000] sm:shadow-[2px_2px_0px_#000] text-[11px] sm:text-xs">Prev</button>
+                            <button class="px-2.5 py-1 sm:px-3 sm:py-1.5 border-2 border-black bg-[#ffcc00] text-black rounded-lg font-black shadow-[1px_1px_0px_#000] sm:shadow-[2px_2px_0px_#000] text-[11px] sm:text-xs">1</button>
+                            <button class="px-2.5 py-1 sm:px-3 sm:py-1.5 border-2 border-black bg-white text-black rounded-lg hover:bg-gray-100 shadow-[1px_1px_0px_#000] sm:shadow-[2px_2px_0px_#000] text-[11px] sm:text-xs">2</button>
+                            <button class="px-2.5 py-1 sm:px-3 sm:py-1.5 border-2 border-black bg-white text-black rounded-lg hover:bg-gray-100 shadow-[1px_1px_0px_#000] sm:shadow-[2px_2px_0px_#000] text-[11px] sm:text-xs">3</button>
+                            <button class="px-2 py-1 sm:px-3 sm:py-1.5 border-2 border-black bg-white text-black rounded-lg hover:bg-gray-100 shadow-[1px_1px_0px_#000] sm:shadow-[2px_2px_0px_#000] text-[11px] sm:text-xs">Next</button>
                         </div>
                     </div>
                 </div>
@@ -344,17 +506,11 @@
 
     <!-- Script JavaScript Internal -->
     <script>
-        window.addEventListener("load", function () {
-            const loadingContent = document.getElementById("loading-content");
-            if (loadingContent) {
-                setTimeout(() => {
-                    loadingContent.classList.add("opacity-0");
-                    setTimeout(() => {
-                        loadingContent.classList.add("hidden");
-                    }, 300);
-                }, 800);
-            }
-        });
+        // Toggle Dropdown Mobile dengan Class Animation
+        function toggleMobileDropdown() {
+            const dropdown = document.getElementById('mobileDropdown');
+            dropdown.classList.toggle('dropdown-open');
+        }
 
         function openLogoutModal() {
             document.getElementById('logoutModal').classList.remove('hidden');
@@ -367,7 +523,18 @@
         function confirmLogout() {
             window.location.href = 'login.html';
         }
+
+        window.addEventListener("load", function () {
+            const loadingContent = document.getElementById("loading-content");
+            if (loadingContent) {
+                setTimeout(() => {
+                    loadingContent.classList.add("opacity-0");
+                    setTimeout(() => {
+                        loadingContent.classList.add("hidden");
+                    }, 300);
+                }, 800);
+            }
+        });
     </script>
 </body>
 </html>
-```[cite: 4]
