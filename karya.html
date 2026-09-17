@@ -70,48 +70,44 @@
             </div>
 
             <!-- 2. Menu Links (Tampilan Desktop & Dropdown Melayang di Mobile) -->
-            <div id="navLinks"
-              class="hidden md:flex flex-col md:flex-row gap-3 md:gap-8 md:items-center
-                  absolute md:static left-0 right-0 top-[calc(100%+16px)] md:top-auto
-                  bg-zinc-900/95 md:bg-transparent backdrop-blur-md md:backdrop-blur-none
-                  rounded-3xl md:rounded-none border-2 md:border-0 border-zinc-700 md:border-none
-                  shadow-xl md:shadow-none 
-                  p-5 md:p-0 z-50 text-center md:text-left transition-all">
-              
-              <!-- BERANDA -->
-              <a href="index.html"
-                  class="text-sm md:text-xs font-black text-zinc-300 hover:text-white transition px-4 md:px-0 py-3 md:py-0 rounded-2xl md:rounded-none">
-                  BERANDA
-              </a>
+        <div id="navLinks"
+        class="hidden md:flex flex-col md:flex-row gap-3 md:gap-8 md:items-center
+            absolute md:static left-0 right-0 top-[calc(100%+16px)] md:top-auto
+            bg-zinc-900/95 md:bg-transparent backdrop-blur-md md:backdrop-blur-none
+            rounded-3xl md:rounded-none border-2 md:border-0 border-zinc-700 md:border-none
+            shadow-xl md:shadow-none 
+            p-5 md:p-0 z-50 text-center md:text-left transition-all">
+        
+        <!-- BERANDA -->
+        <a href="index.html"
+            class="text-sm md:text-xs font-black text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-white transition px-4 md:px-0 py-3 md:py-0 rounded-2xl md:rounded-none">
+            BERANDA
+        </a>
 
-              <!-- KARYA -->
-              <a href="karya.html"
-                  class="text-sm md:text-xs font-black text-white 
-                      bg-zinc-800/80 md:bg-transparent 
-                      border-2 border-zinc-600 md:border-0 md:border-b-2 md:border-cyan-400 
-                      rounded-2xl md:rounded-none 
-                      px-4 md:px-0 py-3 md:py-1 transition">
-                  KARYA
-              </a>
+        <!-- KARYA (Lagi aktif di karya.html, jadi garis bawahnya dipindahin ke sini) -->
+        <a href="karya.html"
+            class="text-sm md:text-xs font-black text-zinc-800 dark:text-zinc-200 pb-1 border-b-4 border-black dark:border-white transition px-4 md:px-0 py-3 md:py-0 rounded-2xl md:rounded-none">
+            KARYA
+        </a>
 
-              <!-- ARTIKEL -->
-              <a href="artikel.html"
-                  class="text-sm md:text-xs font-black text-zinc-300 hover:text-white transition px-4 md:px-0 py-3 md:py-0 rounded-2xl md:rounded-none">
-                  ARTIKEL
-              </a>
+        <!-- ARTIKEL -->
+        <a href="artikel.html"
+            class="text-sm md:text-xs font-black text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-white transition px-4 md:px-0 py-3 md:py-0 rounded-2xl md:rounded-none">
+            ARTIKEL
+        </a>
 
-              <!-- TENTANG (Aktif: Kapsul Gelap di Mobile, Garis Bawah di Desktop) -->
-              <a href="tentang.html"
-                  class="text-sm md:text-xs font-black text-zinc-300 hover:text-white transition px-4 md:px-0 py-3 md:py-0 rounded-2xl md:rounded-none">
-                  TENTANG
-              </a>
+        <!-- TENTANG -->
+        <a href="tentang.html"
+            class="text-sm md:text-xs font-black text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-white transition px-4 md:px-0 py-3 md:py-0 rounded-2xl md:rounded-none">
+            TENTANG
+        </a>
 
-              <!-- Tombol LOGIN di Menu Mobile -->
-              <a href="auth/login.html" 
-                  class="md:hidden mt-2 text-xs font-black px-5 py-3 bg-[#74B9FF] text-black border-2 border-black rounded-2xl shadow-[2px_2px_0px_#000] active:translate-y-[1px] transition block text-center">
-                  LOGIN
-              </a>
-          </div>
+        <!-- Tombol LOGIN di Menu Mobile -->
+        <a href="auth/login.html" 
+            class="md:hidden mt-2 text-xs font-black px-5 py-3 bg-[#74B9FF] text-black border-2 border-black rounded-2xl shadow-[2px_2px_0px_#000] active:translate-y-[1px] transition block text-center">
+            LOGIN
+        </a>
+        </div>
             <!-- 3. Right Actions (Theme Toggle, Login Desktop, & Hamburger) -->
             <div class="flex items-center gap-2 sm:gap-3">
                 <button
